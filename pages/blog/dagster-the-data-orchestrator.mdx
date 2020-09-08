@@ -1,8 +1,11 @@
-export const meta = {
-  title: 'Dagster: The Data Orchestrator',
-}
-
-![](https://miro.medium.com/max/1400/1*KrB-zIuyUG_Xf8USbVptIw.png)
+---
+layout: 'BlogPost'
+status: 'published'
+title: 'Dagster: The Data Orchestrator'
+excerpt: 'Dagster is a new type of workflow engine: a data orchestrator. Moving beyond just managing the ordering and physical execution of data computations, Dagster introduces a new primitive: a data-aware, typed, self-describing, logical orchestration graph.'
+coverImage: https://miro.medium.com/max/1400/1*KrB-zIuyUG_Xf8USbVptIw.png
+date: '2020-08-11'
+---
 
 # Dagster: The Data Orchestrator
 
@@ -10,7 +13,7 @@ As machine learning, analytics, and data processing become more complex and cent
 
 Data within organizations is disorganized and not trusted. Engineers and practitioners feel unproductive and mired in drudgery. Collaboration between data scientists, data engineers, analysts, and other roles that build complex data systems is painful. The software that processes and produces data is unreliable and resistant to change.
 
-This state of affairs is why Dagster exists, which we first discussed publicly [a year ago](https://medium.com/dagster-io/introducing-dagster-dbd28442b2b7).
+This state of affairs is why Dagster exists, which we first discussed publicly [a year ago](/blog/introducing-dagster).
 
 Dagster is a new type of workflow engine: a **data orchestrator**. Moving beyond just managing the ordering and physical execution of data computations, Dagster introduces a new primitive: a data-aware, typed, self-describing, logical **orchestration graph**. This graph explicitly models an implicit, pre-existing structure in every data application and platform. We believe this graph is integral to the entire application lifecycle and, when made accessible and operable over an API, can form the basis of an entire ecosystem of tools and libraries.
 
@@ -51,7 +54,7 @@ Dagster makes different tradeoffs, enabling a more structured programming model 
 
 We call this opinionated structure the orchestration graph. This graph and the tools built on its API enable a dramatically improved way to structure data systems. It can be tested, deployed, executed, reused, and debugged flexibly. A software engineering process can be built around it in which multiple teams and personas can be effective, and it naturally becomes the system of record for your data processes.
 
-> ##The orchestration graph is the abstraction that connects all practitioners.
+> ## The orchestration graph is the abstraction that connects all practitioners.
 
 We designed this graph and system with broader principles in mind. These principles encode our beliefs about the underlying nature of data applications and the direction of the broader ecosystem.
 
@@ -73,7 +76,9 @@ Just like web frontend ten years ago, we believe that data application engineeri
 
 Take this example, which incorporates a number of our abstractions into a data computation executed in Pandas:
 
-![](https://cdn-images-1.medium.com/max/2880/1*Xe-s_p-g3ugkZBGC2p--WQ.png)
+<p align="center">
+  <img src="https://cdn-images-1.medium.com/max/2880/1*Xe-s_p-g3ugkZBGC2p--WQ.png" width="700px" />
+</p>
 
 This example uses Pandas to load data about cereals, compute a new feature, sugar_per_cup, and then filter out cereals below a certain, configurable percentile of that feature. We then save that result as a file in a data lake.
 
@@ -139,7 +144,7 @@ All data processing tools consume data, perform a computation, and produce a res
 
 Data platforms inevitably serve many teams that want some level of operational isolation and independence. We previously noted that the orchestration graph touches every team and tool that manages data. It can devolve into a centralized, unmanaged dumping ground with minimal structure and isolation.
 
-> ##Teams want to use their own tools, with their own concrete dependencies, deployed on their own schedule, while still leveraging shared infrastructure.
+> ## Teams want to use their own tools, with their own concrete dependencies, deployed on their own schedule, while still leveraging shared infrastructure.
 
 The practical problem of conflicting Python dependencies is often the first manifestation of this unwanted interdependence. Pipelines authored by the data science team should not have to tangle with the dependencies of PySpark and the JVM because the data engineering team uses it elsewhere in the system. Teams want to use their own tools, with their own concrete dependencies, deployed on their own schedule, while still leveraging shared infrastructure.
 
@@ -173,7 +178,7 @@ We’ve described three dimensions of heterogeneity in the data ecosystem: proce
 
 It is utterly bewildering, not due to any lack of effort or cleverness by the authors, but because of the underlying reality of the world. *This isn’t going to change anytime soon. *There will be no single data warehouse, storage system, computational runtime, or vertically integrated platform to rule them all.
 
-> ##The data ecosystem is extraordinarily heterogenous, and this isn’t going to change anytime soon.
+> ## The data ecosystem is extraordinarily heterogenous, and this isn’t going to change anytime soon.
 
 The ecosystem spans different kinds of data and access patterns: big data and small data, graph data and log data, analytic and transactional workloads, streaming and parallel algorithms, and many others. Diversity necessitates heterogeneity in storage and compute systems. The ergonomics appropriate to different personas also demand variation in tooling. A data engineer writing spark, a data scientist authoring a notebook, and an analyst writing SQL: these practitioners use dramatically different tools and processes to author computations in the same logical data application. While daunting to manage, this kind of variation is ultimately a strength.
 
@@ -183,7 +188,7 @@ Workflow engines correctly order and manage computations, but are generally unaw
 
 Dagster connects the elements of the orchestration graph with data dependencies. This property facilitates testability, marshaling of intermediate data between processes, and improved correctness via typing. However, this is not the only dimension of data awareness.
 
-> ##Embracing data-awareness at the orchestration layer can improve productivity and outcomes at all phases of the application lifecycle.
+> ## Embracing data-awareness at the orchestration layer can improve productivity and outcomes at all phases of the application lifecycle.
 
 Dagster computations also emit a structured stream of metadata events at runtime. Some of these events are system-generated, but they can also be user-provided. They are vended to our runtime, stored in our infrastructure, and streamed back to our tools. This event log is the basis for our live, reactive tools, used for local development and production operations.
 
@@ -227,4 +232,4 @@ Our users report improved individual productivity, earlier defect detection, inc
 
 This release marks a new level of quality and maturity for Dagster. We’re confident that it can power data applications at scale and that the ecosystem can support many more users. We’re looking forward to communicating more openly and publicly about the project. We hope we’ve made the case that an operable, data-aware orchestration graph and the metadata it produces naturally enable all the tool development to come.
 
-Feel free to look at our [code](https://github.com/dagster-io/dagster), our revamped [documentation](https://docs.dagster.io/), and join our [Slack](https://join.slack.com/t/dagster/shared_invite/enQtNjEyNjkzNTA2OTkzLTI0MzdlNjU0ODVhZjQyOTMyMGM1ZDUwZDQ1YjJmYjI3YzExZGViMDI1ZDlkNTY5OThmYWVlOWM1MWVjN2I3NjU). There is a lot of work to do to make developing, operating, debugging, and extending data applications feel more modern. If you are also passionate about this problem, consider working with the team behind Dagster, [Elementl](https://www.elementl.com/).
+Feel free to look at our [code](https://github.com/dagster-io/dagster), our revamped [documentation](https://docs.dagster.io/), and join our [slack](https://dagster-slackin.herokuapp.com/). There is a lot of work to do to make developing, operating, debugging, and extending data applications feel more modern. If you are also passionate about this problem, consider working with the team behind Dagster, [Elementl](https://www.elementl.com/).

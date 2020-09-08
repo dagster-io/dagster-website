@@ -1,0 +1,175 @@
+---
+layout: 'BlogPost'
+status: 'published'
+title: 'Dagster 0.6.0: Impossible Princess'
+excerpt: 'With 0.6.0, Dagster comes “batteries-included” — but still with pluggable options — for everything you need to execute, monitor, schedule, deploy, and debug your data applications.'
+coverImage: https://miro.medium.com/max/974/1*mB1qM1wSdvWMi_IZbxyN6A.jpeg
+date: '2019-10-10'
+---
+
+import Microlink from '@microlink/react'
+
+# Dagster 0.6.0: Impossible Princess
+
+The team at [Elementl](https://www.elementl.com/) is proud to announce version 0.6.0 of [Dagster](https://github.com/dagster-io/dagster), code-named “Impossible Princess”. This is a big release for Dagster, building on our previous [announcement](/blog/introducing-dagster).
+
+Our last release focused on local development and our programming model, leaving hosting, monitoring, and scheduling up to the user. This is no longer the case.
+
+With this release, you can deploy Dagit — our graphical development and monitoring environment — to AWS with a simple, single CLI invocation.
+
+We’ve also built a simple integrated scheduler built, with a Python API and a beautiful graphical interface in Dagit. Now you can deploy pipelines, define schedules to execute those pipelines in code, and watch and monitor those runs in Dagit.
+
+With 0.6.0, Dagster comes “batteries-included” — but still with pluggable options — for everything you need to execute, monitor, schedule, deploy, and debug your data applications:
+
+1. **Execution**: Dagster now ships with its own execution engine, suitable for multi-process execution on a single node, in addition to support for Dask and Airflow.
+2. **Monitoring**: You can now monitor production pipelines with hosted Dagit with our modern, reactive UI.
+3. **Scheduling**: You can schedule pipelines with Dagster’s integrated scheduler. It is powered by cron, but with a Python API and a web frontend.
+4. **Deployment**: You can deploy your Dagit and pipelines with our included `dagster-aws` command line tool if you so choose. But you also have the flexibility to deploy it to arbitrary infrastructure.
+
+Put together, this means you can go from writing a simple pipeline to executing them in production on a schedule in a matter of minutes. And this is 100% open source and installable as a python module.
+
+## Show Me The Demo
+
+First install the modules (and use a virtual environment!).
+
+```bash
+pip install dagit dagster
+```
+
+Next create a file, `hello_world.py`, that has your Dagster code.
+
+```python
+from dagster import solid, pipeline, RepositoryDefinition
+
+@solid
+def hello_world_solid(context):
+    context.log.info('Hello, World!')
+
+@pipeline
+def hello_world_pipeline():
+    hello_world_solid() # DSL for building dependency graph
+
+def define_hello_world_repo():
+    return RepositoryDefinition(
+        name='hello_world_repo',
+        pipeline_defs=[hello_world_pipeline]
+    )
+
+```
+
+<!--
+<script src="https://gist.github.com/schrockn/a8ad9dfa97fd97022384d8a37b1363ed.js"></script>
+-->
+
+Now launch Dagit locally on your machine:
+
+```bash
+dagit -f hello_world.py -n define_hello_world_repo
+```
+
+You can then select the pipeline in the dropdown at the top, click on the “Execute” tab, and then click “Start Execution”. You’ll see structured log messages streaming in your web UI.
+
+![Easily execute pipelines locally. They feel alive.](https://miro.medium.com/max/2000/1*whlGnmD86j652_zqdNPpMQ.gif)
+
+Add a `repository.yaml` file so you don’t have to retype those `-f` and `-n` arguments over and over again. We’ll also use this file when deploying to AWS.
+
+```yaml
+# in repository.yaml
+repository:
+  file: hello_world.py
+  fn: define_hello_world_repo
+```
+
+## Deploying to AWS
+
+Now let’s deploy this to AWS.
+
+First install `dagster-aws` and then initialize the AWS infrastructure. This will spin up an EC2 node and supporting infrastructure to host Dagit.
+
+```bash
+pip install dagster-aws
+dagster-aws init
+```
+
+As you see, this takes you through a series of prompts that creates an EC2 instance in a region and VPC of your choosing; a security group and key pair; and either a local SQLite instance or an Postgres instance in RDS to store information about runs and events.
+
+![No AWS consoles UIs were touched in the creation of this screencast and infrastructure!](https://miro.medium.com/max/2000/1*boeycso2tDJQS-tHUH3E5Q.gif)
+
+Then create a requirements.txt file with your dependencies, including, at a minimum, a dependency on `dagster` and `dagit`.
+
+Now we need to deploy the code to the server:
+
+```bash
+dagster-aws up
+```
+
+This uploads code, installs requirements.txt on that node, and then launches Dagit as a daemon.
+
+![Easily redeploy your code and your dependencies to your node.](https://miro.medium.com/max/2000/1*GKlcxugVu3-eI6RUsZMH9A.gif)
+
+A url appears in the terminal. Open that, and you have Dagit running on an EC2 instance. See our [docs](https://docs.dagster.io/deploying/local) for more details on custom deployments on other infrastructure.
+
+## Scheduling
+
+Now let’s schedule this pipeline for regular execution. To do this we will need the `dagster-cron` module, so run pip install `dagster-cron` in your environment.
+
+Schedules are defined using a python API. In this we schedule our pipeline to run every minute:
+
+```python
+from dagster import ScheduleDefinition, schedules
+from dagster_cron import SystemCronScheduler
+
+@schedules(scheduler=SystemCronScheduler)
+def define_hello_world_schedules():
+    return [
+        ScheduleDefinition(
+            name='hello_world_every_min',
+            cron_schedule='* * * * *',
+            pipeline_name='hello_world_pipeline'
+        )
+    ]
+```
+
+<!-- https://gist.github.com/schrockn/483cc0aa7aec791db2f336246dd261c8#file-hello_world_sched-py -->
+
+And add an entry in repository.yaml for this function:
+
+```yaml
+# in repository.yaml
+scheduler:
+  file: hello_world_sched.py
+  fn: define_hello_world_schedules
+```
+
+Then run Dagit. You now have a schedule.
+
+![Turn on the schedule, and then watch it appear in our reactive UI.](https://miro.medium.com/max/2000/1*22YVSJcLJEGA1rsfwv0A7Q.gif)
+
+Simply run `dagster-aws` up and you have deployed that schedule to your cloud instance. You are now ready to run in production.
+
+## Just Getting Started
+
+This post is just focused on our new operational features running a trivial pipeline. There is a rich programming model with tons of features that are beyond the scope of this article.
+
+- Functional data engineering, combining data dependencies and a gradual, flexible type system.
+
+Dependencies between optionally typed inputs and output, specified by an elegant DSL.
+![](https://miro.medium.com/max/2000/1*o3cijdJ8XeGsE1dVKFlFog.gif)
+
+- A strongly-typed config system with user-defined schema, enabling a built-in autocompleting editor with high-quality error messages.
+
+Managing config can be a beast with complex pipelines. Our tools are fun and catch errors prior to execution.
+![](https://miro.medium.com/max/2000/1*OZ5MiHemyfVqotb5HqVQUA.gif)
+
+- Dagster includes a structured logging that allows users to communicate events with specific meaning (e.g. Materializations or Expectations) along with structured metadata that can be consumed by tools as you see below. This goes beyond normal, free-text logging (“Developers thinking aloud”) in terms of interpretability by both humans and tooling
+
+Structured logging with fast search and rich metadata rendering.
+![](https://miro.medium.com/max/2000/1*xxuWKXPHEWtPk4Et-H7LWg.gif)
+
+- Testability as a first class concept. Because our pipelines are parameterize-able and because of our environment is so pluggable, you can run pipelines and subsets of pipelines without externalized dependencies and on test data sets.
+
+- Much, much more. See our [documentation](http://docs.dagster.io/).
+
+This is an exciting release, which transforms Dagster from a local development tool and programming tool, to a system ready to execution, schedule, and monitor production pipeline out-of-box.
+
+Check out our [Github](https://github.com/dagster-io/dagster) and join our [slack](https://dagster-slackin.herokuapp.com/) to learn more!
