@@ -22,7 +22,6 @@
     "unist-util-visit": "^2.0.3"
   },
   "devDependencies": {
-    "@microlink/react": "^5.4.6",
     "@next/bundle-analyzer": "^9.4.4",
     "@types/classnames": "^2.2.10",
     "@types/node": "^14.0.23",
@@ -31,7 +30,6 @@
     "babel-plugin-import-glob-array": "^0.2.0",
     "file-loader": "^6.0.0",
     "simple-functional-loader": "^1.2.1",
-    "styled-components": "^5.2.0",
     "typescript": "^3.9.7"
   },
   "babel": {
