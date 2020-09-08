@@ -19,6 +19,7 @@ type FileMetadata = {
 export type BlogPostFrontMatter = BaseFrontMatter & FileMetadata
 
 function refine(data: unknown): Array<BlogPostFrontMatter> {
+  // TODO: type check front matter
   return data as any
 }
 
