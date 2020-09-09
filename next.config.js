@@ -58,7 +58,7 @@ module.exports = withBundleAnalyzer(
     webpack: (config, { webpack }) => {
       config.plugins.push(
         new webpack.DefinePlugin({
-          // global NODE_DEV variable for differentiate "production"|"preview"|"development"
+          // global NODE_DEV variable for differentiate "production"|"test"|"development"
           __NODE_ENV__: JSON.stringify(process.env.NODE_ENV),
         })
       )
