@@ -6,6 +6,7 @@ type BaseFrontMatter = {
   title: string
   excerpt: string
   date: string
+  authors: string
   coverImage?: string
   tags?: string[]
 }

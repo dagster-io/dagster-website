@@ -5,7 +5,10 @@ title: 'Introducing Dagster'
 excerpt: 'Today the team at Elementl is proud to announce an early release of Dagster, an open-source library for building systems like ETL processes and ML pipelines. We believe they are, in reality, a single class of software system. We call them data applications.'
 coverImage: https://miro.medium.com/max/4800/1*OLHFRr5lS4rILNpqau2KDw.png
 date: '2019-07-08'
+tags: ['dagster']
 ---
+
+import { LinkPreview } from 'components/LinkPreview'
 
 # Introducing Dagster
 
@@ -42,9 +45,7 @@ It is difficult for leadership to get engineers to work on data management probl
 
 How do they express this? If you’ve been to any conference with data engineers or data scientists, you’ve probably heard someone say something like:
 
-<!-- TODO url preview component -->
-
-https://twitter.com/BigDataBorat/status/306596352991830016
+<LinkPreview url="https://twitter.com/BigDataBorat/status/306596352991830016" />
 
 Practitioners who aren’t Borat say something more like:
 
@@ -90,9 +91,7 @@ React defined its domain well, and then was able to solve entire classes of prob
 
 Describing React in full is well beyond the scope of this article. For that we recommend:
 
-<!-- TODO url preview component -->
-
-https://overreacted.io/react-as-a-ui-runtime/
+<LinkPreview url="https://overreacted.io/react-as-a-ui-runtime/" />
 
 React provided a novel, well-designed, higher-level component model over the native browser APIs. React took more formal engineering principles — functional programming in particular — and adapted them in a way that was intuitive to practitioners. It did all of this while being incrementally adoptable in existing systems.
 
@@ -136,9 +135,7 @@ This is not possible in data applications. Data applications are ingesting data 
 
 We believe that data quality tests — known as expectations within Dagster — are the critical tool for managing the complexity of data within these systems. An inspiration in this area is Abe Gong and the team working on [Great Expectations](https://github.com/great-expectations/great_expectations). See this article for an excellent discussion of this issue:
 
-<!-- TODO url preview component -->
-
-https://medium.com/@expectgreatdata/down-with-pipeline-debt-introducing-great-expectations-862ddc46782a
+<LinkPreview url="https://medium.com/@expectgreatdata/down-with-pipeline-debt-introducing-great-expectations-862ddc46782a" />
 
 #### Multi-persona, multi-tool
 
@@ -164,11 +161,12 @@ These pain points highlight what we believe is the absence of a fundamental laye
 
 We believe deeply that data engineering should adopt a coarse-grained functional programming model. We were inspired and heavily influenced by this article by Maxime Beauchemin, the creator of Apache Airflow:
 
-<!-- TODO url preview component -->
+<LinkPreview url="https://medium.com/@maximebeauchemin/functional-data-engineering-a-modern-paradigm-for-batch-data-processing-2327ec32c42a" />
 
-https://medium.com/@maximebeauchemin/functional-data-engineering-a-modern-paradigm-for-batch-data-processing-2327ec32c42a
-
-Dagster allows the user to define an abstract graph of functional computations, which we call solids. The actual business logic of a solid can be defined and executed within any tool, as long as they are annotated and structured to conform to the Dagster API. Solids’ inputs and outputs are connected to each by data dependencies, which form the graph.
+Dagster allows the user to define an abstract graph of functional computations, which we call solids.
+The actual business logic of a solid can be defined and executed within any tool, as long as they are
+annotated and structured to conform to the Dagster API. Solids’ inputs and outputs are connected to each
+by data dependencies, which form the graph.
 
 ![The circles in this graphic represent solids, our core abstraction for a functional computation.](https://miro.medium.com/max/2000/1*xkng8gf6WaFM8yEbOAyY2A.png)
 
@@ -206,9 +204,7 @@ This ecosystem would be more interconnected and collaborative, with reusable, we
 
 This future vision is aligned with how Chris Bergh and the team at Data Kitchen envision when they describe the term “DataOps.” We’ve been inspired by their work. We highly recommend this podcast for an overview of DataOps:
 
-<!-- TODO url preview component -->
-
-https://www.dataengineeringpodcast.com/datakitchen-dataops-with-chris-bergh-episode-26/
+<LinkPreview url="https://www.dataengineeringpodcast.com/datakitchen-dataops-with-chris-bergh-episode-26/" />
 
 ## What’s happening today
 
