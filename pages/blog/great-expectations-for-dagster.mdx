@@ -11,7 +11,10 @@ tags: ['dagster-feature']
 We’re thrilled to announce a new integration between [Dagster](https://github.com/dagster-io/dagster/) and a fellow open-source project, [Great Expectations](https://docs.greatexpectations.io/en/latest/) (GE). GE is the fastest-growing open source data validation and documentation framework, helping data teams save time and promote analytic integrity of their data. GE allows users to express what they expect from data in a simple, declarative manner. “Expectations” are like unit tests for datasets: they help you guard against upstream data changes and monitor data quality.
 
 <p align="center">
-  <img src="/posts/great-expectations-for-dagster/dagit.gif" alt="Validation Result" />
+  <img
+    src="https://user-images.githubusercontent.com/4531914/92665703-0e8b3900-f2bc-11ea-8893-ede4e4224b8c.gif"
+    alt="Validation Result"
+  />
 </p>
 
 If you haven’t worked with GE before, you might want to take a look at [Getting started with Great Expectations](https://docs.greatexpectations.io/en/latest/guides/tutorials/getting_started.html#tutorials-getting-started) before continuing. We’ll assume that you are familiar with GE concepts like the data context, expectations, and data docs in what follows. If you’re already using GE and you’re eager to integrate your existing test suites into your Dagster pipelines, you may want to jump right into a [fully worked example](https://docs.dagster.io/examples/ge_example). Otherwise, keep reading for an introduction to the system and how it integrates with Dagster.
@@ -50,7 +53,11 @@ The core of our new integration with GE is a validation solid that can run your 
 Like other data processes modeled as Dagster solids, the validation solid is configurable at runtime. If you want to swap out your GE config, you can do that in Dagit or by passing run config through the Python APIs, since the GE data context is modeled as a Dagster resource. In the current state of the integration, you’ll still need to define the configurations that you want to switch between with GE, but we’re working with the GE team to further parameterize and expose as much config as possible natively in Dagster.
 
 <p align="center">
-  <img src="/posts/great-expectations-for-dagster/metadata.jpg" alt="Validation Metadata" />
+  <img
+    src="/posts/great-expectations-for-dagster/metadata.jpg"
+    alt="Validation Metadata"
+    width="600px"
+  />
 </p>
 
 ## How it works
