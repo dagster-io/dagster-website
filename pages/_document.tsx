@@ -69,8 +69,6 @@ export default class Document extends NextDocument {
           )}
         </Head>
         <body>
-          {/* test */}
-          {__NODE_ENV__}
           <Main />
           <NextScript />
         </body>
