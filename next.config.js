@@ -55,15 +55,15 @@ module.exports = withBundleAnalyzer(
   withMdxEnhanced({
     pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
 
-    webpack: (webpackConfig, { dev, webpack }) => {
-      webpackConfig.plugins.push(
+    webpack: (config, { webpack }) => {
+      config.plugins.push(
         new webpack.DefinePlugin({
-          // global dev variable for turning off prod-only features
-          __DEV__: dev,
+          // global NODE_DEV variable for differentiate "production"|"preview"|"development"
+          __NODE_ENV__: JSON.stringify(process.env.NODE_ENV),
         })
       )
 
-      return webpackConfig
+      return config
     },
   })
 )
