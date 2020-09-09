@@ -1,0 +1,146 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #111;
+  padding: 0;
+  margin: 0;
+}
+div {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Ropa Sans", sans-serif;
+}
+p {
+  line-height: 1.55rem;
+}
+.customer-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  box-shadow: 0 2px 40px rgba(191, 191, 191, 0.5);
+  background: white;
+  text-align: center;
+}
+.centered-content {
+  margin: auto;
+  padding: 0 20px;
+  position: relative;
+  max-width: 1100px;
+}
+.centered-title {
+  text-align: center;
+}
+.centered-title h1 {
+  margin-bottom: 0;
+}
+.centered-title p {
+  margin-top: 3px;
+  opacity: 0.7;
+}
+.feature-section {
+  display: flex;
+  margin-bottom: 70px;
+}
+.feature-section a {
+  font-weight: 600;
+  text-decoration: none;
+}
+a {
+  color: #4485c2;
+}
+button.large {
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  background: white;
+  color: #4485c2;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 14px 28px;
+}
+button.large:hover {
+  border: 1px solid #ddd;
+  background: #f5f5f5;
+}
+button.primary {
+  border: 1px solid #336ea5;
+  background: #4485c2;
+  color: white;
+}
+button.primary:hover {
+  border: 1px solid #215686;
+  background: #336ea5;
+}
+
+.screenshots {
+  padding-bottom: 20px;
+}
+.screenshots .overview {
+  width: 40%;
+}
+.screenshots .dots {
+  right: 5%;
+  top: -120px;
+  width: 430px;
+  position: absolute;
+  z-index: 1;
+}
+.screenshots .screenshot {
+  width: 430px;
+  position: absolute;
+  border: 10px solid white;
+  box-shadow: 0 2px 40px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+.screenshots .screenshot-1 {
+  right: 0%;
+  top: -100px;
+}
+.screenshots .screenshot-2 {
+  right: 12%;
+  top: 70px;
+}
+.screenshots .screenshot-3 {
+  right: 40%;
+  top: 240px;
+}
+.screenshots .localnote {
+  opacity: 0.6;
+  right: 0%;
+  top: 430px;
+  width: 390px;
+  position: absolute;
+}
+
+@media (max-width: 500px) {
+  .columns-on-mobile {
+    flex-direction: column;
+  }
+  .first-on-mobile {
+    order: -1;
+  }
+  .hide-on-mobile {
+    display: none;
+  }
+  .screenshots .overview {
+    width: 100%;
+  }
+  .screenshots .dots {
+    display: none;
+  }
+  .screenshots .screenshot {
+    position: initial;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  .screenshots .localnote {
+    position: initial;
+  }
+}
