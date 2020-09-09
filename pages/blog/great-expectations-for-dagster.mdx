@@ -1,0 +1,72 @@
+---
+layout: 'BlogPost'
+status: 'published'
+title: 'Great Expectations for Dagster'
+excerpt: 'We’re thrilled to announce a new integration between Dagster and a fellow open-source project, Great Expectations (GE).'
+date: '2020-09-10'
+authors: ['fishmanl']
+tags: ['dagster-feature']
+---
+
+We’re thrilled to announce a new integration between [Dagster](https://github.com/dagster-io/dagster/) and a fellow open-source project, [Great Expectations](https://docs.greatexpectations.io/en/latest/) (GE). GE is the fastest-growing open source data validation and documentation framework, helping data teams save time and promote analytic integrity of their data. GE allows users to express what they expect from data in a simple, declarative manner. “Expectations” are like unit tests for datasets: they help you guard against upstream data changes and monitor data quality.
+
+<p align="center">
+  <img src="/posts/great-expectations-for-dagster/dagit.gif" alt="Validation Result" />
+</p>
+
+If you haven’t worked with GE before, you might want to take a look at [Getting started with Great Expectations](https://docs.greatexpectations.io/en/latest/guides/tutorials/getting_started.html#tutorials-getting-started) before continuing. We’ll assume that you are familiar with GE concepts like the data context, expectations, and data docs in what follows. If you’re already using GE and you’re eager to integrate your existing test suites into your Dagster pipelines, you may want to jump right into a [fully worked example](https://docs.dagster.io/examples/ge_example). Otherwise, keep reading for an introduction to the system and how it integrates with Dagster.
+
+## A schematic example
+
+Many real world pipelines have roughly the following schematic structure: first they read in some large data file, then they run some large-scale, computationally costly analysis on it.
+
+```python
+@solid
+def load_data():
+    return dataframe
+
+@solid
+def analyze():
+    ...
+
+@pipeline
+def data_pipe():
+    analyze(load_data())
+```
+
+This is great when you’re on the happy path. But in the real world, the data frame returned from load_data might have serious and unexpected issues — whether from human error, from faulty APIs, or shifts in the reality to which your data corresponds. Ideally, we want to catch these data issues before we do costly analysis or pass bad data to downstream processes.
+
+```python
+from dagster_ge import ge_validation_solid_factory
+
+validate = ge_validation_solid_factory(datasource, expectation_suite)
+
+@pipeline
+def data_pipe():
+    analyze(validate(load_data()))
+```
+
+The core of our new integration with GE is a validation solid that can run your expectation suites alongside the other processes in your pipelines.
+Like other data processes modeled as Dagster solids, the validation solid is configurable at runtime. If you want to swap out your GE config, you can do that in Dagit or by passing run config through the Python APIs, since the GE data context is modeled as a Dagster resource. In the current state of the integration, you’ll still need to define the configurations that you want to switch between with GE, but we’re working with the GE team to further parameterize and expose as much config as possible natively in Dagster.
+
+<p align="center">
+  <img src="/posts/great-expectations-for-dagster/metadata.jpg" alt="Validation Metadata" />
+</p>
+
+## How it works
+
+At its core, this integration exposes two interfaces between Dagster and GE: the `ge_data_context` resource for making GE config available to pipelines, and the `ge_validation_solid_factory` for building solids which actually use it.
+
+The `ge_data_context` resource just points to the root directory of your GE config. So users of our integration don’t need to change anything about existing GE workflows — you can still follow GE’s intro tutorials, build expectation suites using the GE native tooling, and so forth. All you need to do to expose the resulting data context to Dagster is configure this resource.
+
+The `ge_validation_solid_factory` builds a solid that executes an expectation suite. This factory takes the name of your datasource, the name of the expectation suite you want to run, as well as a third optional validation operator parameter. This lets you call any special functionality like slack notifications on failed expectations that you’ve already built through GE. The default here is to just run the expectation suite and output the results, without saving anything to file.
+
+To see all this in code, check out the [integration example](https://docs.dagster.io/examples/ge_example) in the Dagster docs.
+
+## Where we’re going from here
+
+We hope these basic APIs will let teams that want to use GE’s powerful data quality capabilities with their Dagster pipelines hit the ground running.
+
+Of course, this is just the beginning. If you’re interested in the future of finer-grained integrations that expose more of the data context configuration and creation process at the Dagster resource level — or if you have other ideas about how we can make these two projects even better together — please get in touch! Our two teams would love to hear from you.
+
+_This integration was Leor Fishman’s final Summer 2020 intern project at Elementl. If you’re interested in getting paid to work on open source data tools with a great team, please get in touch: hello@elementl.com_

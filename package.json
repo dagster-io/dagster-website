@@ -5,7 +5,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "refresh": "rm -rf .next/cache/next-babel-loader"
   },
   "dependencies": {
     "@mapbox/rehype-prism": "^0.5.0",
