@@ -38,13 +38,39 @@ class InlineStylesHead extends Head {
 }
 
 export default class Document extends NextDocument {
+  // Function will be called below to inject
+  // script contents onto page
+  setGoogleTags() {
+    return {
+      __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-138684758-4');
+        `,
+    }
+  }
+
   render() {
     return (
       <Html lang="en">
         <InlineStylesHead>
           <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+          <link rel="icon" type="image/x-icon" href="./favicon.ico" />
         </InlineStylesHead>
+        <Head>
+          {/* We only want to add the scripts if in production */}
+          {__NODE_ENV__ === 'production' && (
+            <>
+              <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138684758-4" />
+              <script dangerouslySetInnerHTML={this.setGoogleTags()} />
+            </>
+          )}
+        </Head>
         <body>
+          {/* test */}
+          {__NODE_ENV__}
           <Main />
           <NextScript />
         </body>
