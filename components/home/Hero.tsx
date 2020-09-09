@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './Hero.module.css'
 
-export const Hero: React.FunctionComponent<{}> = (props) => {
+export const Hero: React.FunctionComponent<{}> = () => {
   return (
     <div className={styles.Hero} style={{ width: '100vw', position: 'relative' }}>
       <svg width="100vw" viewBox="0 0 1627 226" version="1.1">
