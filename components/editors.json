@@ -1,0 +1,16 @@
+{
+  "authors": [
+    {
+      "id": "schrockn",
+      "fullName": "Nick Schrock",
+      "profileImage": "https://images.squarespace-cdn.com/content/v1/5cb5f5d490f904864e26772f/1555440372868-7VWGN4HRO0P246JQD1XF/ke17ZwdGBToddI8pDm48kODEHMGUBRgRRplOmqRomK1Zw-zPPgdn4jUwVcJE1ZvWhcwhEtWJXoshNdA9f1qD7Xj1nVWs2aaTtWBneO2WM-vKKmLGZcam4wNLVFkW8ocU3wCuzBZdxfWEqO227KYmPQ/nick.jpg?format=500w",
+      "url": "https://twitter.com/schrockn"
+    },
+
+    {
+      "id": "max",
+      "fullName": "Max Gasner",
+      "profileImage": "https://images.squarespace-cdn.com/content/v1/5cb5f5d490f904864e26772f/1555442376101-O9IUN27B7BWU5ZGPQ2SG/ke17ZwdGBToddI8pDm48kODEHMGUBRgRRplOmqRomK1Zw-zPPgdn4jUwVcJE1ZvWhcwhEtWJXoshNdA9f1qD7Xj1nVWs2aaTtWBneO2WM-vKKmLGZcam4wNLVFkW8ocU3wCuzBZdxfWEqO227KYmPQ/max.jpg?format=500w"
+    }
+  ]
+}

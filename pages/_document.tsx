@@ -8,10 +8,21 @@ class InlineStylesHead extends Head {
   }
 
   __getInlineStyles() {
-    const { assetPrefix, files } = this.context._documentProps
-    if (!files || files.length === 0) return null
+    const { assetPrefix, buildManifest } = this.context
 
-    return files
+    if (!buildManifest.pages || Object.keys(buildManifest.pages).length === 0) return null
+
+    const pageKeys = []
+    for (const key of Object.keys(buildManifest.pages)) {
+      if (buildManifest.pages[key]) {
+        pageKeys.push(buildManifest.pages[key])
+      }
+    }
+    const mergeDedupeFiles = (arr: any) => {
+      return [...new Set([].concat(...arr))]
+    }
+
+    return mergeDedupeFiles(pageKeys)
       .filter((file) => /\.css$/.test(file))
       .map((file) => (
         <style

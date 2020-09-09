@@ -1,0 +1,96 @@
+---
+layout: 'BlogPost'
+status: 'published'
+title: 'Dagster 0.7.0: Waiting To Exhale'
+excerpt: 'With 0.7.0 we set out improve the Dagster experience with large, production-scale pipelines, deployable to Kubernetes.'
+date: '2020-02-26'
+tags: ['dagster']
+---
+
+We at [Elementl](https://www.elementl.com/) are pleased to announce version 0.7.0 of [Dagster](https://github.com/dagster-io/dagster/), codenamed “Waiting To Exhale”. Our last release, [0.6.0](blog/dagster-0-6-0-impossible-princess), expanded Dagster from a local developer experience to a hostable product, allowing for scheduling, execution, and monitoring of small pipelines on a single node.
+
+With 0.7.0 we set out improve the Dagster experience with large, production-scale pipelines, deployable to Kubernetes. In service of that goal, we needed to fill missing gaps and incorporate feedback from the community at large. This release provides support for pipelines with 100s and 1000s of nodes, deployable to modern, scalable cloud infrastructure, with dramatically improved monitoring tools, as well as other features.
+
+Dagster already provides a platform abstraction and a programming model that encourages reusability so that data teams can focus on writing business logic to rapidly adapt to business needs. In 0.7.0, we decided to focus on addressing the following operational requirements as pipelines grew in number and complexity:
+
+1. **Revamped, Scalable Dagit**: A completely redesigned Dagit with a more intuitive navigation structure, a new live-updating/queryable waterfall execution viewer, and massive performance improvements to handle pipelines with hundreds or even thousands of nodes.
+
+1. **Kubernetes and Celery support**: Library support for launching runs in ephemeral k8s pods, orchestrating on a cluster using Celery, and deploying with an example Helm chart.
+
+1. **Backfill and Partitioning Support**: A new set of backfill APIs and tools to help manage your scheduled workflows in production.
+
+1. **Pandas Dataframe Schema and Validation**: An integration that provides useful APIs for dataframe validation, summary statistics emission, and auto-documentation in Dagit so that you can better understand and control how data flows through your pipelines.
+
+1. **Redesigned documentation**: Examples and guides to help flesh out the core ideas behind the system. Check it out here!
+
+In the following sections, we’ll elaborate on these new features in 0.7.0 so that your teams can better author and manage your data workflows with dagster.
+
+## Dagit Improvements
+
+Production pipelines have a tendency to grow in size and connectedness. This complicates navigating through pipelines, and reasoning about execution during runtime. Over time this can become a massive operational burden, but there comes a point where we must exhale. For this release, we put Dagit to the test against a real pipeline with nearly 1000 solids from members of the Dagster community. What started as a series of targeted performance improvements evolved into a set of substantial rewrites of the pipeline explorer, and the execution monitor.
+
+The **pipeline explorer** can now be driven by a new selector syntax, making it possible to navigate through the solid dependencies of your pipelines.
+
+![Our new Solid Selector Syntax](https://miro.medium.com/max/1400/1*1p2bVNZxVqitbrcYMEIx1Q.gif)
+
+The **execution monitor** is now a live updating visualization of the execution plan as a Gantt chart. This allows for both real-time monitoring as well as post hoc analysis of runs. The same selector syntax from the pipeline explorer is present here allowing you to slice and dice large execution plans and identify the critical path in execution time with the click of a button.
+
+![Dagit’s Execution Monitor](https://miro.medium.com/max/1400/1*p1CfRt-UljKcVYHcfbfF6Q.gif)
+
+Finally, because of these substantial changes, **navigation** was overhauled with a new persistent sidebar making it easier than ever to navigate and interact with your data application.
+
+## Kubernetes and Celery Support
+
+Production-grade pipelines mean production-grade deployments. However, scaling and managing these deployments continues to encumber data teams. This release lays the foundations of a control plane that uses our platform abstraction to easily enable the deployment of dagster pipelines.
+
+Because production-grade deployments in 2020 often means Kubernetes, we decided to establish a RunLauncher which submits pipeline runs as Kubernetes batch jobs backed by Celery. This resulted in the beginnings of two libraries:
+
+- A **Dagster-K8s** library that provides support for launching runs in ephemeral pods and contains an example Helm chart.
+- A **Dagster-Celery** library which allows for a well-defined set of workers that can provide global resource management using dedicated queues.
+
+It’s early days for these two libraries and we would love feedback on what you would like to see next!
+
+## Partitioning and Scheduling
+
+More than ever, managing production data workflows requires first class support for partitioning pipeline runs, backfills, and easy scheduling utilities. This release introduces a Partitions API which allows users to express a slice of data flowing through a data pipeline and execute their pipelines on a per partition basis. While the most common example of a partition is a date, it is possible to use our API to express pipeline executions across a ton of different partition sets (geography, device, operating system, etc).
+
+Once expressed, schedules and runs can be seen in Dagit’s “Runs” view. As the scheduler enqueues pipeline runs, you can search for them by tag or by partition.
+
+![Schedules View](https://miro.medium.com/max/1400/1*05srjuNUidWBg88_d73mdw.png)
+
+We also integrated partition support in the Dagit playground, by populating the config editor with partition-specific environment config and tagging it appropriately. This allows for ad-hoc execution of partitioned runs via Dagit, as well as providing an easy development experience for configuring these partitioned runs.
+
+![Runs View](https://miro.medium.com/max/1400/1*kqLO5nNT8mJjmlZCWCtTLw.png)
+
+And last but not least, we can execute backfills directly over a partition set using the **dagster command line interface**. Given a date based partition set, we can launch a set of pipeline runs as follows:
+
+![](https://miro.medium.com/max/2000/1*dDar12rg6WzIL4yD5QcgEA.png)
+
+## Dagster Pandas
+
+Pandas has been broadly adopted as the go-to framework for data manipulation. To this effect, many solids use dataframes as their inputs and outputs. As a result, we built a dagster-pandas integration which gives users finer grain control over the data that flows through their pipelines via the construction of custom dataframe types. This extension gives the user schema validation, summary statistics generation, and auto-documentation for free. Here’s an example of a custom pandas dataframe type:
+
+```python
+TripDataFrame = create_dagster_pandas_dataframe_type(
+   name='TripDataFrame',
+   columns=[
+       PandasColumn.integer_column('bike_id', min_value=0),
+       PandasColumn.categorical_column('color', categories={'red', 'green', 'blue'}),
+       PandasColumn.datetime_column(
+           'start_time', min_datetime=datetime(year=2020, month=2, day=10)
+       ),
+       PandasColumn.datetime_column(
+           'end_time', min_datetime=datetime(year=2020, month=2, day=10)
+       ),
+       PandasColumn.string_column('station'),
+       PandasColumn.exists('amount_paid'),
+       PandasColumn.boolean_column('was_member'),
+   ],
+)
+```
+
+<!-- https://gist.github.com/asingh16/cd9e7f5c40201a14d8d336718be4939f#file-dagster_pandas-py -->
+
+If you would like to further explore this library, check out the [guide](https://docs.dagster.io/overview/packages/dagster_pandas).
+
+This is an exciting release with a ton of new features that outfit Dagster with the operational tools needed to manage your pipelines and workflows. To see the full list of changes, check out this [Changelog](https://github.com/dagster-io/dagster/blob/master/CHANGES.md), visit our [Github](https://github.com/dagster-io/dagster) and join our [slack](https://dagster-slackin.herokuapp.com/) to learn more!
