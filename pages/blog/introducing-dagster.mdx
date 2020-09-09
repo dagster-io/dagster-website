@@ -10,8 +10,6 @@ tags: ['dagster']
 
 import { LinkPreview } from 'components/LinkPreview'
 
-# Introducing Dagster
-
 Today the team at [Elementl](https://www.elementl.com/) is proud to announce an early release of [Dagster](https://github.com/dagster-io/dagster), an open-source library for building systems like ETL processes and ML pipelines. We believe they are, in reality, a single class of software system. We call them data applications.
 
 ## What is Dagster?
@@ -162,11 +160,6 @@ These pain points highlight what we believe is the absence of a fundamental laye
 We believe deeply that data engineering should adopt a coarse-grained functional programming model. We were inspired and heavily influenced by this article by Maxime Beauchemin, the creator of Apache Airflow:
 
 <LinkPreview url="https://medium.com/@maximebeauchemin/functional-data-engineering-a-modern-paradigm-for-batch-data-processing-2327ec32c42a" />
-
-Dagster allows the user to define an abstract graph of functional computations, which we call solids.
-The actual business logic of a solid can be defined and executed within any tool, as long as they are
-annotated and structured to conform to the Dagster API. Solids’ inputs and outputs are connected to each
-by data dependencies, which form the graph.
 
 ![The circles in this graphic represent solids, our core abstraction for a functional computation.](https://miro.medium.com/max/2000/1*xkng8gf6WaFM8yEbOAyY2A.png)
 
