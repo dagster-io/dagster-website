@@ -1,15 +1,17 @@
 import { Hero } from 'components/home/Hero'
 
+import styles from './index.module.css'
+
 const IndexPage = () => (
-  <div>
+  <div className={styles.index}>
     <Hero />
 
     <div style={{ height: 100 }} />
-    <div className="centered-content text-center">
+    <div className={`${styles.centeredContent} text-center`}>
       <h1 className="text-3xl mb-4 font-bold ">
         Dagster is a data orchestrator for machine learning, analytics, and ETL.
       </h1>
-      <div style={{ display: 'flex' }} className="columns-on-mobile">
+      <div style={{ display: 'flex' }} className={styles.columnsOnMobile}>
         <div className="text-center" style={{ flex: 1, marginTop: 50 }}>
           <img
             className="inline-block"
@@ -48,17 +50,17 @@ const IndexPage = () => (
         }}
       >
         <a href="https://docs.dagster.io/tutorial">
-          <button className="large primary">Tutorial</button>
+          <button className={`${styles.large} ${styles.primary}`}>Tutorial</button>
         </a>
         <div style={{ width: 10 }} />
         <a href="https://docs.dagster.io/">
-          <button className="large">Documentation</button>
+          <button className={`${styles.large}`}>Documentation</button>
         </a>
       </div>
     </div>
     <div style={{ background: '#f5f9fc', paddingTop: 100, paddingBottom: 140 }}>
-      <div className="centered-content columns-on-mobile" style={{ display: 'flex' }}>
-        <div style={{ flex: 1 }} className="first-on-mobile">
+      <div className={`${styles.centeredContent} ${styles.columnsOnMobile}`} style={{ display: 'flex' }}>
+        <div style={{ flex: 1 }} className={styles.firstOnMobile}>
           <img src="images/graphic-deployment.png" style={{ width: '100%', minWidth: 100 }} />
         </div>
         <div style={{ width: 60 }} />
@@ -77,23 +79,23 @@ const IndexPage = () => (
         </div>
       </div>
     </div>
-    <div className="centered-content" style={{ position: 'relative' }}>
+    <div className={styles.centeredContent} style={{ position: 'relative' }}>
       <div style={{ position: 'absolute', left: -30, top: -80 }}>
         <img src="images/dots.svg" />
       </div>
     </div>
     <div
-      className="centered-content"
+      className={styles.centeredContent}
       style={{
         background: 'white',
         position: 'relative',
         zIndex: 1,
         top: -60,
         marginBottom: -60,
-        padding: 30,
+        padding: 40,
       }}
     >
-      <div className="feature-section columns-on-mobile">
+      <div className={`${styles.featureSection} ${styles.columnsOnMobile}`}>
         <div style={{ flex: 1.7 }}>
           <H1>Model and type the data produced and consumed&nbsp;by&nbsp;each&nbsp;step</H1>
           <p>
@@ -109,7 +111,7 @@ const IndexPage = () => (
           </a>
         </div>
         <div style={{ width: 60 }} />
-        <div style={{ flex: 1 }} className="first-on-mobile">
+        <div style={{ flex: 1 }} className={styles.firstOnMobile}>
           <img
             src="images/graphic-solid.png"
             style={{ width: '100%', minWidth: 100, transform: 'scale(1.2)' }}
@@ -117,8 +119,8 @@ const IndexPage = () => (
         </div>
       </div>
 
-      <div className="feature-section columns-on-mobile">
-        <div style={{ flex: 1 }} className="first-on-mobile">
+      <div className={`${styles.featureSection} ${styles.columnsOnMobile}`}>
+        <div style={{ flex: 1 }} className={styles.firstOnMobile}>
           <img
             src="images/graphic-asset-manager.png"
             style={{ width: '100%', minWidth: 100, transform: 'scale(1.2)' }}
@@ -142,7 +144,7 @@ const IndexPage = () => (
         </div>
       </div>
 
-      <div className="feature-section columns-on-mobile">
+      <div className={`${styles.featureSection} ${styles.columnsOnMobile}`}>
         <div style={{ flex: 1.7 }}>
           <H1>Build a self-service data platform</H1>
           <p>
@@ -152,7 +154,7 @@ const IndexPage = () => (
           </p>
         </div>
         <div style={{ width: 60 }} />
-        <div style={{ flex: 1 }} className="first-on-mobile">
+        <div style={{ flex: 1 }} className={styles.firstOnMobile}>
           <img
             src="images/graphic-target-audience.png"
             style={{ width: '100%', minWidth: 100, transform: 'scale(1.1)' }}
@@ -160,8 +162,8 @@ const IndexPage = () => (
         </div>
       </div>
 
-      <div className="feature-section columns-on-mobile">
-        <div style={{ flex: 1 }} className="first-on-mobile">
+      <div className={`${styles.featureSection} ${styles.columnsOnMobile}`}>
+        <div style={{ flex: 1 }} className={styles.firstOnMobile}>
           <img
             src="images/graphic-isolated-codebases.png"
             style={{ width: '100%', minWidth: 100 }}
@@ -188,8 +190,8 @@ const IndexPage = () => (
     </div>
 
     <div style={{ background: '#f5f9fc', paddingTop: 50, position: 'relative' }}>
-      <div className="centered-content screenshots">
-        <div className="overview">
+      <div className={`${styles.centeredContent} ${styles.screenshots}`}>
+        <div className={styles.overview}>
           <H1>Debug pipelines from a rich UI</H1>
           <p>
             Dagit, Dagster’s web interface, includes wide facilities for understanding the pipelines
@@ -200,32 +202,32 @@ const IndexPage = () => (
             consuming tasks via a Gantt chart, and re-execute subsets of steps.
           </p>
         </div>
-        <div className="dots">
+        <div className={styles.dots}>
           <img src="images/dots.svg" />
         </div>
-        <img src="images/screenshot-1.png" className="screenshot screenshot-1" />
+        <img src="images/screenshot-1.png" className={`${styles.screenshot} ${styles.screenshot1}`} />
 
-        <img src="images/screenshot-2.png" className="screenshot screenshot-2" />
+        <img src="images/screenshot-2.png"  className={`${styles.screenshot} ${styles.screenshot2}`}/>
 
-        <img src="images/screenshot-3.png" className="screenshot screenshot-3" />
-        <div className="localnote">
+        <img src="images/screenshot-3.png"  className={`${styles.screenshot} ${styles.screenshot3}`} />
+        <div className={styles.localnote}>
           <p>
             Dagster’s UI runs locally on your machine and can also be deployed to your production
             infrastructure for operational monitoring.
           </p>
         </div>
-        <div style={{ height: 160 }} className="hide-on-mobile" />
+        <div style={{ height: 160 }} className={styles.hideOnMobile} />
       </div>
     </div>
 
-    <div className="hide-on-mobile" style={{ height: 240 }} />
+    <div className={styles.hideOnMobile} style={{ height: 240 }} />
 
-    <div className="centered-content">
-      <div className="centered-title">
+    {/* <div className={styles.centeredContent}>
+      <div className={styles.centeredTitle}>
         <H1>You’re in good company</H1>
         <p>Learn how companies use Dagster to orchestrate their data pipelines.</p>
       </div>
-      <div style={{ display: 'flex', marginTop: 60 }} className="columns-on-mobile">
+      <div style={{ display: 'flex', marginTop: 60 }} className={styles.columnsOnMobile}>
         <CustomerCard name="Prezi" link="#">
           <p>
             Prezi uses Dagster to wrangle insights from more than 100 million users who had created
@@ -248,10 +250,10 @@ const IndexPage = () => (
           </p>
         </CustomerCard>
       </div>
-    </div>
+    </div> */}
 
-    <div className="centered-content" style={{ marginTop: 100 }}>
-      <div className="centered-title">
+    <div className={styles.centeredContent} style={{ marginTop: 100 }}>
+      <div className={styles.centeredTitle}>
         <H1>Broad support for existing pipelines and deployments</H1>
         <p>Incrementally adopt Dagster by wrapping existing code into Dagster solids.</p>
         <div
@@ -277,22 +279,23 @@ const IndexPage = () => (
       </div>
     </div>
 
-    <div className="centered-content" style={{ marginTop: 100 }} />
+    <div className={styles.centeredContent} style={{ marginTop: 100 }} />
   </div>
 )
 
 const H1: React.FunctionComponent = (props) => (
-  <h1 className="text-3xl leading-tight mb-4 font-bold">{props.children}</h1>
+  <h1 className="text-2xl mb-4 font-bold tracking-tight">{props.children}</h1>
 )
 
-const CustomerCard: React.FunctionComponent<{ name: string; link: string }> = (props) => (
-  <div className="customer-card">
-    <H1>{props.name}</H1>
-    {props.children}
-    <div style={{ flex: 1 }} />
-    <a href={props.link}>
-      <button className="large">Learn More</button>
-    </a>
-  </div>
-)
+// const CustomerCard: React.FunctionComponent<{ name: string; link: string }> = (props) => (
+//   <div className={styles.CustomerCard}>
+//     <H1>{props.name}</H1>
+//     {props.children}
+//     <div style={{ flex: 1 }} />
+//     <a href={props.link}>
+//       <button className="large">Learn More</button>
+//     </a>
+//   </div>
+// )
+
 export default IndexPage

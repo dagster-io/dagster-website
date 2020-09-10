@@ -1,12 +1,10 @@
 import 'css/tailwind.css'
-import 'css/home.css';
 import Head from 'next/head'
 import { AppProps } from 'next/app'
 import HomeLayout from 'components/layouts/HomeLayout'
 import Layout from 'components/layouts/Layout'
 import { useRouter } from 'next/dist/client/router'
 import { CustomMdxProvider } from 'components/CustomMdxProvider'
-import Header from 'components/Header';
 import Footer from 'components/Footer';
 
 export default function App({ Component, pageProps }: AppProps) {
