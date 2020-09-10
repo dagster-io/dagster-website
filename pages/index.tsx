@@ -9,7 +9,7 @@ const IndexPage = () => (
     <div style={{ height: 100 }} />
     <div className={`${styles.centeredContent} text-center`}>
       <h1 className="text-3xl mb-4 font-bold ">
-        Dagster is a data orchestrator for machine learning, analytics, and ETL.
+        Dagster is a data orchestrator for machine learning, analytics, and ETL
       </h1>
       <div style={{ display: 'flex' }} className={styles.columnsOnMobile}>
         <div className="text-center" style={{ flex: 1, marginTop: 50 }}>
@@ -59,16 +59,16 @@ const IndexPage = () => (
       </div>
     </div>
     <div style={{ background: '#f5f9fc', paddingTop: 100, paddingBottom: 140 }}>
-      <div className={`${styles.centeredContent} ${styles.columnsOnMobile}`} style={{ display: 'flex' }}>
+      <div
+        className={`${styles.centeredContent} ${styles.columnsOnMobile}`}
+        style={{ display: 'flex' }}
+      >
         <div style={{ flex: 1 }} className={styles.firstOnMobile}>
           <img src="images/graphic-deployment.png" style={{ width: '100%', minWidth: 100 }} />
         </div>
         <div style={{ width: 60 }} />
         <div style={{ flex: 2 }}>
-          <H1>
-            Develop and test on your laptop,
-            deploy anywhere
-          </H1>
+          <H1>Develop and test on your laptop, deploy anywhere</H1>
           <p>
             With Dagster’s pluggable execution, the same pipeline can run in-process, against your
             local file system or on a distributed work queue, against your production data lake. You
@@ -204,11 +204,20 @@ const IndexPage = () => (
         <div className={styles.dots}>
           <img src="images/dots.svg" />
         </div>
-        <img src="images/screenshot-1.png" className={`${styles.screenshot} ${styles.screenshot1}`} />
+        <img
+          src="images/screenshot-1.png"
+          className={`${styles.screenshot} ${styles.screenshot1}`}
+        />
 
-        <img src="images/screenshot-2.png"  className={`${styles.screenshot} ${styles.screenshot2}`}/>
+        <img
+          src="images/screenshot-2.png"
+          className={`${styles.screenshot} ${styles.screenshot2}`}
+        />
 
-        <img src="images/screenshot-3.png"  className={`${styles.screenshot} ${styles.screenshot3}`} />
+        <img
+          src="images/screenshot-3.png"
+          className={`${styles.screenshot} ${styles.screenshot3}`}
+        />
         <div className={styles.localnote}>
           <p>
             Dagster’s UI runs locally on your machine and can also be deployed to your production
