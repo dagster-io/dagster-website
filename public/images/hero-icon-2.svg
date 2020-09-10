@@ -14,7 +14,7 @@
     </defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="hero-icon-2">
-            <path d="M125.020584,4.75 L134.097707,18.0096569 L125.444069,31.25 L113.230035,31.25 L133.068564,49.75 L167.020584,49.75 L176.097707,63.0096569 L167.444069,76.25 L120.75,76.25 L120.75,74.4958886 L75.0556353,31.8856128 L74.7582641,4.75 L125.020584,4.75 Z" id="Combined-Shape" stroke="#858585" stroke-width="1.5"></path>
+            <path d="M125.037198,5.75 L134.075701,18.0101519 L125.460603,30.25 L114.587622,30.25 L135.816991,50.75 L167.037198,50.75 L176.075701,63.0101519 L167.460603,75.25 L120.75,75.25 L75.3977246,30.25 L74.75,30.25 L74.75,5.75 L125.037198,5.75 Z" id="Combined-Shape" stroke="#858585" stroke-width="1.5"></path>
             <g id="Rectangle">
                 <use fill="#FFFFFF" xlink:href="#path-2"></use>
                 <rect stroke="#848484" stroke-width="1.5" stroke-linejoin="square" fill-opacity="0.6" fill="url(#linearGradient-1)" x="0.75" y="0.75" width="67.5" height="36.5" rx="3"></rect>
@@ -25,9 +25,6 @@
             </g>
             <text id="A" font-family="Courier-Bold, Courier" font-size="20" font-weight="bold" line-spacing="29" fill="#5A5A5A">
                 <tspan x="28.4990234" y="24">A</tspan>
-            </text>
-            <text id="&lt;T&gt;" font-family="Courier-Bold, Courier" font-size="20" font-weight="bold" line-spacing="29" fill="#888888">
-                <tspan x="84.4970703" y="24">&lt;T&gt;</tspan>
             </text>
             <text id="B" font-family="Courier-Bold, Courier" font-size="20" font-weight="bold" line-spacing="29" fill="#5A5A5A">
                 <tspan x="168.499023" y="24">B</tspan>
