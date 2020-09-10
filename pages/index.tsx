@@ -11,19 +11,31 @@ const IndexPage = () => (
       </h1>
       <div style={{ display: 'flex' }} className="columns-on-mobile">
         <div className="text-center" style={{ flex: 1, marginTop: 50 }}>
-          <img className="inline-block" src="images/hero-icon-1.svg" style={{ height: 70 }} />
+          <img
+            className="inline-block"
+            src="images/hero-icon-1.svg"
+            style={{ height: 70, marginBottom: 20 }}
+          />
           <p>Implement components in any tool, such as Pandas, Spark, SQL, or DBT.</p>
         </div>
         <div style={{ width: 40 }} />
         <div className="text-center" style={{ flex: 1, marginTop: 50 }}>
-          <img className="inline-block" src="images/hero-icon-2.svg" style={{ height: 70 }} />
+          <img
+            className="inline-block"
+            src="images/hero-icon-2.svg"
+            style={{ height: 70, marginBottom: 20 }}
+          />
           <p>
             Define your pipelines in terms of the data flow between reusable, logical components.
           </p>
         </div>
         <div style={{ width: 40 }} />
         <div className="text-center" style={{ flex: 1, marginTop: 50 }}>
-          <img className="inline-block" src="images/hero-icon-3.svg" style={{ height: 70 }} />
+          <img
+            className="inline-block"
+            src="images/hero-icon-3.svg"
+            style={{ height: 70, marginBottom: 20 }}
+          />
           <p>Test locally and run anywhere with a unified view of data pipelines and assets.</p>
         </div>
       </div>
@@ -31,7 +43,7 @@ const IndexPage = () => (
         style={{
           display: 'flex',
           justifyContent: 'center',
-          paddingTop: 30,
+          paddingTop: 50,
           paddingBottom: 50,
         }}
       >
@@ -107,7 +119,10 @@ const IndexPage = () => (
 
       <div className="feature-section columns-on-mobile">
         <div style={{ flex: 1 }} className="first-on-mobile">
-          <img src="images/graphic-asset-manager.png" style={{ width: '100%', minWidth: 100 }} />
+          <img
+            src="images/graphic-asset-manager.png"
+            style={{ width: '100%', minWidth: 100, transform: 'scale(1.2)' }}
+          />
         </div>
         <div style={{ width: 60 }} />
         <div style={{ flex: 1.7 }}>
@@ -241,21 +256,23 @@ const IndexPage = () => (
         <p>Incrementally adopt Dagster by wrapping existing code into Dagster solids.</p>
         <div
           style={{
+            marginTop: 30,
             display: 'flex',
             justifyContent: 'center',
-            flexWrap: 'wrap',
             alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
-          <img src="images/logos/1.png" style={{ padding: 8 }} />
-          <img src="images/logos/2.png" style={{ padding: 8 }} />
-          <img src="images/logos/3.png" style={{ padding: 8 }} />
-          <img src="images/logos/4.png" style={{ padding: 8 }} />
-          <img src="images/logos/5.png" style={{ padding: 8 }} />
-          <img src="images/logos/6.png" style={{ padding: 8 }} />
-          <img src="images/logos/7.png" style={{ padding: 8 }} />
-          <img src="images/logos/8.png" style={{ padding: 8 }} />
-          <img src="images/logos/9.png" style={{ padding: 8 }} />
+          <img src="images/logos/airflow.png" style={{ height: 60, padding: 12 }} />
+          <img src="images/logos/aws.jpg" style={{ height: 60, padding: 12 }} />
+          <img src="images/logos/azure.jpg" style={{ height: 60, padding: 12 }} />
+          <img src="images/logos/dask.svg" style={{ height: 60, padding: 12 }} />
+          <img src="images/logos/datadog.svg" style={{ height: 60, padding: 12 }} />
+          <img src="images/logos/gcp.png" style={{ height: 60, padding: 12 }} />
+          <img src="images/logos/jupyter.jpg" style={{ height: 60, padding: 12 }} />
+          <img src="images/logos/papermill.png" style={{ height: 60, padding: 12 }} />
+          <img src="images/logos/snowflake.jpg" style={{ height: 60, padding: 12 }} />
+          <img src="images/logos/spark.jpg" style={{ height: 60, padding: 12 }} />
         </div>
       </div>
     </div>
