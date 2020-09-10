@@ -16,10 +16,6 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <div className="antialiased">
       <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Ropa+Sans&display=swap"
-          rel="stylesheet"
-        />
         {/*
 
         TODO: Add all these

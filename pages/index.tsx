@@ -67,7 +67,6 @@ const IndexPage = () => (
         <div style={{ flex: 2 }}>
           <H1>
             Develop and test on your laptop,
-            <br />
             deploy anywhere
           </H1>
           <p>
