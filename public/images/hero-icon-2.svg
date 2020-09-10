@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="251px" height="81px" viewBox="0 0 251 81" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>hero-icon-2</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFFFFF" stop-opacity="0.481424825" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.192416958" offset="32.8097684%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.0370863202" offset="46.017264%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="69" height="38" rx="3"></rect>
+        <rect id="path-3" x="140" y="0" width="69" height="38" rx="3"></rect>
+        <rect id="path-4" x="182" y="43" width="69" height="38" rx="3"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="hero-icon-2">
+            <path d="M125.037198,5.75 L134.075701,18.0101519 L125.460603,30.25 L114.587622,30.25 L135.816991,50.75 L167.037198,50.75 L176.075701,63.0101519 L167.460603,75.25 L120.75,75.25 L75.3977246,30.25 L74.75,30.25 L74.75,5.75 L125.037198,5.75 Z" id="Combined-Shape" stroke="#858585" stroke-width="1.5"></path>
+            <g id="Rectangle">
+                <use fill="#FFFFFF" xlink:href="#path-2"></use>
+                <rect stroke="#848484" stroke-width="1.5" stroke-linejoin="square" fill-opacity="0.6" fill="url(#linearGradient-1)" x="0.75" y="0.75" width="67.5" height="36.5" rx="3"></rect>
+            </g>
+            <g id="Rectangle">
+                <use fill="#FFFFFF" xlink:href="#path-3"></use>
+                <rect stroke="#848484" stroke-width="1.5" stroke-linejoin="square" fill-opacity="0.6" fill="url(#linearGradient-1)" x="140.75" y="0.75" width="67.5" height="36.5" rx="3"></rect>
+            </g>
+            <text id="A" font-family="Courier-Bold, Courier" font-size="20" font-weight="bold" line-spacing="29" fill="#5A5A5A">
+                <tspan x="28.4990234" y="24">A</tspan>
+            </text>
+            <text id="B" font-family="Courier-Bold, Courier" font-size="20" font-weight="bold" line-spacing="29" fill="#5A5A5A">
+                <tspan x="168.499023" y="24">B</tspan>
+            </text>
+            <g id="Rectangle">
+                <use fill="#FFFFFF" xlink:href="#path-4"></use>
+                <rect stroke="#848484" stroke-width="1.5" stroke-linejoin="square" fill-opacity="0.6" fill="url(#linearGradient-1)" x="182.75" y="43.75" width="67.5" height="36.5" rx="3"></rect>
+            </g>
+            <text id="C" font-family="Courier-Bold, Courier" font-size="20" font-weight="bold" line-spacing="29" fill="#5A5A5A">
+                <tspan x="210.499023" y="67">C</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

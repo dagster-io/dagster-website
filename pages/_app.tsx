@@ -5,6 +5,7 @@ import HomeLayout from 'components/layouts/HomeLayout'
 import Layout from 'components/layouts/Layout'
 import { useRouter } from 'next/dist/client/router'
 import { CustomMdxProvider } from 'components/CustomMdxProvider'
+import Footer from 'components/Footer';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -37,6 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
           </CustomMdxProvider>
         </PageLayout>
       </main>
+      <Footer />
     </div>
   )
 }

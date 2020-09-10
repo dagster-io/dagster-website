@@ -1,0 +1,137 @@
+.index h1,
+.index h2,
+.index h3,
+.index h4 {
+}
+.index p {
+  line-height: 1.55rem;
+}
+.index .customerCard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  box-shadow: 0 2px 40px rgba(191, 191, 191, 0.5);
+  background: white;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  color: #111;
+}
+.index .centeredContent {
+  margin: auto;
+  padding: 0 20px;
+  position: relative;
+  max-width: 1100px;
+}
+.index .centeredTitle {
+  text-align: center;
+}
+.index .centeredTitle h1 {
+  margin-bottom: 0;
+}
+.index .centeredTitle p {
+  margin-top: 3px;
+  opacity: 0.7;
+}
+.index .featureSection {
+  display: flex;
+  margin-bottom: 70px;
+}
+.index .featureSection a {
+  font-weight: 600;
+  text-decoration: none;
+}
+.index a {
+  color: #4485c2;
+}
+.index button.large {
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  background: white;
+  color: #4485c2;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 14px 28px;
+}
+.index button.large:hover {
+  border: 1px solid #ddd;
+  background: #f5f5f5;
+}
+.index button.primary {
+  border: 1px solid #336ea5;
+  background: #4485c2;
+  color: white;
+}
+.index button.primary:hover {
+  border: 1px solid #215686;
+  background: #336ea5;
+}
+
+.index .screenshots {
+  padding-bottom: 20px;
+}
+.index .screenshots .overview {
+  width: 40%;
+}
+.index .screenshots .dots {
+  right: 4%;
+  top: -120px;
+  width: 430px;
+  position: absolute;
+  z-index: 1;
+}
+.index .screenshots .screenshot {
+  width: 430px;
+  position: absolute;
+  border: 10px solid white;
+  box-shadow: 0 2px 40px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+.index .screenshots .screenshot1 {
+  right: 0%;
+  top: -100px;
+}
+.index .screenshots .screenshot2 {
+  right: 12%;
+  top: 70px;
+}
+.index .screenshots .screenshot3 {
+  right: 40%;
+  top: 240px;
+}
+.index .screenshots .localnote {
+  opacity: 0.6;
+  right: 0%;
+  top: 430px;
+  width: 390px;
+  position: absolute;
+}
+
+@media (max-width: 500px) {
+  .index .columnsOnMobile {
+    flex-direction: column;
+  }
+  .index .firstOnMobile {
+    order: -1;
+  }
+  .index .hideOnMobile {
+    display: none;
+  }
+  .index .screenshots .overview {
+    width: 100%;
+  }
+  .index .screenshots .dots {
+    display: none;
+  }
+  .index .screenshots .screenshot {
+    position: initial;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  .index .screenshots .localnote {
+    position: initial;
+  }
+}
