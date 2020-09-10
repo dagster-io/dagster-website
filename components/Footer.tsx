@@ -35,7 +35,10 @@ const Footer = () => {
             </div>
           </nav>
           <div className="mt-8 flex justify-center">
-            <a href="#" className="ml-6 text-gray-400 hover:text-gray-500">
+            <a
+              href="https://github.com/dagter-io/dagster"
+              className="ml-6 text-gray-400 hover:text-gray-500"
+            >
               <span className="sr-only">GitHub</span>
               <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                 <path
@@ -46,14 +49,20 @@ const Footer = () => {
               </svg>
             </a>
 
-            <a href="#" className="ml-6 text-gray-400 hover:text-gray-500">
+            <a
+              href="https://dagster-slackin.herokuapp.com/"
+              className="ml-6 text-gray-400 hover:text-gray-500"
+            >
               <span className="sr-only">Slack</span>
               <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z" />
               </svg>
             </a>
 
-            <a href="#" className="ml-6 text-gray-400 hover:text-gray-500">
+            <a
+              href="https://stackoverflow.com/questions/tagged/dagster"
+              className="ml-6 text-gray-400 hover:text-gray-500"
+            >
               <span className="sr-only">Stackoverflow</span>
               <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18.986 21.865v-6.404h2.134V24H1.844v-8.539h2.13v6.404h15.012zM6.111 19.731H16.85v-2.137H6.111v2.137zm.259-4.852l10.48 2.189.451-2.07-10.478-2.187-.453 2.068zm1.359-5.056l9.705 4.53.903-1.95-9.706-4.53-.902 1.936v.014zm2.715-4.785l8.217 6.855 1.359-1.62-8.216-6.853-1.35 1.617-.01.001zM15.751 0l-1.746 1.294 6.405 8.604 1.746-1.294L15.749 0h.002z" />
