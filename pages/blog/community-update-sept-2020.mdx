@@ -1,0 +1,148 @@
+---
+layout: 'BlogPost'
+status: 'published'
+title: 'Dagster Community Update: September 2020'
+excerpt: "Our monthly community meeting featured a retrospective of our 0.9.0 release, a preview of our 0.10.0 roadmap, and Prezi's journey from a homegrown orchestration solution to Dagster."
+date: '2020-09-15'
+---
+
+import { LinkPreview } from 'components/LinkPreview'
+
+Last week we had our first regular monthly community update meeting. Our hope is to get together on roughly a monthly basis so that members of the [Dagster](https://github.com/dagster-io/dagster) community have a chance to share what they’re working on and ask questions directly to the the core dev team.
+
+If you’d like to present at a community meeting, or if there are topics you’d like to hear the core team discuss, please get in touch! We’re still feeling out this community stuff and we’d love to hear from you how to make it better.
+
+<LinkPreview url="https://www.youtube.com/watch?v=6uM1IDFjobs&feature=youtu.be" />
+
+With users in Thailand, Hungary, and Oregon, we know not everyone is going to be able to make it to every meeting live — no worries, they’ll all be recorded so you can watch and engage at your leisure. Please join us in October!
+
+Here’s a quick recap if you'd prefer to read about it.
+
+## 0.9.0 Retrospective
+
+After a brief intro from Nick Schrock ([@schrockn](https://twitter.com/schrockn)), the founder of Elementl, Max Gasner ([@gasnerpants](https://twitter.com/gasnerpants)) led a short tour of some of the highlights from our 0.9.0 release, “Laundry Service”.
+
+<LinkPreview url="https://docs.google.com/presentation/d/17ts4HfRUEqLbBF52DZ66G1QHI1PutK2MnY_cnlTWbug/edit?usp=sharing" />
+
+### Overview
+
+* This was a shorter major release than 0.8.0 and 0.10.0, with a focus on bugfixing, internal refactor, and hardening.
+* We have officially dropped support for Python 3.5, and we are now committing to full support for Python 3.8.
+
+### User code isolation
+
+* User code is now completely isolated from framework code at the process level, so segfaults in user code can’t bring the framework down. We are using [grpc](https://grpc.io/) for inter-process communication, which makes it possible to run user code in separate containers. This is on master today. Using grpc also paves the way for future polyglot Dagster, with user code running in languages other than Python.
+
+### Kubernetes hardening
+
+* We’ve made a lot of small improvements to scheduling on [Kubernetes](https://kubernetes.io/) and deploy with [Helm](https://helm.sh/), and we’ve implemented run termination on Kubernetes. We are building towards seamless, no-downtime user code deploys on Kubernetes, which should be a full reality in 0.10.0.
+* We’ve separated out the `dagster-celery`, `dagster-celery-k8s`, and `dagster-celery-docker` packages for cleaner dependency management and to avoid bundling unrelated functionality together.
+
+### Scheduling
+
+* We’ve added an instance-wide view of the scheduler to Dagit, which will be a platform for further development in 0.10.0 — including specialized backfill UI and longitudinal views of scheduled runs.
+* We have also introduced support for k8s-cron, so you no longer need to run system cron to support schedules on Kubernetes.
+
+### Hooks
+
+* We’ve implemented an experimental hooks API to run chunks of user code on solid success or failure, e.g., Slack notifications. We’re very excited to see how the community uses this and to get feedback on API design.
+
+### `configured`
+
+* We’ve added the `configured` and `@configured` APIs to make it easier to reuse configurable objects, like solids and resources. You can now package chunks of config up with those objects, effectively currying them with partial config and config mapping functions. We think this will greatly improve the ergonomics of repeated config fragments.
+
+### Deprecation policy
+
+* We are committing not to make breaking changes to public APIs (i.e., APIs that are present at the top level in `dagster/__init__.py`) in minor releases (0.0.x).
+* We are committing to mark APIs deprecated before they are broken — this will generate a warning, so please enable warning display in your test suites if you haven’t.
+* We are introducing a new experimental marker for APIs that may be broken between minor releases. Use of experimental APIs will also generate a warning.
+* If you find yourself using internals to get meaningful work done, please get in touch with the core team!
+
+### Public API changes in 0.9.0
+
+* `config` → `config_schema`
+* `Materialization` → `AssetMaterialization`
+* `@system_storage` → `@intermediate_storage`
+* `input_hydration_config` → `loader` 😅
+* `output_materialization_config` → `materializer`
+* `@engine` → `@executor`
+
+## 0.10.0 Preview
+
+Sandy Ryza ([@s_ryz](https://twitter.com/s_ryz)) led us through a quick preview of some of the areas we’re working on for 0.10.0. In choosing what to work on, the team is motivated by two questions: first, where are our users feeling the most pain? And second, how can we push the envelope of what a data orchestrator can offer?
+
+<LinkPreview url="https://docs.google.com/presentation/d/1qwV2i_4wp-72HsCeQza1ZEP02QPoz8KLIC4czcNzw5s/edit?usp=sharing" />
+
+As part of our planning process, we’ve tried to distinguish between work that changes the way our users develop and maintain data assets, like data warehouse tables or machine learning modules; the way we execute the computations that create these assets; and the way we deploy and manage instances of Dagster.
+
+### Assets
+
+* *Backfills*: It’s too hard to backfill over a subset of solids; difficult to track the status of backfills, and difficult to run backfills over tens or hundreds of partitions. We’ll be building on the new step-partition matrix view in Dagit to make backfill management easier.
+* *Data lake intermediates*: The distinction between assets and intermediates that live in data warehouses or data lakes is too confusing.
+* *Version-based memoization*: We have an opportunity to offer code version-based memoization of intermediate values, enabling incremental computation based on results from previous runs where code has not changed. Especially in dev and when debugging, this will save cycles by avoiding recomputation of intermediate results that remain fresh, while recomputing the results of solids that have changed. This will also enable version-based backfills.
+
+### Execution
+
+* *Dynamic orchestration*: We’d like for Dagster to be able to generate execution steps based on data during execution, not just when a pipeline is compiled with config.
+* *Cross-DAG dependencies*: We’d like to be able to define data dependencies between pipelines, rather than relying on implicit guarantees.
+* *Multi-container orchestration*: We’d like to be able to assemble pipelines out of multiple containers.
+* *Event-driven scheduling*: We’d like to be able to launch pipeline runs not just on fixed ticks, but also in response to external events.
+
+### Deployment
+
+* *Scheduler operations*: The dependency on system cron leads to issues of drift and state management, and node failures can make the scheduler miss ticks. In 0.10.0, we’re going to work on a more fault-tolerant scheduler that’s a first-class component.
+
+## Dagster at Prezi
+
+Tamás Németh ([@treff7es](https://twitter.com/treff7es)), staff engineer at [Prezi](https://prezi.com/welcome#/onboarding), presented an overview of Prezi’s migration to Dagster from a homegrown orchestrator.
+
+<LinkPreview url="https://prezi.com/view/kveaLi8KasReSs4pyP5l/" />
+
+### Migrating from homegrown solution
+
+* The data engineering team started about 8 years ago at Prezi, at first scheduling one-off jobs using cron.
+* The team built a homegrown orchestration solution, called Flowkeeper, about 6 years ago, after evaluating the available open-source options.
+* Prezi’s major concern in building their own solution was that users did not want to write code to define pipelines. Instead, Flowkeeper compiles jobs from human-friendly JSON-based config files that define schedules, priorities, job types, data dependencies between jobs, and job parameters.
+* Prezi ended up with about 900 jobs defined in Flowkeeper, and a huge dependency graph, posing all the inevitable operations and dependency management issues. The team was faced with the alternatives of improving their homegrown solution or adopting an open source solution.
+* The team chose to move to Dagster for several reasons: the overhead of maintaining their homegrown solution with a small team, difficulties they faced in tracing and debugging upstream failures with Flowkeeper, the team’s concurrent migration to Kubernetes, difficulties they faced in extending their existing code base, and the need for testability.
+
+### Compiling JSON to Dagster pipelines
+
+* The team wanted to use Dagster as execution engine, but not require that all of the jobs be rewritten: so they decided to keep the existing JSON job descriptors and format.
+* Individual Dagster solids correspond to Flowkeeper job types, e.g., Redshift transforms are executed by a single configurable solid.
+* The JSON job descriptors are compiled to solid config, and then configured solids are assembled into pipelines and presets using their inputs and outputs to define dependencies.
+* The compilation process also injects solid metadata as tags for better operability in Dagit.
+
+### Modeling cross-job dependencies
+
+* Prezi have chosen to model the dependencies between all of their daily jobs as one mega-pipeline in order to make dependencies between jobs explicit.
+* They make extensive use of the solid subset selection language to define sets of solids for execution and inspection, and to track downstream dependencies.
+
+### Development & deploy workflow
+
+* Individual users do their local development of new jobs using Dagit, using their personal credentials to access shared resources.
+* Users then open pull requests to merge their work, and Jenkins runs tests on pipelines.
+* Tests use a test mode to execute pipelines against mocked resources.
+* After tests pass, jobs are deployed to Kubernetes, using the dagster-celery-k8s executor for queueing, concurrency, and priority.
+* Celery queues are used to manage concurrent access to shared resources like Redshift cluster.
+
+### Surprises & delights with Dagster
+
+* Visualizing the lineage of individual jobs is easy to do using the solid subset selection language.
+* Dagit’s longitudinal pipeline performance monitoring views make it easy to track issues with job and pipeline execution times.
+* The integrated log viewer and ability to re-execute pipeline subsets in the playground power a tight dev loop.
+* It’s straightforward to run pipelines in test with mocked resources.
+* Dagit’s strongly typed config editor helps users to write config with typeahead and hinting.
+
+### Next steps for Dagster at Prezi
+
+* Prezi have migrated 10% of jobs to Dagster, and are working on migrating the remaining jobs.
+* Prezi are onboarding the remainder of their analytics team, which requires some user training and a migration guide from Flowkeeper.
+* Prezi are excited about the improvements to the system’s backfill capabilities that are on roadmap for 0.10.0.
+* Prezi are planning to invest in better data quality checks when they ingest data.
+
+## Thanks!
+
+Please join us in October for our next community update, and please don’t hesitate to reach out if you’d like to share your work with Dagster with the broader community.
+
+As always, the core team is available on Slack to answer your questions in the interim. We’ve also introduced [a new forum for discussions](https://github.com/dagster-io/dagster/discussions) on Github and are planning to move much of our roadmap and design work to that forum.
