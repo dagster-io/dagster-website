@@ -266,8 +266,10 @@ const IndexPage = () => (
         <p>Incrementally adopt Dagster by wrapping existing code into Dagster solids.</p>
         <div
           style={{
+            margin: 'auto',
             marginTop: 30,
             textAlign: 'center',
+            maxWidth: 780
           }}
         >
           {[
@@ -281,6 +283,7 @@ const IndexPage = () => (
             'papermill.png',
             'snowflake.jpg',
             'spark.jpg',
+            'k8s.png'
           ].map((logo) => (
             <img
               key={logo}
