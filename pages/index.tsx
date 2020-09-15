@@ -1,4 +1,5 @@
 import { Hero } from 'components/home/Hero'
+import React from 'react'
 
 import styles from './index.module.css'
 
@@ -6,7 +7,6 @@ const IndexPage = () => (
   <div className={styles.index}>
     <Hero />
 
-    <div style={{ height: 100 }} />
     <div className={`${styles.centeredContent} text-center`}>
       <h1 className="text-3xl mb-4 font-bold ">
         Dagster is a data orchestrator for machine learning, analytics, and ETL
@@ -204,17 +204,17 @@ const IndexPage = () => (
         <div className={styles.dots}>
           <img src="images/dots.svg" />
         </div>
-        <img
+        <ExpandableImage
           src="images/screenshot-1.png"
           className={`${styles.screenshot} ${styles.screenshot1}`}
         />
 
-        <img
+        <ExpandableImage
           src="images/screenshot-2.png"
           className={`${styles.screenshot} ${styles.screenshot2}`}
         />
 
-        <img
+        <ExpandableImage
           src="images/screenshot-3.png"
           className={`${styles.screenshot} ${styles.screenshot3}`}
         />
@@ -267,22 +267,27 @@ const IndexPage = () => (
         <div
           style={{
             marginTop: 30,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexWrap: 'wrap',
+            textAlign: 'center',
           }}
         >
-          <img src="images/logos/airflow.png" style={{ height: 60, padding: 12 }} />
-          <img src="images/logos/aws.jpg" style={{ height: 60, padding: 12 }} />
-          <img src="images/logos/azure.jpg" style={{ height: 60, padding: 12 }} />
-          <img src="images/logos/dask.svg" style={{ height: 60, padding: 12 }} />
-          <img src="images/logos/datadog.svg" style={{ height: 60, padding: 12 }} />
-          <img src="images/logos/gcp.png" style={{ height: 60, padding: 12 }} />
-          <img src="images/logos/jupyter.jpg" style={{ height: 60, padding: 12 }} />
-          <img src="images/logos/papermill.png" style={{ height: 60, padding: 12 }} />
-          <img src="images/logos/snowflake.jpg" style={{ height: 60, padding: 12 }} />
-          <img src="images/logos/spark.jpg" style={{ height: 60, padding: 12 }} />
+          {[
+            'airflow.png',
+            'aws.jpg',
+            'azure.jpg',
+            'dask.svg',
+            'datadog.svg',
+            'gcp.png',
+            'jupyter.jpg',
+            'papermill.png',
+            'snowflake.jpg',
+            'spark.jpg',
+          ].map((logo) => (
+            <img
+              key={logo}
+              src={`images/logos/${logo}`}
+              style={{ height: 60, padding: 12, display: 'inline-block' }}
+            />
+          ))}
         </div>
       </div>
     </div>
@@ -294,6 +299,19 @@ const IndexPage = () => (
 const H1: React.FunctionComponent = (props) => (
   <h1 className="text-2xl mb-4 font-bold tracking-tight">{props.children}</h1>
 )
+
+const ExpandableImage: React.FunctionComponent<{ src: string; className: string }> = (props) => {
+  const [expanded, setExpanded] = React.useState(false)
+  return (
+    <>
+      <img src={props.src} className={props.className} onClick={() => setExpanded(true)} />
+      <div className={`${styles.imageModal} ${expanded && styles.expanded}`} onClick={() => setExpanded(false)} >
+      <div className={`${styles.background}`}/>
+        <img src={props.src} />
+      </div>
+      </>
+  )
+}
 
 // const CustomerCard: React.FunctionComponent<{ name: string; link: string }> = (props) => (
 //   <div className={styles.CustomerCard}>

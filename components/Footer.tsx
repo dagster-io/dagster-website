@@ -9,7 +9,7 @@ const Footer = () => {
         borderTop: '0px solid #D6E3ED',
         background: 'url(images/oceandagster.png), #f5f9fc',
         backgroundSize: 'cover',
-        backgroundPosition: '90% 0%',
+        backgroundPosition: '80% 0%',
       }}
     >
       <div className="">

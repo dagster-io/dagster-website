@@ -3,8 +3,8 @@ import styles from './Hero.module.css'
 
 export const Hero: React.FunctionComponent<{}> = () => {
   return (
-    <div className={styles.Hero} style={{ width: '100vw', position: 'relative', marginTop: 10 }}>
-      <svg width="100vw" viewBox="0 0 1627 226" version="1.1">
+    <div className={styles.container} >
+      <svg className={styles.svg} width="100vw" viewBox="0 0 1627 226" version="1.1">
         <g
           id="Group-2"
           transform="translate(2.000000, 0.783697)"
@@ -181,14 +181,7 @@ export const Hero: React.FunctionComponent<{}> = () => {
       />
       <img
         src='/images/logo.png'
-        style={{
-          width: '11vw',
-          height: '11vw',
-          position: 'absolute',
-          bottom: '-4vw',
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }}
+        className={styles.logo}
       />
     </div>
   )
