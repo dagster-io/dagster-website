@@ -19,17 +19,21 @@ export default function BlogPostLayout({
         <script async src="https://cdn.embedly.com/widgets/platform.js" type="text/javascript" />
         {frontMatter.status === 'published' ? (
           <>
+            {/* Search Engine */}
+            <meta name="description" content={frontMatter.excerpt} />
             <meta key="title" name="title" content={title} />
-            <meta key="og:title" property="og:title" content={title} />
-            <meta key="twitter:title" property="twitter:title" content={title} />
-
-            <meta key="description" name="description" content={frontMatter.excerpt} />
-            <meta key="og:description" property="og:description" content={frontMatter.excerpt} />
+            {/* Twitter */}
+            <meta name="twitter:card" content="summary" />
+            <meta name="twitter:title" content={title} />
             <meta
               key="twitter:description"
               property="twitter:description"
               content={frontMatter.excerpt}
             />
+            {/* <!-- Open Graph general (Facebook, Pinterest & Google+) --> */}
+            <meta name="og:type" content="website" />
+            <meta key="og:title" property="og:title" content={title} />
+            <meta key="og:description" property="og:description" content={frontMatter.excerpt} />
           </>
         ) : (
           // tell web crawlers to not index the page if it is not published
