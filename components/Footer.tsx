@@ -36,7 +36,7 @@ const Footer = () => {
           </nav>
           <div className="mt-8 flex justify-center">
             <a
-              href="https://github.com/dagter-io/dagster"
+              href="https://github.com/dagster-io/dagster/"
               className="ml-6 text-gray-400 hover:text-gray-500"
             >
               <span className="sr-only">GitHub</span>
