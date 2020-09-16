@@ -11,6 +11,7 @@ export default function BlogPostLayout({
   frontMatter: BlogPostFrontMatter
 }) {
   const title = `${frontMatter.title} | Dagster Blog`
+  const coverImage = frontMatter.coverImage ? frontMatter.coverImage : '/images/logos/dagster.png'
   return (
     <article>
       <DynamicHead>
@@ -30,10 +31,13 @@ export default function BlogPostLayout({
               property="twitter:description"
               content={frontMatter.excerpt}
             />
+            <meta property="twitter:image" content={coverImage} />
+
             {/* <!-- Open Graph general (Facebook, Pinterest & Google+) --> */}
             <meta name="og:type" content="website" />
             <meta key="og:title" property="og:title" content={title} />
             <meta key="og:description" property="og:description" content={frontMatter.excerpt} />
+            <meta property="og:image" content={coverImage} />
           </>
         ) : (
           // tell web crawlers to not index the page if it is not published
