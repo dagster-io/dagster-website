@@ -25,8 +25,26 @@
     opacity: 1;
   }
 }
+.svg {
+  display :initial;
+}
 .base {
   animation: strokein 600ms linear none;
+}
+.logo {
+  width: 11vw;
+  height: 11vw;
+  position: absolute;
+  bottom: -4vw;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.container {
+     width: 100vw;
+      position: relative;
+       margin-Top: 10px;
+       margin-bottom: 100px;
 }
 .animated {
   stroke: rgba(86, 164, 234, 1);
@@ -42,6 +60,24 @@
   stroke-dashoffset: 500;
   stroke-width: 5;
   stroke-linecap: round;
-  animation: strokeanim 300s linear infinite reverse,
-    fadein 2000ms ease-in none;
+  animation: strokeanim 300s linear infinite reverse, fadein 2000ms ease-in none;
+}
+
+@media (max-width: 600px) {
+  .svg {
+    display: none;
+  }
+  .base {
+    display: none;
+  }
+  .logo {
+    width: 120px;
+    height: 120px;
+    position: inherit;
+  }
+  .container {
+    margin-bottom: 30px;
+
+  }
+
 }

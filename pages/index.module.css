@@ -108,6 +108,38 @@
   width: 390px;
   position: absolute;
 }
+.index .imageModal {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease-out;
+  z-index: 50;
+}
+.index .imageModal img {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90vw;
+  transform: translate(-50%, -50%) scale(0.9);
+  transition: transform 180ms ease-out;
+  border: 10px solid white;
+  box-shadow: 0 3px 30px rgba(0,0,0,0.2);
+  z-index: 2;
+}
+.index .imageModal .background {
+  position: fixed;
+  background: rgba(0,0,0,0.2);
+  top: 0; left: 0; right: 0; bottom: 0;
+}
+.index .imageModal.expanded {
+  opacity: 1;
+  pointer-events: initial;
+  z-index: 5;
+}
+.index .imageModal.expanded img  {
+  transform: translate(-50%, -50%) scale(1);
+}
+
 
 @media (max-width: 500px) {
   .index .columnsOnMobile {
