@@ -14,16 +14,16 @@ const Header = () => {
           <div className="flex">
             <a href="/" className="flex-shrink-0 flex items-center">
               <img
-                className="block lg:hidden h-8 w-auto"
+                className="block h-6 w-auto"
                 src="https://docs.dagster.io/assets/logos/small.png"
                 alt="Dagster logo"
               />
-              <img
-                className="hidden lg:block h-8 w-auto"
-                src="https://docs.dagster.io/assets/logos/small.png"
-                alt="Dagster logo"
-              />
-              <div className="font-bold text-xl ml-3">Dagster</div>
+              <div
+                className="text-lg font-bold tracking-widest uppercase hidden md:block"
+                style={{ marginLeft: '.75rem' }}
+              >
+                Dagster
+              </div>
             </a>
             <div className="hidden sm:ml-6 sm:flex">
               <a
