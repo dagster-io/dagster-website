@@ -2,6 +2,7 @@ import type { BlogPostFrontMatter } from 'components/MdxMetadata'
 import { AuthorPanel } from 'components/Author'
 import DynamicHead from 'next/head'
 import * as React from 'react'
+import { DEFAULT_SHARE_IMAGE } from './Layout'
 
 export default function BlogPostLayout({
   children,
@@ -11,7 +12,7 @@ export default function BlogPostLayout({
   frontMatter: BlogPostFrontMatter
 }) {
   const title = `${frontMatter.title} | Dagster Blog`
-  const coverImage = frontMatter.coverImage ? frontMatter.coverImage : '/images/logos/dagster.png'
+  const coverImage = frontMatter.coverImage ? frontMatter.coverImage : DEFAULT_SHARE_IMAGE
   return (
     <article>
       <DynamicHead>
