@@ -4,7 +4,7 @@ import styles from './Hero.module.css'
 export const Hero: React.FunctionComponent<{}> = () => {
   return (
     <div className={styles.container} >
-      <svg className={styles.svg} width="100vw" viewBox="0 0 1627 226" version="1.1">
+      <svg className={styles.svg} width="100%" viewBox="0 0 1627 226" version="1.1">
         <g
           id="Group-2"
           transform="translate(2.000000, 0.783697)"
@@ -162,22 +162,22 @@ export const Hero: React.FunctionComponent<{}> = () => {
       <img
         src='/images/icon-papermill.png'
         className={styles.base}
-        style={{ position: 'absolute', left: '61vw', top: '0.8vw', width: '7vw' }}
+        style={{ position: 'absolute', left: '61%', top: '6.8%', width: '7%' }}
       />
       <img
         src='/images/icon-snowflake.png'
         className={styles.base}
-        style={{ position: 'absolute', left: '28.5vw', top: '4.5vw', width: '1.8vw' }}
+        style={{ position: 'absolute', left: '28.5%', top: '33%', width: '1.8%' }}
       />
       <img
         src='/images/icon-spark.png'
         className={styles.base}
-        style={{ position: 'absolute', left: '79.5vw', top: '4vw', width: '5vw' }}
+        style={{ position: 'absolute', left: '79.5%', top: '30%', width: '5%' }}
       />
       <img
         src='/images/icon-sql.png'
         className={styles.base}
-        style={{ position: 'absolute', left: '4.7vw', top: '12vw', width: '2.5vw' }}
+        style={{ position: 'absolute', left: '4.7%', top: '87%', width: '2.5%' }}
       />
       <img
         src='/images/logo.png'

@@ -3,6 +3,32 @@ import React from 'react'
 
 import styles from './index.module.css'
 
+const COMPATIBLE_PRODUCT_LOGOS = [
+  'airflow.png',
+  'aws.jpg',
+  'azure.jpg',
+  'dask.svg',
+  'datadog.svg',
+  'gcp.png',
+  'jupyter.jpg',
+  'papermill.png',
+  'snowflake.jpg',
+  'spark.jpg',
+  'k8s.png',
+]
+
+const CUSTOMERS = [
+  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
+  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
+  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
+  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
+  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
+  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
+  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
+  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
+  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
+]
+
 const IndexPage = () => (
   <div className={styles.index}>
     <Hero />
@@ -230,6 +256,36 @@ const IndexPage = () => (
 
     <div className={styles.hideOnMobile} style={{ height: 240 }} />
 
+    <div className={styles.customers}>
+      <div className={styles.centeredTitle}>
+        <H1>You're in Good Company</H1>
+        <p>Dagster is used to orchestrate data pipelines at some of our favorite companies.</p>
+      </div>
+      <div className={styles.customerLogoCloud}>
+        {CUSTOMERS.map(({ name, logoURL, url }, idx) => (
+          <a
+            key={idx}
+            title={name}
+            className={styles.customerLogo}
+            href={url}
+            target="_blank"
+            rel="nofollow noreferrer"
+          >
+            <div
+              style={{
+                width: '100%',
+                height: '100%',
+                backgroundImage: `url(${logoURL})`,
+                backgroundSize: 'contain',
+                backgroundPosition: '50% 50%',
+                backgroundRepeat: 'no-repeat',
+              }}
+            />
+          </a>
+        ))}
+      </div>
+    </div>
+
     {/* <div className={styles.centeredContent}>
       <div className={styles.centeredTitle}>
         <H1>You’re in good company</H1>
@@ -269,22 +325,10 @@ const IndexPage = () => (
             margin: 'auto',
             marginTop: 30,
             textAlign: 'center',
-            maxWidth: 780
+            maxWidth: 780,
           }}
         >
-          {[
-            'airflow.png',
-            'aws.jpg',
-            'azure.jpg',
-            'dask.svg',
-            'datadog.svg',
-            'gcp.png',
-            'jupyter.jpg',
-            'papermill.png',
-            'snowflake.jpg',
-            'spark.jpg',
-            'k8s.png'
-          ].map((logo) => (
+          {COMPATIBLE_PRODUCT_LOGOS.map((logo) => (
             <img
               key={logo}
               src={`images/logos/${logo}`}
@@ -308,11 +352,14 @@ const ExpandableImage: React.FunctionComponent<{ src: string; className: string 
   return (
     <>
       <img src={props.src} className={props.className} onClick={() => setExpanded(true)} />
-      <div className={`${styles.imageModal} ${expanded && styles.expanded}`} onClick={() => setExpanded(false)} >
-      <div className={`${styles.background}`}/>
+      <div
+        className={`${styles.imageModal} ${expanded && styles.expanded}`}
+        onClick={() => setExpanded(false)}
+      >
+        <div className={`${styles.background}`} />
         <img src={props.src} />
       </div>
-      </>
+    </>
   )
 }
 
