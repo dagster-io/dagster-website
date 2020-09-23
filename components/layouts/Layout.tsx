@@ -17,6 +17,8 @@ const Layout = ({ children, title = 'Dagster' }: Props) => (
     </Head>
     <Header />
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p>__NODE_ENV__: {__NODE_ENV__}</p>
+      <p>__GA_DISABLED__: {__GA_DISABLED__}</p>
       <div className="flex">{children}</div>
     </div>
   </div>

@@ -61,7 +61,7 @@ export default class Document extends NextDocument {
         </InlineStylesHead>
         <Head>
           {/* We only want to add the scripts if in production */}
-          {__NODE_ENV__ === 'production' && (
+          {__NODE_ENV__ === 'production' && !__GA_DISABLED__ && (
             <>
               <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138684758-4" />
               <script dangerouslySetInnerHTML={this.setGoogleTags()} />
