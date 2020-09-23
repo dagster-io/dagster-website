@@ -23,6 +23,18 @@
       "fullName": "Sandy Ryza",
       "profileImage": "/editors/s_ryz.jpg",
       "url": "https://twitter.com/s_ryz"
+    },
+    {
+      "id": "aj_nadel",
+      "fullName": "AJ Nadel",
+      "profileImage": "/editors/ajnadel.jpg",
+      "url": "https://twitter.com/AJ_Nadel"
+    },
+    {
+      "id": "bobchen168",
+      "fullName": "Bob Chen",
+      "profileImage": "/editors/bobchen.jpg",
+      "url": "https://twitter.com/bobchen168"
     }
   ]
 }
