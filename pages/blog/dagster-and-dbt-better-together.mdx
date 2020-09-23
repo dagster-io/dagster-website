@@ -10,7 +10,7 @@ authors: ['bobchen168', 'aj_nadel']
 
 import { LinkPreview } from 'components/LinkPreview'
 
-We are proud to announce the `dagster-dbt` library, a new first-class integration for Dagster and [dbt](https://www.getdbt.com/product/) (data build tool).
+We are proud to announce the `dagster-dbt` library, a new first-class integration for Dagster and [dbt](https://www.getdbt.com/) (data build tool).
 
 dbt was created by [Fishtown Analytics](https://www.fishtownanalytics.com/) to empower data analysts with tools to build well-defined data transformations in an intuitive, testable, and versioned environment. We love dbt because it embodies the values we think should animate tools in this ecosystem. dbt is hugely enabling for a important class of users, adapting software engineering principles to a slightly different domain with great ergonomics, and puts the graph of computations at the center of the data workflow.
 
@@ -46,23 +46,23 @@ If you’re only familiar with running dbt commands with the CLI, a dbt RPC serv
 - __synchronous__: Dagster invokes dbt over RPC and polls the server until the process completes.
 - __asynchronous__: Dagster invokes dbt over RPC and immediately returns a request token corresponding to the invocation. This token can be used later to poll or cancel the dbt process.
 
-The following example synchronously runs a dbt project via RPC and logs the results of each node of the dbt graph that was executed.
+The following example synchronously runs a dbt project via RPC and logs the results of each model of the dbt project that was executed.
 
 ```python
 from dagster import ModeDefinition, pipeline, solid
 from dagster_dbt import DbtRpcPollResult, dbt_rpc_run_and_wait, local_dbt_rpc_resource
 
 
-# Logs the execution result of each node in the dbt graph
+# Logs the execution result of each dbt model.
 @solid
-def log_nodes(context, poll_result: DbtRpcPollResult):
-    node_results = poll_result.results
-    for node_result in node_results:
+def log_models(context, poll_result: DbtRpcPollResult):
+    model_results = poll_result.results
+    for model_result in model_results:
         context.log.info(
-            "dbt Node {alias} completed in {execution_time:.3f}s with status: {status}".format(
-                alias=node_result.node["alias"],
-                execution_time=node_result.execution_time,
-                status=node_result.status,
+            "dbt Model {alias} completed in {execution_time:.3f}s with status: {status}".format(
+                alias=model_result.model["alias"],
+                execution_time=model_result.execution_time,
+                status=model_result.status,
             )
         )
 
@@ -70,15 +70,13 @@ def log_nodes(context, poll_result: DbtRpcPollResult):
 # Runs dbt via RPC and logs the execution results.
 @pipeline(mode_defs=[ModeDefinition(resource_defs={"dbt_rpc": local_dbt_rpc_resource})])
 def dbt_rpc_pipeline():
-    log_nodes(dbt_rpc_run_and_wait())
+    log_models(dbt_rpc_run_and_wait())
 
 ```
 
-__TODO__: Fix/add syntax highlighting for Python docstrings.
-
 The dbt RPC solids extract metadata from each command invocation. All this information is available in the solids' output type, `DbtRpcPollResult`, and can be used as inputs to descendant solids.
 
-We can pass arguments to the dbt run command by using [solid configs](https://docs.dagster.io/tutorial/basics_solids#specifying-config-for-pipeline-execution). You can set the solid config for your pipeline inside [Dagit](https://docs.dagster.io/overview/dagit), the Dagster web interface. In the YAML below, we specify a subset of dbt models to be run: sort_by_calories and least_caloric.
+We can pass arguments to the dbt run command by using [solid configs](https://docs.dagster.io/tutorial/basics_solids#specifying-config-for-pipeline-execution). You can set the solid config for your pipeline inside [Dagit](https://docs.dagster.io/overview/dagit), the Dagster web interface. In the YAML below, we specify a subset of models in our dbt project to be run: sort_by_calories and least_caloric.
 
 <div align="center">
   <img
@@ -91,8 +89,8 @@ We can pass arguments to the dbt run command by using [solid configs](https://do
 Running this Dagster pipeline on our [dbt sample project](https://github.com/dagster-io/dagster/tree/master/python_modules/libraries/dagster-dbt/dagster_dbt_tests/dagster_dbt_test_project) produces the following:
 
 ```bash
-> dbt Node sort_by_calories completed in 0.124s with status: CREATE VIEW
-> dbt Node least_caloric completed in 0.148s with status: CREATE VIEW
+> dbt Model sort_by_calories completed in 0.124s with status: CREATE VIEW
+> dbt Model least_caloric completed in 0.148s with status: CREATE VIEW
 ```
 
 Using `context.log` is useful for debugging, but it doesn’t provide persistent records of dbt run results.
@@ -126,7 +124,7 @@ custom_dbt_rpc_resource = dbt_rpc_resource.configured({
 # Runs dbt via RPC and logs the execution results.
 @pipeline(mode_defs=[ModeDefinition(resource_defs={"dbt_rpc": custom_dbt_rpc_resource})])
 def dbt_rpc_pipeline():
-    log_nodes(dbt_rpc_run_and_wait())
+    log_models(dbt_rpc_run_and_wait())
 
 ```
 
@@ -148,7 +146,6 @@ from dagster_dbt import DbtCliResult, dbt_cli_run
 # Extracts and logs information from dbt run results.
 @solid
 def log_result(context, run_result: DbtCliResult):
-
     context.log.info(
         "Ran: {r.n_pass} passed, {r.n_warn} warned, {r.n_error} errored, {r.n_skip} skipped",
         r=run_result,
