@@ -2,37 +2,46 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 const mdx = require('@mdx-js/mdx')
 
 module.exports = {
-  purge: false,
-  // {
-  //   mode: 'all',
-  //   content: [
-  //     './pages/**/*.{js,tsx,ts,mdx}',
-  //     './components/**/*.{js,tsx,ts,mdx}',
-  //     './next.config.js',
-  //   ],
-  //   options: {
-  //     extractors: [
-  //       {
-  //         extensions: ['mdx'],
-  //         safelist: {
-  //           standard: [/^bg-/, /^text-/],
-  //         },
-  //         extractor: (content) => {
-  //           content = mdx.sync(content)
+  purge: {
+    mode: 'all',
+    content: [
+      './pages/**/*.{js,tsx,ts,mdx}',
+      './components/**/*.{js,tsx,ts,mdx}',
+      './next.config.js',
+    ],
 
-  //           // Capture as liberally as possible, including things like `h-(screen-1.5)`
-  //           const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []
+    options: {
+      whitelist: [
+        'text-code-red',
+        'text-code-yellow',
+        'text-code-green',
+        'text-code-red',
+        'text-code-green',
+        'text-code-white',
+        'text-code-purple',
+        'text-code-green',
+        'text-code-blue',
+        'text-code-red',
+      ],
+      extractors: [
+        {
+          extensions: ['mdx'],
+          extractor: (content) => {
+            content = mdx.sync(content)
 
-  //           // Capture classes within other delimiters like .block(class="w-1/2") in Pug
-  //           const innerMatches =
-  //             content.match(/[^<>"'`\s.(){}[\]#=%]*[^<>"'`\s.(){}[\]#=%:]/g) || []
+            // Capture as liberally as possible, including things like `h-(screen-1.5)`
+            const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []
 
-  //           return broadMatches.concat(innerMatches)
-  //         },
-  //       },
-  //     ],
-  //   },
-  // },
+            // Capture classes within other delimiters like .block(class="w-1/2") in Pug
+            const innerMatches =
+              content.match(/[^<>"'`\s.(){}[\]#=%]*[^<>"'`\s.(){}[\]#=%:]/g) || []
+
+            return broadMatches.concat(innerMatches)
+          },
+        },
+      ],
+    },
+  },
   theme: {
     extend: {
       lineHeight: {
