@@ -3,7 +3,8 @@ const mdx = require('@mdx-js/mdx')
 
 module.exports = {
   purge: {
-    mode: 'all',
+    // mode: 'all',
+    layers: ['utilities'],
     content: [
       './pages/**/*.{js,tsx,ts,mdx}',
       './components/**/*.{js,tsx,ts,mdx}',
