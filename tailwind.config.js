@@ -10,6 +10,7 @@ module.exports = {
       './next.config.js',
     ],
     options: {
+      whitelistPatterns: [/^text-color/],
       extractors: [
         {
           extensions: ['mdx'],
