@@ -3,18 +3,19 @@ const mdx = require('@mdx-js/mdx')
 
 module.exports = {
   purge: {
-    // mode: 'all',
-    layers: ['utilities'],
+    mode: 'all',
     content: [
       './pages/**/*.{js,tsx,ts,mdx}',
       './components/**/*.{js,tsx,ts,mdx}',
       './next.config.js',
     ],
     options: {
-      whitelistPatterns: [/^text-color/],
       extractors: [
         {
           extensions: ['mdx'],
+          safelist: {
+            standard: [/^bg-/, /^text-/],
+          },
           extractor: (content) => {
             content = mdx.sync(content)
 
