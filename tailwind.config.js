@@ -9,7 +9,20 @@ module.exports = {
       './components/**/*.{js,tsx,ts,mdx}',
       './next.config.js',
     ],
+
     options: {
+      whitelist: [
+        'text-code-red',
+        'text-code-yellow',
+        'text-code-green',
+        'text-code-red',
+        'text-code-green',
+        'text-code-white',
+        'text-code-purple',
+        'text-code-green',
+        'text-code-blue',
+        'text-code-red',
+      ],
       extractors: [
         {
           extensions: ['mdx'],

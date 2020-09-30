@@ -55,11 +55,11 @@ module.exports = withBundleAnalyzer(
   withMdxEnhanced({
     pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
 
-    webpack: (config, { webpack }) => {
+    webpack: (config, { dev, webpack }) => {
       config.plugins.push(
         new webpack.DefinePlugin({
-          // global NODE_DEV variable for differentiate "production"|"test"|"development"
-          __NODE_ENV__: JSON.stringify(process.env.NODE_ENV),
+          __DEV__: dev,
+          __GA_DISABLED__: process.env.GA_DISABLED === 'true',
         })
       )
 
