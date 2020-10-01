@@ -29,5 +29,13 @@ export function getBlogPostFrontMatterList(): BlogPostFrontMatter[] {
     .filter(
       (data) => data.status === 'published' // hide unpublished posts from the feed
     )
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1)) // sort by date desc
+    .sort((post1, post2) =>
+      post1.date === post2.date
+        ? post1.slug > post2.slug
+          ? -1
+          : 1
+        : post1.date > post2.date
+        ? -1
+        : 1
+    ) // sort by (date, slug) desc
 }
