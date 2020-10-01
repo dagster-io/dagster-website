@@ -56,7 +56,7 @@ TransportationTempLaborDataFrame = create_dagster_pandas_dataframe_type(
        PandasColumn.string_column(name="team", non_nullable=True),
        PandasColumn.numeric_column(name="hours", min_value=0, non_nullable=True),
        PandasColumn.categorical_column(
-           name="location", categories={...}, non_nullable=True
+           name="location", categories={"sfbay", "MAR1"}, non_nullable=True
        ),
        ...,
    ],`
