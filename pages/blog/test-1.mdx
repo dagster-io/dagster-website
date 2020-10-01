@@ -1,0 +1,58 @@
+---
+layout: 'BlogPost'
+status: 'published'
+title: 'TEST1'
+excerpt: 'Adopting Dagster was a catalyst for the transformation of our data platform team. We hope our experience is encouraging to other teams facing similar challenges and opportunities.'
+date: '2020-10-01'
+authors: ['davidjwallace']
+---
+
+_This is the first in a series of posts about our experience putting Dagster into production at Good Eggs._
+
+Like they say, every local organic grocery store runs on data, and that’s certainly true of [Good Eggs](https://www.goodeggs.com/). Founded in 2011, we believe that good food is the most powerful force for change — for our customers, our employees, and the local producers we work with.
+
+<p align="center">
+  <img
+    src="/posts/good-eggs-0/autumn_produce.jpg"
+    alt="Autumn Produce from Good Eggs"
+    width="600px"
+  />
+</p>
+
+In practice, that means a lot of data modeling — so we can manage marketing, purchasing of perishable and limited availability goods, customer buying patterns, personalization, retention, and logistics strategies for our fulfillment centers.
+
+Our data platform is built and maintained by a small centralized team, but it serves a wide range of users, from ops, to business analysts, to the managers tracking inventory at our warehouses. So our stack includes tooling that’s appropriate for each of these user personas and that helps everyone get their job done as efficiently as possible. Our analysts and operations folks speak SQL and Python. They build tables in a very large [dbt](https://www.getdbt.com/) project with hundreds of models, on top of our [Snowflake](https://www.snowflake.com/) warehouse. They generate reports using [Mode Analytics](https://mode.com/), and do predictive modeling with [Jupyter Notebooks](https://jupyter.org/). Our warehouse managers manually input data into [Google Sheets](https://www.google.com/sheets/about/). Our platform team loads data from a wide range of sources using [Stitch](https://www.stitchdata.com/) and custom [Singer](https://www.singer.io/) taps.
+
+Heterogeneous tools help us factor the complexity of our data systems. Platform and leaf developer responsibilities are cleanly separated: our leaf users are presented with appropriate interfaces that empower them, and our platform developers can focus on delivering robust tooling and clean data.
+
+But there are real challenges involved in managing such a diverse stack. We need to track and manage dependencies between processes that run in disparate tools; ensure data quality and freshness; and control resource usage by our leaf developers.
+
+<p align="center">
+  <img
+    src="/posts/good-eggs-0/goodeggs_data_platform.png"
+    alt="Autumn Produce from Good Eggs"
+    width="600px"
+  />
+</p>
+
+We started to find that although our data systems were sophisticated, they were starting to show the strain of having been built independently of each other. Managing these cross-system linkages made orchestration a priority for us.
+
+We think lots of platform teams find themselves in this position, where there are many and growing dependencies between their tools, but no explicit documentation of those dependencies, no orchestration of processes running in different tools, no ability to test pipelines that span multiple tools, and no observability for the platform as a whole.
+
+We knew we needed an orchestrator. There are plenty of orchestration frameworks to choose from (we also evaluated Prefect, Airflow, and building our own orchestrator). In the following posts, we’ll describe some of the unique features of Dagster that led us to bet on it, and describe different aspects of the value that Dagster offered a complex data platform like ours.
+
+- First, we’ll talk about how Dagster’s support for custom data types helped us achieve better correctness and reliability in our data ingest process, which meant less downstream breakage and better recovery when bad data made it through.
+
+- Then, we’ll discuss how Dagster’s support for structured metadata enabled users with very different backgrounds to self-serve when trying to connect data assets to the computations that produced them, reducing load on the data platform team.
+
+- We’ll talk about how we use Dagster to manage the tech debt we incur in other tools and cut our spend on platform components.
+
+- We’ll discuss how we deployed Dagster on our custom PaaS, and how its APIs let us integrate at the right level of abstraction.
+
+- Finally, we’ll talk about the improvements to the software engineering lifecycle of our data platform that have grown out of Dagster’s ground-up commitment to testability.
+
+Adopting Dagster was a catalyst for the transformation of our data platform team. Rather than only reacting to unanticipated failures, we now proactively manage our systems. Instead of disparate data services operating in isolation, we now have a tapestry of services all operating in lockstep. And lastly, it has inspired us to do things we wouldn’t even thought of doing prior to Dagster.
+
+We hope our experience is encouraging to other teams facing similar challenges and opportunities.
+
+_Continue to [Part 1: Correctness and reliability for data infrastructure](/blog/good-eggs-1)_
