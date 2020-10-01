@@ -1,10 +1,16 @@
 {
   "authors": [
     {
-      "id": "schrockn",
-      "fullName": "Nick Schrock",
-      "profileImage": "/editors/schrockn.jpg",
-      "url": "https://twitter.com/schrockn"
+      "id": "davidjwallace",
+      "fullName": "David Wallace",
+      "profileImage": "/editors/davidjwallace.jpg",
+      "url": "https://twitter.com/davidjwallace"
+    },
+    {
+      "id": "fishmanl",
+      "fullName": "Leor Fishman",
+      "profileImage": "/editors/fishmanl.jpg",
+      "url": "https://www.linkedin.com/in/leor-f-63490785"
     },
     {
       "id": "gasnerpants",
@@ -13,10 +19,10 @@
       "url": "https://twitter.com/gasnerpants"
     },
     {
-      "id": "fishmanl",
-      "fullName": "Leor Fishman",
-      "profileImage": "/editors/fishmanl.jpg",
-      "url": "https://www.linkedin.com/in/leor-f-63490785"
+      "id": "schrockn",
+      "fullName": "Nick Schrock",
+      "profileImage": "/editors/schrockn.jpg",
+      "url": "https://twitter.com/schrockn"
     },
     {
       "id": "s_ryz",
