@@ -21,7 +21,7 @@ Like they say, every local organic grocery store runs on data, and that’s cert
 
 In practice, that means a lot of data modeling — so we can manage marketing, purchasing of perishable and limited availability goods, customer buying patterns, personalization, retention, and logistics strategies for our fulfillment centers.
 
-Our data platform is built and maintained by a small centralized team, but it serves a wide range of users, from ops, to business analysts, to the managers tracking inventory at our warehouses. So our stack includes tooling that’s appropriate for each of these user personas and that helps everyone get their job done as efficiently as possible. Our analysts and operations folks speak SQL and Python. They build tables in a (very large) [dbt](https://www.getdbt.com/) project on top of our [Snowflake](https://www.snowflake.com/) warehouse, generate reports using [Mode Analytics](https://mode.com/), and do predictive modeling with [Jupyter Notebooks](https://jupyter.org/). Our warehouse managers manually input data into [Google Sheets](https://www.google.com/sheets/about/). Our platform team loads data from a wide range of sources using [Stitch](https://www.stitchdata.com/) and custom [Singer](https://www.singer.io/) taps.
+Our data platform is built and maintained by a small centralized team, but it serves a wide range of users, from ops, to business analysts, to the managers tracking inventory at our warehouses. So our stack includes tooling that’s appropriate for each of these user personas and that helps everyone get their job done as efficiently as possible. Our analysts and operations folks speak SQL and Python. They build tables in a very large [dbt](https://www.getdbt.com/) project with hundreds of models, on top of our [Snowflake](https://www.snowflake.com/) warehouse. They generate reports using [Mode Analytics](https://mode.com/), and do predictive modeling with [Jupyter Notebooks](https://jupyter.org/). Our warehouse managers manually input data into [Google Sheets](https://www.google.com/sheets/about/). Our platform team loads data from a wide range of sources using [Stitch](https://www.stitchdata.com/) and custom [Singer](https://www.singer.io/) taps.
 
 Heterogeneous tools help us factor the complexity of our data systems. Platform and leaf developer responsibilities are cleanly separated: our leaf users are presented with appropriate interfaces that empower them, and our platform developers can focus on delivering robust tooling and clean data.
 
@@ -41,15 +41,15 @@ We think lots of platform teams find themselves in this position, where there ar
 
 We knew we needed an orchestrator. There are plenty of orchestration frameworks to choose from (we also evaluated Prefect, Airflow, and building our own orchestrator). In the following posts, we’ll describe some of the unique features of Dagster that led us to bet on it, and describe different aspects of the value that Dagster offered a complex data platform like ours.
 
-First, we’ll talk about how Dagster’s support for custom data types helped us achieve better correctness and reliability in our data ingest process, which meant less downstream breakage and better recovery when bad data made it through.
+* First, we’ll talk about how Dagster’s support for custom data types helped us achieve better correctness and reliability in our data ingest process, which meant less downstream breakage and better recovery when bad data made it through.
 
-Then, we’ll discuss how Dagster’s support for structured metadata enabled users with very different backgrounds to self-serve when trying to connect data assets to the computations that produced them, reducing load on the data platform team.
+* Then, we’ll discuss how Dagster’s support for structured metadata enabled users with very different backgrounds to self-serve when trying to connect data assets to the computations that produced them, reducing load on the data platform team.
 
-We’ll talk about how we use Dagster to manage the tech debt we incur in other tools and cut our spend on platform components.
+* We’ll talk about how we use Dagster to manage the tech debt we incur in other tools and cut our spend on platform components.
 
-We’ll discuss how we deployed Dagster on our custom PaaS, and how its APIs let us integrate at the right level of abstraction.
+* We’ll discuss how we deployed Dagster on our custom PaaS, and how its APIs let us integrate at the right level of abstraction.
 
-Finally, we’ll talk about the improvements to the software engineering lifecycle of our data platform that have grown out of Dagster’s ground-up commitment to testability.
+* Finally, we’ll talk about the improvements to the software engineering lifecycle of our data platform that have grown out of Dagster’s ground-up commitment to testability.
 
 Adopting Dagster was a catalyst for the transformation of our data platform team. We hope our experience is encouraging to other teams facing similar challenges and opportunities.
 
