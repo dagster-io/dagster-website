@@ -75,12 +75,22 @@ Like all other Dagster objects, custom types are self-documenting, so we get a n
   />
 </p>
 
-If our type checks fail, we conditionally execute solids that notify us in Slack and via email of the ingest failures, so we can take corrective action quickly.
+If our type checks fail, we conditionally execute solids that notify us in Slack and via email of the ingest failures, so we can take corrective action quickly. Emails are sent to select users, e.g., the operations team.
 
 <p align="center">
   <img
     src="/posts/good-eggs-1/validation_email.png"
     alt="Good Eggs Validation Failure Email"
+    width="600px"
+  />
+</p>
+
+Slack messages surface operational failures to everyone quickly, and include links to the pipeline run and the source data to help debug.
+
+<p align="center">
+  <img
+    src="/posts/good-eggs-1/slack_failure.png"
+    alt="Good Eggs Slack Failure"
     width="600px"
   />
 </p>
@@ -91,21 +101,13 @@ For us, failing before bad data is ingested to the warehouse is a big win. It’
 
 We recognized the value of being able to impose strong typing at will on any of our inputs or outputs when we first started to evaluate data orchestrators, and this was one of the factors in our choice of Dagster over Airflow.
 
-<p align="center">
-  <img
-    src="/posts/good-eggs-1/slack_failure.png"
-    alt="Good Eggs Slack Failure"
-    width="600px"
-  />
-</p>
-
 We’ve introduced several dozen of these custom data frame types into our data ingest process. Thanks to automated data quality tests, we’ve been able to make a process that used to take days immediate — our max latency is now about an hour. And there’s no chance of polluting downstream data artifacts because when our data isn’t clean, computation now just halts.
 
 We also yield structured metadata as part of our type check process. Being able to view this metadata in the Dagster logs before ingestion has real benefits for the human in the loop. For example, we yield structured metadata with the head and tail of the data in a Google Sheet. This is viewable directly in Dagit and is often enough for a human to diagnose a data quality problem.
 
 <p align="center">
   <img
-    src="/posts/good-eggs-1/tailzoomblurnew.gif"
+    src="/posts/good-eggs-1/tail_zoom_blur_new.gif"
     alt="Good Eggs Data Frame Tail"
     width="600px"
   />
