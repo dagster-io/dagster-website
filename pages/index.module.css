@@ -6,17 +6,19 @@
 .index p {
   line-height: 1.55rem;
 }
-.index .customerCard {
+.index .verticalCard {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   padding: 30px;
+  margin: 20px;
   box-shadow: 0 2px 40px rgba(191, 191, 191, 0.5);
   background: white;
-  text-align: center;
-  font-family: "Open Sans", sans-serif;
+  text-align: left;
+  font-family: 'Open Sans', sans-serif;
   color: #111;
+  z-index: 2;
 }
 .index .centeredContent {
   margin: auto;
@@ -106,6 +108,7 @@
   right: 0%;
   top: 430px;
   width: 390px;
+  max-width: 90vw;
   position: absolute;
 }
 .index .imageModal {
@@ -119,27 +122,55 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 90vw;
+  max-width: 95%;
+  max-height: 95%;
   transform: translate(-50%, -50%) scale(0.9);
   transition: transform 180ms ease-out;
   border: 10px solid white;
-  box-shadow: 0 3px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 30px rgba(0, 0, 0, 0.2);
   z-index: 2;
 }
 .index .imageModal .background {
   position: fixed;
-  background: rgba(0,0,0,0.2);
-  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 .index .imageModal.expanded {
   opacity: 1;
   pointer-events: initial;
   z-index: 5;
 }
-.index .imageModal.expanded img  {
+.index .imageModal.expanded img {
   transform: translate(-50%, -50%) scale(1);
 }
 
+.index .customers {
+  padding: 80px 20px;
+  background: #f5f9fc;
+}
+
+.index .customerLogoCloud {
+  text-align: center;
+  margin: auto;
+  padding-top: 30px;
+  max-width: 950px;
+}
+
+.index .customerLogo {
+  vertical-align: top;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 20px;
+  margin: 10px;
+  height: 90px;
+  width: 170px;
+  box-shadow: 0 2px 40px rgba(0, 0, 0, 0.1);
+}
 
 @media (max-width: 500px) {
   .index .columnsOnMobile {
@@ -165,5 +196,12 @@
   }
   .index .screenshots .localnote {
     position: initial;
+  }
+  .index .customers {
+    padding: 40px 20px;
+  }  
+  .index .customerLogo {
+    height: 80px;
+    width: 140px;
   }
 }
