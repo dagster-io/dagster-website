@@ -4,7 +4,7 @@
 
 If you're a user of Dagster, we'd love to feature you on our site. Adding your logo is simple:
 
-1. Upload your logo to [/public/images/logos/users](https://github.com/dagster-io/dagster-website/blob/master/public/images/logos/users)
+1. Upload your logo to the folder [/public/images/logos/users](https://github.com/dagster-io/dagster-website/blob/master/public/images/logos/users)
 2. Add your company to [`users.json`](https://github.com/dagster-io/dagster-website/blob/master/users.json)
 3. Make a PR with those changes
 
