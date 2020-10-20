@@ -271,7 +271,7 @@ export default function IndexPage({
 
       <div className={styles.hideOnMobile} style={{ height: 240 }} />
 
-      <div className={styles.customers}>
+      {/* <div className={styles.customers}>
         <div className={styles.centeredTitle}>
           <H1>You’re in good company</H1>
           <p>Dagster is used to orchestrate data pipelines at some of our favorite companies.</p>
@@ -299,23 +299,21 @@ export default function IndexPage({
             </a>
           ))}
         </div>
-      </div>
+      </div> */}
 
       <div className={styles.centeredContent}>
-        <div className={styles.centeredTitle} style={{marginTop: 60, marginBottom: 30}}>
+        <div className={styles.centeredTitle} style={{ marginTop: 60, marginBottom: 30 }}>
           <H1>Recent blog posts</H1>
         </div>
         <div style={{ display: 'flex', position: 'relative' }} className={styles.columnsOnMobile}>
-        <div style={{ position: 'absolute', left: -14, top: 0 }}>
-          <img src="images/dots.svg" />
-        </div>
-          {featuredPosts.map((post, idx) => 
-          <VerticalCard name={post.title} link={post.href} key={idx}>
-            <p>
-              {post.excerpt}
-            </p>
-          </VerticalCard>
-          )}
+          <div style={{ position: 'absolute', left: -14, top: 0 }}>
+            <img src="images/dots.svg" />
+          </div>
+          {featuredPosts.map((post, idx) => (
+            <VerticalCard name={post.title} link={post.href} key={idx}>
+              <p>{post.excerpt}</p>
+            </VerticalCard>
+          ))}
         </div>
       </div>
 
