@@ -32,10 +32,6 @@ export const getStaticProps: GetStaticProps<{
 export default function IndexPage({
   featuredPosts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const router = useRouter()
-
-  const { logos } = router.query
-
   return (
     <div className={styles.index}>
       <Hero />
@@ -265,37 +261,35 @@ export default function IndexPage({
 
       <div className={styles.hideOnMobile} style={{ height: 240 }} />
 
-      {logos && (
-        <div className={styles.customers}>
-          <div className={styles.centeredTitle}>
-            <H1>You’re in good company</H1>
-            <p>Dagster is used to orchestrate data pipelines at some of our favorite companies.</p>
-          </div>
-          <div className={styles.customerLogoCloud}>
-            {USERS.map(({ name, logoURL, url }, idx) => (
-              <a
-                key={idx}
-                title={name}
-                className={styles.customerLogo}
-                href={url}
-                target="_blank"
-                rel="nofollow noreferrer"
-              >
-                <div
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    backgroundImage: `url(${logoURL})`,
-                    backgroundSize: 'contain',
-                    backgroundPosition: '50% 50%',
-                    backgroundRepeat: 'no-repeat',
-                  }}
-                />
-              </a>
-            ))}
-          </div>
+      <div className={styles.customers}>
+        <div className={styles.centeredTitle}>
+          <H1>You’re in good company</H1>
+          <p>Dagster is used to orchestrate data pipelines at some of our favorite companies.</p>
         </div>
-      )}
+        <div className={styles.customerLogoCloud}>
+          {USERS.map(({ name, logoURL, url }, idx) => (
+            <a
+              key={idx}
+              title={name}
+              className={styles.customerLogo}
+              href={url}
+              target="_blank"
+              rel="nofollow noreferrer"
+            >
+              <div
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  backgroundImage: `url(${logoURL})`,
+                  backgroundSize: 'contain',
+                  backgroundPosition: '50% 50%',
+                  backgroundRepeat: 'no-repeat',
+                }}
+              />
+            </a>
+          ))}
+        </div>
+      </div>
 
       <div className={styles.centeredContent}>
         <div className={styles.centeredTitle} style={{ marginTop: 60, marginBottom: 30 }}>

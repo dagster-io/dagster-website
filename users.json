@@ -1,5 +1,9 @@
 [
-  { "name": "Prezi", "url": "https://prezi.com", "logoURL": "/images/logos/users/prezi.svg" },
+  {
+    "name": "Prezi",
+    "url": "https://prezi.com/video/",
+    "logoURL": "/images/logos/users/prezi.svg"
+  },
   { "name": "Mapbox", "url": "https://mapbox.com", "logoURL": "/images/logos/users/mapbox.svg" },
   {
     "name": "Goodeggs",
