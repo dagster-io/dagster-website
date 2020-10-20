@@ -4,6 +4,8 @@ import { BlogPostFrontMatter, getBlogPostFrontMatterList } from 'components/MdxM
 import { Hero } from 'components/home/Hero'
 
 import styles from './index.module.css'
+import USERS from '../users.json'
+import { useRouter } from 'next/router'
 
 const COMPATIBLE_PRODUCT_LOGOS = [
   'airflow.png',
@@ -19,18 +21,6 @@ const COMPATIBLE_PRODUCT_LOGOS = [
   'k8s.png',
 ]
 
-const CUSTOMERS = [
-  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
-  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
-  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
-  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
-  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
-  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
-  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
-  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
-  { name: 'Airflow', url: 'https://airflow.com', logoURL: '/images/logos/airflow.png' },
-]
-
 export const getStaticProps: GetStaticProps<{
   featuredPosts: BlogPostFrontMatter[]
 }> = async () => ({
@@ -42,6 +32,10 @@ export const getStaticProps: GetStaticProps<{
 export default function IndexPage({
   featuredPosts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const router = useRouter()
+
+  const { logos } = router.query
+
   return (
     <div className={styles.index}>
       <Hero />
@@ -271,35 +265,37 @@ export default function IndexPage({
 
       <div className={styles.hideOnMobile} style={{ height: 240 }} />
 
-      {/* <div className={styles.customers}>
-        <div className={styles.centeredTitle}>
-          <H1>You’re in good company</H1>
-          <p>Dagster is used to orchestrate data pipelines at some of our favorite companies.</p>
+      {logos && (
+        <div className={styles.customers}>
+          <div className={styles.centeredTitle}>
+            <H1>You’re in good company</H1>
+            <p>Dagster is used to orchestrate data pipelines at some of our favorite companies.</p>
+          </div>
+          <div className={styles.customerLogoCloud}>
+            {USERS.map(({ name, logoURL, url }, idx) => (
+              <a
+                key={idx}
+                title={name}
+                className={styles.customerLogo}
+                href={url}
+                target="_blank"
+                rel="nofollow noreferrer"
+              >
+                <div
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    backgroundImage: `url(${logoURL})`,
+                    backgroundSize: 'contain',
+                    backgroundPosition: '50% 50%',
+                    backgroundRepeat: 'no-repeat',
+                  }}
+                />
+              </a>
+            ))}
+          </div>
         </div>
-        <div className={styles.customerLogoCloud}>
-          {CUSTOMERS.map(({ name, logoURL, url }, idx) => (
-            <a
-              key={idx}
-              title={name}
-              className={styles.customerLogo}
-              href={url}
-              target="_blank"
-              rel="nofollow noreferrer"
-            >
-              <div
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  backgroundImage: `url(${logoURL})`,
-                  backgroundSize: 'contain',
-                  backgroundPosition: '50% 50%',
-                  backgroundRepeat: 'no-repeat',
-                }}
-              />
-            </a>
-          ))}
-        </div>
-      </div> */}
+      )}
 
       <div className={styles.centeredContent}>
         <div className={styles.centeredTitle} style={{ marginTop: 60, marginBottom: 30 }}>
