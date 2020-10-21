@@ -5,7 +5,6 @@ import { Hero } from 'components/home/Hero'
 
 import styles from './index.module.css'
 import USERS from '../users.json'
-import { useRouter } from 'next/router'
 
 const COMPATIBLE_PRODUCT_LOGOS = [
   'airflow.png',
