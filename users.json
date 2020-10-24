@@ -9,5 +9,15 @@
     "name": "Goodeggs",
     "url": "https://goodeggs.com",
     "logoURL": "/images/logos/users/goodeggs.png"
+  },
+  {
+    "name": "Attest",
+    "url": "https://www.askattest.com/",
+    "logoURL": "/images/logos/users/attest.svg"
+  },
+  {
+    "name": "BestPlace",
+    "url": "https://bestplace.ai/",
+    "logoURL": "/images/logos/users/bestplace.png"
   }
 ]
