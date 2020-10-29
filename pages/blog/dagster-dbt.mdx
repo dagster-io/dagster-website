@@ -29,7 +29,7 @@ dbt was created by [Fishtown Analytics](https://www.fishtownanalytics.com/) to e
 
 Users build transformations (called models) defined in templated SQL. Models defined in dbt can refer to other models, forming a dependency graph between the transformations (and the tables or views they produce). Models are self-documenting, easy to test, and easy to run. And the dbt tooling can use the graph defined by models’ dependencies to determine the ancestors and descendants of any individual model, so it’s easy to know what to recompute when something changes.
 
-> #### For users who already speak SQL, dbt’s tooling is unparalleled.
+> For users who already speak SQL, dbt’s tooling is unparalleled.
 
 We love dbt because of the values it embodies. Individual transformations are SQL `SELECT` statements, without side effects. Transformations are explicitly connected into a graph. And support for testing is first-class. dbt is hugely enabling for an important class of users, adapting software engineering principles to a slightly different domain with great ergonomics. For users who already speak SQL, dbt’s tooling is unparalleled.
 
@@ -38,7 +38,7 @@ Dagster orchestrates dbt alongside other technologies and provides built-in oper
 
 Maybe your dbt models depend on source data tables that are populated by Stitch ingest, or by heavy transform jobs running in Spark. Maybe the tables your models build are depended on by analysts building reports in Mode, or ML engineers running experiments using Jupyter notebooks. Whether you’re a full-stack practitioner or a specialized platform team, you’ve probably felt the pain of trying to track dependencies across technologies and concerns. You need an orchestrator.
 
-> #### Dagster lets you embed dbt into a wider orchestration graph.
+> Dagster lets you embed dbt into a wider orchestration graph.
 
 That’s where Dagster comes in. Where dbt defines a graph of SQL transformation, Dagster lets you embed dbt into a wider orchestration graph, clearly defining data dependencies that cut across technologies and teams and providing a single, unified operational view.
 
@@ -46,7 +46,7 @@ Support for observability is built into the system. Whether the nodes in your or
 
 In the case of dbt, rather than executing dbt models as black boxes, the framework can accumulate information about dbt runs over time, making that information available for longitudinal views and connecting it back to individual runs of your pipelines with no marginal setup effort.
 
-> #### Engineers can monitor dbt model execution in the same tool they use to monitor other technologies on the data platform.
+> Engineers can monitor dbt model execution in the same tool they use to monitor other technologies on the data platform.
 
 Observability boils down to a couple of simple capabilities that we think everyone operating with data needs. With Dagster, individual dbt users can self-serve questions like “Which dbt models are at risk of becoming bottlenecks in our reporting pipeline?” And engineers can monitor dbt model execution in the same tool they use to monitor other technologies on the data platform.
 
@@ -66,28 +66,41 @@ While contrived, this example illustrates how dbt is often embedded into a large
 
 The dbt solids execute alongside the other components of the pipeline. You can see below that logs emitted by the running dbt models are streamed back to a central view, along with logs produced by solids making use of other technologies.
 
-<Image
-  src="/posts/dagster-dbt/log_view.png"
-  alt="The integrated log viewer showing dbt logs"
-  unsized
+<img
+    src="/posts/dagster-dbt/dagit_viewer.png"
+    alt="The integrated log viewer showing dbt logs"
 />
 
 What’s more, Dagster is able to consume detailed metadata produced by the execution of the dbt models, and display it natively within a shared single portal.
- This makes monitoring a breeze. Once metadata is recorded, it can viewed longitudinally. So, for example, you can track the execution time of dbt models over many runs, and find developing bottlenecks before they become problems.
- From this view, you can easily jump to any pipeline run that executed this model. So, for instance, if something was off about an asset created by that model at a particular time, you can inspect the logs of that specific run to figure out what happened. Or if the data in one of your tables seems stale, you can quickly check when it was last touched by a dbt run.
+
+<img
+    src="/posts/dagster-dbt/metadata_modal.png"
+    alt="Metadata from a dbt solid execution"
+/>
+
+This makes monitoring a breeze. Once metadata is recorded, it can viewed longitudinally. So, for example, you can track the execution time of dbt models over many runs, and find developing bottlenecks before they become problems.
+
+<img
+    src="/posts/dagster-dbt/longitudinal_view.png"
+    alt="Longitudinal view of dbt model execution time"
+/>
+
+From this view, you can easily jump to any pipeline run that executed this model. So, for instance, if something was off about an asset created by that model at a particular time, you can inspect the logs of that specific run to figure out what happened. Or if the data in one of your tables seems stale, you can quickly check when it was last touched by a dbt run.
 
 In short, with Dagster and dbt, you can:
-Explicitly model the dependencies between your dbt models and processes that use other technologies;
-Schedule and execute pipelines that include both dbt and other technologies;
-Monitor your dbt models in the same tool you use to monitor your other processes, with historical and longitudinal views of your operations.
-Learn more
-We encourage you to play around with this examples (available on GitHub) or to try Dagster with your existing dbt projects. You can find comprehensive guides in the dbt docs and the dagster-dbt API docs.
 
-Please feel join our Slack and let us know how you’re thinking of integrating dbt with Dagster. And we are always happy to provide tech support in GitHub Discussions if you encounter any problems.
+- Explicitly model the dependencies between your dbt models and processes that use other technologies;
 
-Huge thanks to David Wallace [@davidjwallace] at Good Eggs, whose community contributions laid the groundwork for dagster-dbt. If you’ve been working on an integration between Dagster and another ecosystem tool that you might want to contribute back to open source, please get in touch. The core team is happy to help support you in contributing integrations back upstream.
+- Schedule and execute pipelines that include both dbt and other technologies;
 
+- Monitor your dbt models in the same tool you use to monitor your other processes, with historical and longitudinal views of your operations.
 
+## Learn more
 
+We encourage you to play around with [this example](https://github.com/dagster-io/dagster/tree/master/examples/dbt_example) or to try Dagster with your existing dbt projects. You can find comprehensive guides in the [dbt docs](https://docs.getdbt.com/docs/introduction) and the dagster-dbt [API docs](https://docs.dagster.io/_apidocs/libraries/dagster_dbt).
 
+Please feel to [join our Slack](https://dagster-slackin.herokuapp.com/) and let us know how you’re thinking of integrating dbt with Dagster. And we are always happy to provide tech support in [GitHub Discussions](https://github.com/dagster-io/dagster/discussions/) if you encounter any problems.
 
+_Huge thanks to [David Wallace](https://twitter.com/davidjwallace) at Good Eggs, whose community contributions laid the groundwork for this package._
+
+_If you’ve been working on an integration between Dagster and another ecosystem tool that you might want to contribute back to open source, please get in touch. The core team is happy to help support you in contributing integrations back upstream._
