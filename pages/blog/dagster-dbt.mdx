@@ -8,6 +8,8 @@ date: '2020-10-29'
 authors: ['AJ_Nadel', 'bobchen168']
 ---
 
+import Image from 'next/image'
+
 <p align="center">
   <img
     src="/posts/dagster-dbt/dagster_dbt.png"
@@ -30,7 +32,6 @@ Users build transformations (called models) defined in templated SQL. Models def
 > #### For users who already speak SQL, dbt’s tooling is unparalleled.
 
 We love dbt because of the values it embodies. Individual transformations are SQL `SELECT` statements, without side effects. Transformations are explicitly connected into a graph. And support for testing is first-class. dbt is hugely enabling for an important class of users, adapting software engineering principles to a slightly different domain with great ergonomics. For users who already speak SQL, dbt’s tooling is unparalleled.
-
 
 ## What does Dagster bring to the table?
 Dagster orchestrates dbt alongside other technologies and provides built-in operational and data observability capabilities. No matter the size of your dbt projects, you probably need it to interoperate with processes built in other tools.
@@ -65,9 +66,10 @@ While contrived, this example illustrates how dbt is often embedded into a large
 
 The dbt solids execute alongside the other components of the pipeline. You can see below that logs emitted by the running dbt models are streamed back to a central view, along with logs produced by solids making use of other technologies.
 
-<img
-    src="/posts/dagster-dbt/log_view.png"
-    alt="The integrated log viewer showing dbt logs"
+<Image
+  src="/posts/dagster-dbt/log_view.png"
+  alt="The integrated log viewer showing dbt logs"
+  unsized
 />
 
 What’s more, Dagster is able to consume detailed metadata produced by the execution of the dbt models, and display it natively within a shared single portal.
