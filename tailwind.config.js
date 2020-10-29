@@ -97,6 +97,8 @@ module.exports = {
               color: theme('colors.gray.900'),
               borderLeftColor: theme('colors.gray.200'),
             },
+            "code::before": false,
+            "code::after": false,
           },
         },
       }),
