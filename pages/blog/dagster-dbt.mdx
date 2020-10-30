@@ -14,15 +14,13 @@ import Image from 'next/image'
   <img
     src="/posts/dagster-dbt/dagster_dbt.png"
     alt="Dagster and dbt"
-    width="300px"
+    width="500px"
   />
 </p>
 
 We are proud to announce the `dagster-dbt` library, a new first-class integration between Dagster and [dbt](https://www.getdbt.com/product/) (data build tool).
 
 People sometimes ask us — should I use Dagster, or should I use dbt? We view Dagster and dbt as _complementary_ technologies, not _competing_ technologies. Data teams use dbt to define interdependent tables within a data warehouse, and Dagster to orchestrate dbt projects with other technologies, monitor their execution, and track the tables they produce.
-
-Whether you’re a data analyst who’s already familiar with dbt but hasn’t orchestrated it alongside other technologies, or a data platform engineer using Dagster in production and hoping we can help you orchestrate dbt projects, we hope this post will help you understand how these two powerful tools can work together.
 
 ## What is dbt?
 dbt was created by [Fishtown Analytics](https://www.fishtownanalytics.com/) to enable data analysts to build well-defined data transformations in an intuitive, testable, and versioned environment.
