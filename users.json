@@ -18,6 +18,21 @@
   {
     "name": "BestPlace",
     "url": "https://bestplace.ai/",
-    "logoURL": "/images/logos/users/bestplace.png"
+    "logoURL": "/images/logos/users/bestplace.svg"
+  },
+  {
+    "name": "Tengu",
+    "url": "https://tengu.io",
+    "logoURL": "/images/logos/users/tengu.png"
+  },
+  {
+    "name": "Continuity",
+    "url": "https://www.continuity-tech.ai/",
+    "logoURL": "/images/logos/users/continuity.png"
+  },
+  {
+    "name": "VirtaHealth",
+    "url": "https://www.virtahealth.com/",
+    "logoURL": "/images/logos/users/virta.png"
   }
 ]
