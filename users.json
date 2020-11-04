@@ -21,6 +21,11 @@
     "logoURL": "/images/logos/users/bestplace.svg"
   },
   {
+    "name": "Thinking Machines",
+    "url": "https://thinkingmachin.es/",
+    "logoURL": "/images/logos/users/thinking-machines.png"
+  },
+  {
     "name": "Tengu",
     "url": "https://tengu.io",
     "logoURL": "/images/logos/users/tengu.png"
