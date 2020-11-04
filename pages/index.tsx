@@ -260,7 +260,7 @@ export default function IndexPage({
 
       <div className={styles.hideOnMobile} style={{ height: 240 }} />
 
-      { false ? <div className={styles.customers}>
+      <div className={styles.customers}>
         <div className={styles.centeredTitle}>
           <H1>You’re in good company</H1>
           <p>Dagster is used to orchestrate data pipelines at some of our favorite companies.</p>
@@ -288,7 +288,7 @@ export default function IndexPage({
             </a>
           ))}
         </div>
-      </div> : null }
+      </div>
 
       <div className={styles.centeredContent}>
         <div className={styles.centeredTitle} style={{ marginTop: 60, marginBottom: 30 }}>
