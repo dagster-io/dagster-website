@@ -263,7 +263,7 @@ export default function IndexPage({
       <div className={styles.customers}>
         <div className={styles.centeredTitle}>
           <H1>You’re in good company</H1>
-          <p>Dagster is used to orchestrate data pipelines at some of our favorite companies.</p>
+          <p>Dagster is used to orchestrate data pipelines at some of our favorite companies. Here are a a few:</p>
         </div>
         <div className={styles.customerLogoCloud}>
           {USERS.map(({ name, logoURL, url }, idx) => (
