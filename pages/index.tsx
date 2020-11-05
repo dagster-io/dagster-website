@@ -265,7 +265,7 @@ export default function IndexPage({
           <H1>You’re in good company</H1>
           <p>
             Dagster is used to orchestrate data pipelines at some of our favorite companies. Here
-            are a a few:
+            are a few:
           </p>
         </div>
         <div className={styles.customerLogoCloud}>
