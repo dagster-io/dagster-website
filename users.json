@@ -31,6 +31,11 @@
     "logoURL": "/images/logos/users/tengu.png"
   },
   {
+    "name": "CPCS",
+    "url": "https://cpcs.ca/",
+    "logoURL": "/images/logos/users/cpcs.png"
+  },
+  {
     "name": "Continuity",
     "url": "https://www.continuity-tech.ai/",
     "logoURL": "/images/logos/users/continuity.png"
