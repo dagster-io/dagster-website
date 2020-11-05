@@ -9,7 +9,7 @@ authors: ['davidjwallace']
 
 _This is the third in a series of posts about putting Dagster into production at Good Eggs. Read the [introduction](/blog/good-eggs-0) and [part one](/blog/good-eggs-1) to learn more about our experience transforming our data platform with Dagster._
 
-Though Dagster isn’t a specialized data observability solution, one thing we found attractive about the platform is that it integrates support for the most basic, and most important, kind of observability.
+Though Dagster isn’t a specialized data observability solution, one thing we found attractive about the platform is that it integrates support for the most basic and most important kind of observability.
 
 Why does observability matter? Well, if your data platform is anything like ours, a bunch of different tools sit between your raw data and the business outputs that really matter. You might use a tool like Stitch to ingest data from external sources, tools like dbt and Spark to transform, enrich, and reshape it in your data warehouse, and a tool like Mode Analytics to display meaningful aggregates to drive your decisions.
 
@@ -29,7 +29,7 @@ Every organization that works with data faces questions like these. Routing them
 
 Although things like tables in a data warehouse, Jupyter notebook figures, and Mode Analytics reports are semantically very different, we can think of them all as [_assets_](https://docs.dagster.io/overview/asset-materializations) produced by the computations we do in our pipelines. In fact, one way to think about a data application is that the assets it produces are the interface to the system.
 
-Since Dagster is responsible for orchestrating the production of these assets anyway, it makes a lot of sense for it to put a common index on those assets. So Dagster includes a built in asset catalog, and Dagster solids can yield specialized structured metadata to indicate they have produced assets that should be placed in the catalog.
+Since Dagster is responsible for orchestrating the production of these assets anyway, it makes a lot of sense for it to put a common index on those assets. So Dagster includes a built-in asset catalog, and Dagster solids can yield specialized structured metadata to indicate they have produced assets that should be placed in the catalog.
 
 This means that every time an asset is created, we can link it back to the computation that produced it. We can track the history of an asset over time, as input data and the logic of computations change. We can watch for trends. And we can explore a catalog of all the assets that our pipelines produce. 
 
