@@ -23,7 +23,7 @@ Where does data come from? At [Good Eggs](https://www.goodeggs.com/), some of ou
 
 Let’s look at how we manage our data ingest from Google Sheets using Dagster.
 
-Each node in the pipeline here is what Dagster calls a *solid*, a functional unit of computation that products and consumes data assets.
+Each node in the pipeline here is what Dagster calls a *solid*, a functional unit of computation that produces and consumes data assets.
 
 In our pipeline, a solid reads a range of values from a Google Sheet, and then reshapes it as a Pandas `DataFrame` with given column types.
 
