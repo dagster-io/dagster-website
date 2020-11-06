@@ -85,7 +85,7 @@ Note: the full version of the code in this section is available on [Github](http
 
 Dagster is a data orchestrator — it addresses this complexity by organizing our Spark code and our deployment setups. It also comes with pre-built utilities for deploying Spark code to environments like EMR and Databricks.
 
-In Dagster, we cleanly separate the business logic behind our Spark jobs from the different setups they need to run in. We define our business logic as a DAG of python functions, called solids, each accepting DataFrames as input and returning DataFrames as output. Here’s an example of a simple DAG with three solids, each of transforms some data using Spark:
+In Dagster, we cleanly separate the business logic behind our Spark jobs from the different setups they need to run in. We define our business logic as a DAG of python functions, called solids, each accepting DataFrames as input and returning DataFrames as output. Here’s an example of a simple DAG with three solids, each of which transforms some data using Spark:
 
 ```python
 @solid(required_resource_keys={"pyspark", "pyspark_step_launcher"})
