@@ -32,13 +32,13 @@ export default function BlogPostLayout({
               property="twitter:description"
               content={frontMatter.excerpt}
             />
-            <meta property="twitter:image" content={coverImage} />
+            <meta property="twitter:image" content={'https://dagster.io' + coverImage} />
 
             {/* <!-- Open Graph general (Facebook, Pinterest & Google+) --> */}
             <meta name="og:type" content="website" />
             <meta key="og:title" property="og:title" content={title} />
             <meta key="og:description" property="og:description" content={frontMatter.excerpt} />
-            <meta property="og:image" content={coverImage} />
+            <meta property="og:image" content={'https://dagster.io' + coverImage} />
           </>
         ) : (
           // tell web crawlers to not index the page if it is not published

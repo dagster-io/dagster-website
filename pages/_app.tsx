@@ -5,31 +5,48 @@ import HomeLayout from 'components/layouts/HomeLayout'
 import Layout from 'components/layouts/Layout'
 import { useRouter } from 'next/dist/client/router'
 import { CustomMdxProvider } from 'components/CustomMdxProvider'
-import Footer from 'components/Footer';
+import Footer from 'components/Footer'
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
 
   const isHomepage = router.pathname === '/'
+  const isBlog = router.pathname.includes('/blog')
   const PageLayout = isHomepage ? HomeLayout : Layout
 
   return (
     <div className="antialiased">
       <Head>
-        {/*
-
-        TODO: Add all these
-
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#00aba9" />
-        <meta name="theme-color" content="#ffffff" />
-        <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-
-        */}
+        <meta name="title" content="Dagster" />
+        <meta
+          name="description"
+          content="Data orchestrator for machine learning, analytics, and ETL"
+        />
+        {/* Open Graph / Facebook */}
+        {!isBlog && (
+          <>
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content="https://dagster.io/" />
+            <meta property="og:title" content="Dagster" />
+            <meta
+              property="og:description"
+              content="Data orchestrator for machine learning, analytics, and ETL"
+            />
+            <meta property="og:image" content="https://dagster.io/images/dagster-og-share.png" />
+            {/* Twitter */}
+            <meta property="twitter:card" content="summary_large_image" />
+            <meta property="twitter:url" content="https://dagster.io/" />
+            <meta property="twitter:title" content="Dagster" />
+            <meta
+              property="twitter:description"
+              content="Data orchestrator for machine learning, analytics, and ETL"
+            />
+            <meta
+              property="twitter:image"
+              content="https://dagster.io/images/dagster-og-share.png"
+            />
+          </>
+        )}
       </Head>
       <main>
         <PageLayout>
