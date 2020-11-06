@@ -44,5 +44,10 @@
     "name": "VirtaHealth",
     "url": "https://www.virtahealth.com/",
     "logoURL": "/images/logos/users/virta.png"
+  },
+  {
+    "name": "element451",
+    "url": "https://www.element451.com/",
+    "logoURL": "/images/logos/users/element451.png"
   }
 ]
