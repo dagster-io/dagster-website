@@ -54,5 +54,10 @@
     "name": "Egress",
     "url": "https://www.egress.com/en-us",
     "logoURL": "/images/logos/users/egress.svg"
+  },
+  {
+    "name": "thoughtfulcompany",
+    "url": "https://www.thoughtfulcompany.io/",
+    "logoURL": "/images/logos/users/thoughtful.png"
   }
 ]
