@@ -14,7 +14,7 @@ export default function BlogPostLayout({
   const title = `${frontMatter.title} | Dagster Blog`
   const coverImage = frontMatter.coverImage ? frontMatter.coverImage : DEFAULT_SHARE_IMAGE
   return (
-    <article>
+    <article className="max-w-full">
       <DynamicHead>
         <title key="real-title">{title}</title>
         {/* embedly - https://embed.ly/code */}
