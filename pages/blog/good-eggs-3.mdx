@@ -3,7 +3,7 @@ layout: 'BlogPost'
 status: 'published'
 title: 'Good Data at Good Eggs: Using Dagster to manage the data platform'
 excerpt: 'Running pipelines is only part of the operational burden of running a data platform. We also need to manage the platform itself and control associated technical debt. We found that Dagster was a very natural place to do that work, with the advantage that our entire operational view of the platform is consolidated in a single tool.'
-date: '2020-11-20'
+date: '2020-12-09'
 authors: ['davidjwallace']
 ---
 
@@ -46,11 +46,11 @@ This pipeline starts by using the Mode Analytics API to build a graph of all the
   />
 </p>
 
-We do this using a composite solid:
+We do this using a composite solid, which lets us encapsulate complexity by assembling subsets of solids into larger units.
 
 <p align="center">
   <img
-    src="/posts/good-eggs-3/mode_graph_composite.png"
+    src="/posts/good-eggs-3/explode_composite_solid.gif"
     alt="The composite solid that constructs our Mode graph"
     width="900px"
   />
@@ -158,14 +158,15 @@ Were we successfully controlling the size of our dbt project? Are there dbt mode
 
 As the final step of our pipeline, within a Jupyter notebook, we perform a set of analyses geared towards helping us tackle these questions.
 
-In general, we prefer not to run notebooks in production, but in this case, it’s the easiest way to create the visualization we need. We wrap the notebook in a Dagster solid using [Dagstermill](https://docs.dagster.io/_apidocs/libraries/dagstermill) , an optional library built on top of Dagster and [papermill](https://github.com/nteract/papermill) that lets notebooks be parameterized and orchestrated alongside all the other steps of our pipeline.
+In general, we prefer not to run notebooks in production, but in this case, it’s the easiest way to create the visualization we need. We wrap the notebook in a Dagster solid using [Dagstermill](https://docs.dagster.io/_apidocs/libraries/dagstermill), an library built on top of Dagster and [papermill](https://github.com/nteract/papermill) that lets notebooks be parameterized and orchestrated alongside all the other steps of our pipeline.
 
 As part of this notebook, we output a visualization to Slack helping us monitor the overall size of our dbt project by visualizing how many distinct dbt models we run each day. This has enabled us to put numbers behind the impact that our programmatic dbt model deprecation is having:
 
+
 <p align="center">
   <img
-    src="/posts/good-eggs-3/model_count.png"
-    alt="Our dbt model count over time."
+    src="/posts/good-eggs-3/monitor.png"
+    alt="The output notebook."
     width="500px"
   />
 </p>
