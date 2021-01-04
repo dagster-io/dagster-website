@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="title" content="Dagster" />
         <meta
           name="description"
-          content="Data orchestrator for machine learning, analytics, and ETL"
+          content="A data orchestrator for machine learning, analytics, and ETL"
         />
         {/* Open Graph / Facebook */}
         {!isBlog && (
@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <meta property="og:title" content="Dagster" />
             <meta
               property="og:description"
-              content="Data orchestrator for machine learning, analytics, and ETL"
+              content="A data orchestrator for machine learning, analytics, and ETL"
             />
             <meta property="og:image" content="https://dagster.io/images/dagster-og-share.png" />
             {/* Twitter */}
@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <meta property="twitter:title" content="Dagster" />
             <meta
               property="twitter:description"
-              content="Data orchestrator for machine learning, analytics, and ETL"
+              content="A data orchestrator for machine learning, analytics, and ETL"
             />
             <meta
               property="twitter:image"
