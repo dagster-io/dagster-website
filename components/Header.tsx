@@ -74,6 +74,10 @@ const Header = () => {
               <a href="https://stackoverflow.com/questions/tagged/dagster">
                 <img className="h-6" src="/images/logos/stack-overflow-icon.svg" />
               </a>
+              {/* https://fontawesome.com/license */}
+              <a href="https://www.getrevue.co/profile/dagster" target="_blank">
+                <img className="h-6" src="/images/logos/email-icon.svg"/>
+              </a>
             </div>
           </div>
           <div className="-mr-2 flex items-center sm:hidden">
