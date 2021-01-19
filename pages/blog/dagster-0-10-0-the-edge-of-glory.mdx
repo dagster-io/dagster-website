@@ -87,7 +87,7 @@ This kind of visibility is critical when you're continuously monitoring and prob
 
 ## Modeling cross-team dependencies with asset-based sensors
 
-We're excited about the ability to build sensors that trigger runs based on changes in the Dagster asset catalog. The asset catalog lets users keep track of assets produced by their pipelines, with a bidirectional link between the assets and the computations that produce them. Sensors that fire based on updates to the asset catalog allow the asset catalog to be used as a control plane for cross-pipeline dependencies.
+We can also write sensors that trigger pipeline runs based on updates to data assets produced or modified by executions of other Dagster pipelines. Assets are tracked in Dagster's asset catalog, which lets users connect pipeline executions to the assets they create or modify. Sensors that fire based on updates to this catalog allow the asset catalog to be used as a control plane for cross-pipeline dependencies.
 
 While there are many technical advantages to explicitly expressing cross-pipeline dependencies in this way, we think the biggest wins will be organizational. Today, teams whose processes depend on each other face a choice between implicitly encoding cross-team dependencies in temporal schedules ("the other team should have ingested the flat file by 4 am every morning...") or muddying responsibility by building monolithic pipelines whose components are maintained by different teams.
 
@@ -102,6 +102,8 @@ With asset-based sensors, teams can explicitly encode their pipelines' dependenc
 </p>
 
 This approach to structuring cross-team relationships is in line with emerging thinking around the [data mesh](https://martinfowler.com/articles/data-monolith-to-mesh.html), which envisions teams organized along business domains using assets as their interface.
+
+Check out our documentation for more details on defining [schedules](https://docs.dagster.io/overview/schedules-sensors/schedules) and [sensors](https://docs.dagster.io/overview/schedules-sensors/sensors).
 
 # Cloud-native deployments
 
@@ -125,15 +127,23 @@ We've also added new monitoring tools to Dagit to make it easier to monitor the 
 
 In this example, a user has pushed code with a syntax error in one of their repositories, the `live-api-data-warehouse-demo`. Instead of bringing down the system, our monitoring simply notes that it couldn't successfully load that particular repository location. These are some of the fruits of process-level isolation for user code and standardized APIs. For larger deployments (multi-developer and multi-team), isolation guarantees are especially important as insulation against the effects of localized errors.
 
-We're increasingly excited about large-scale deployments of Dagster where the system allows a separation of concerns between a data platform team or persona — responsible for keeping the Dagster orchestration cluster deployed and running — and the analysts and other personas who write Dagster pipelines and consume data assets it produces. We think this kind of self-service is the future of data teams of all sizes. We've found that many of the teams thinking this way today are also moving to Kubernetes, and we're glad to be able to support that transition with a mature deployment path.
+We're increasingly excited about large-scale deployments of Dagster where the system allows a separation of concerns between a data platform team or persona — responsible for keeping the Dagster orchestration cluster deployed and running — and the analysts and other personas who write Dagster pipelines and consume data assets it produces. We think this kind of self-service is the future of data teams of all sizes. We've found that many of the teams thinking this way today are also moving to Kubernetes, and we're glad to be able to support that transition with a mature deployment path. Check out the [documentation](https://docs.dagster.io/deploying/k8s) for more details.
 
-# Asset management
+# I/O management
 
 One of the core promises of Dagster is that the developer can write solids that express pure business logic, separated from concerns that are specific to the execution environment. Code that's structured in this way is easier to develop and test locally, swapping heavy production dependencies out for lighter test systems or even fixtures and mocks. This leads to dramatically shorter feedback loops for developers, which in turn leads to order-of-magnitude improvements in productivity. Code written in this way is also easier to reuse in different contexts and more portable when it becomes necessary to change out a third-party system.
 
 While Dagster's resource system has always made it possible to swap out external dependencies, in previous releases, Dagster's persistence subsystem wasn't sufficiently flexible to handle some critical use cases. Specifically, our persistence subsystem assumed homogenous storage across executions, assumed that users would always want to create immutable data on every run, offered little control over the layout of the produced data, and was confusing to customize.
 
-In 0.10.0, we're introducing a new, streamlined primitive, the _I/O manager_, which can be attached directly to outputs and is swappable when you execute pipelines in different modes. This gives you fine-grained control over persistence, without the need to change any solid business logic to support execution in different environments such as dev, test, and prod.
+In 0.10.0, we're introducing a new, streamlined primitive, the _I/O manager_, which can be attached directly to outputs and is swappable when you execute pipelines in different modes. This gives you fine-grained control over persistence, without the need to change any solid business logic to support execution in different environments such as dev, test, and prod. Here, the teal boxes are handled by an I/O manager.
+
+<p align="center">
+  <img
+    src="/posts/dagster-0-10-0-the-edge-of-glory/io_managers.png"
+    alt="IO managers handle the storage of values passed between solids"
+    width="900px"
+  />
+</p>
 
 This is especially compelling for teams that work with dependency graphs that operate on data frames (such as Pandas or PySpark pipelines). Each node in such a graph can now be expressed in terms of pure business logic, leaving I/O as a separate concern.
 
@@ -179,9 +189,14 @@ def local_parquet_store(_context):
     return LocalParquetStore()
 ```
 
+<<<<<<< HEAD
 In this example, we're persisting the data frames output by both solids as parquet files on local disk. Providing alternative I/O managers allows for fine-grained control. For example, we could provide a pure in-memory I/O manager for tests and an I/O manager that writes parquet to S3 in production. We could even decide, on a per-output basis, to persist some data in S3 and some data in Snowflake to mitigate cost, with no changes to the core business logic.
+=======
+In this example, we're persisting the dataframes output by both solids as parquet files on local disk. Providing alternative I/O managers allows for fine-grained control. For example, we could provide a pure in-memory I/O manager for tests and an I/O manager that writes parquet to S3 in production. We could even decide, on a per-output basis, to persist some data in S3 and some data in Snowflake to mitigate cost, with no changes to the core business logic.
 
-This is a big leap forwards for the Dagster programming model and should make it easier than ever to write reusable solids and pipelines that seamlessly interoperate with the wide range of persistence models desirable in dev, test, and prod.
+> > > > > > > 6a84ddfaff68d81391adf71d22ad967c60514587
+
+This is a big leap forwards for the Dagster programming model and should make it easier than ever to write reusable solids and pipelines that seamlessly interoperate with the wide range of persistence models desirable in dev, test, and prod. To learn more, check out the new [I/O manager docs](https://docs.dagster.io/overview/io-managers/io-managers).
 
 # Conclusion
 
