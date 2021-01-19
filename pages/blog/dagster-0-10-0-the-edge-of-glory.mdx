@@ -87,7 +87,7 @@ This kind of visibility is especially important when you're continuously monitor
 
 ## Modeling cross-team dependencies with asset-based sensors
 
-We're excited about the ability to build sensors that trigger runs based on changes in the Dagster asset catalog. The asset catalog lets users keep track of assets produced by their pipelines, with a bidirectional link between the assets and the computations that produce them. Sensors that fire based on updates to the asset catalog allow the asset catalog to be used as a control plane for cross-pipeline dependencies.
+We can also write sensors that trigger pipeline runs based on updates to data assets produced or modified by executions of other Dagster pipelines. Assets are tracked in Dagster's asset catalog, which lets users connect pipeline executions to the assets they create or modify. Sensors that fire based on updates to this catalog allow the asset catalog to be used as a control plane for cross-pipeline dependencies.
 
 While there are many technical advantages to explicitly expressing cross-pipeline dependencies in this way, we think the biggest wins will be organizational. Today, teams whose processes depend on each other face a choice between implicitly encoding cross-team dependencies in temporal schedules ("the other team should have ingested the flat file by 4am every morning...") or muddying responsibility by building monolithic pipelines whose components are maintained by different teams.
 
