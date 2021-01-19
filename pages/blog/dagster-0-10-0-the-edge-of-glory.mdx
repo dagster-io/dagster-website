@@ -15,9 +15,9 @@ The focus of this release has been operational maturity, reliability, and the ex
 ### Release highlights
 
 * *Exactly-once, Fault-Tolerant Scheduling:* Dagster now includes a fault-tolerant run scheduler with exactly-once semantics, based on a reconciliation loop.
-* *Sensors:* From time-based to event-based schedules. Dagster now includes sensors managed by our scheduled process. Like schedules, these sensors are fault-tolerant, exactly-once, and supported by best-in-class operational tools.
+* *Sensors:* Dagster now supports sensors (event-based schedulers) managed by our scheduler process. Dagster sensors are fault-tolerant, exactly-once, and supported by best-in-class operational tools.
 * *Mature Kubernetes Execution Engine:* Production-ready, cloud-native execution environment built on Kubernetes.
-* *I/O Managers:* Programming model improvements to help cleanly separate I/O and compute. Especially compelling for users who would like to manipulate data frames and target data warehouses and data lakes.
+* *I/O Managers:* Programming model improvements to cleanly separate I/O and compute. Especially compelling for users who would like to use dataframes and target data warehouses and data lakes.
 
 We hope you'll come away excited about the value this work provides to current users of the system and some of the future possibilities it unlocks.
 
@@ -25,9 +25,9 @@ We hope you'll come away excited about the value this work provides to current u
 
 ## Exactly-once, fault-tolerant schedules 
 
-Prior to 0.10.0, although Dagster included support for schedules, our pluggable schedulers relied on external services such as cron or Kubernetes (using the CronJob abstraction) to actually kick off scheduled runs. As a consequence, there was the potential for drift between the scheduler and the external service, leading to subtle bugs, awkward deployment, and missed runs in the presence of node failures. 
+Dagster now comes with a built-in, fully integrated scheduler that runs as a daemon process. The new scheduler provides exactly-once, fault-tolerant scheduling of pipeline runs, as well as built-in queueing for scheduled runs. Schedules are now timezone-aware and correctly handle daylight savings.
 
-Dagster now comes with a built-in, fully integrated scheduler that runs as a daemon process. The new scheduler provides exactly-once, fault-tolerant scheduling of pipeline runs, as well as built-in queueing for scheduled runs. 
+Prior to 0.10.0, although Dagster included support for schedules, our pluggable schedulers relied on external services such as cron or Kubernetes (using the CronJob abstraction) to actually kick off scheduled runs. As a consequence, there was the potential for drift between the scheduler and the external service, leading to subtle bugs, awkward deployment, and missed runs in the presence of node failures. 
 
 <p align="center">
   <img
@@ -37,7 +37,7 @@ Dagster now comes with a built-in, fully integrated scheduler that runs as a dae
   />
 </p>
 
-The new Dagster scheduler is based on a reconciliation loop. The scheduler periodically examines the external state of the world, compares it to the internal state of the Dagster deployment, and then launches runs to reconcile the difference between the expected state and the actual state.
+The new Dagster scheduler is based on a reconciliation loop. The scheduler loop examines the external state of the world (on a configurable interval), compares it to the internal state of the Dagster deployment, and then launches runs to reconcile the difference between the expected state and the actual state.
 
 This idea of reconciliation is a powerful mental model that has been applied in successful systems in other domains. For example, Kubernetes operates on a reconciliation loop: users of the system provide a declarative notion of the state the system should be in, Kubernetes observes the state that the system is actually in, and it is Kubernetes' responsibility to reconcile the two. In a very different domain, React also reconciles the state of its user-computed virtual DOM with the observed state of the actual browser DOM.
 
@@ -47,7 +47,7 @@ In the case of an ordinary Dagster schedule, the external state in question is _
 
 We can extend this model to handle event-based schedules as well as time-based schedules. A typical schedule will say something like, "I want to run this computation every weeknight at 3 AM." But very often, temporal conditions like these are used as proxies for true underlying conditions in the external world, such as "I want to run this computation every business day, after our partner uploads a daily flat file to our shared S3 bucket."
 
-Other systems, such as Airflow, model this kind of dependency using long-running tasks that spin forever until an external condition is met. With the reconciliation loop in our dedicated daemon process, we can instead treat sensors as a simple generalization of schedules. Whereas schedules reconcile based on _time_, sensors reconcile based on _arbitrary external state_.
+Other systems, such as Airflow, model this kind of dependency using long-running tasks that spin forever until an external condition is met. With the reconciliation loop in our dedicated daemon process, we can instead treat sensors as a generalization of schedules. Whereas schedules reconcile based on _time_, sensors reconcile based on _arbitrary external state_.
 
 For example, here's a toy sensor that ensures a pipeline has run once for each key in some S3 bucket.
 
@@ -129,13 +129,13 @@ We're increasingly excited about large-scale deployments of Dagster where the sy
 
 # Asset management
 
-One of the core promises of Dagster is that the developer can write solids that express pure business logic, separated from concerns that are specific to the execution environment. Code that's structured in this way is easier to develop and test locally, swapping heavy-weight production dependencies out for lighter-weight test systems or even fixtures and mocks. This leads to dramatically shorter feedback loops for developers, which in turn leads to order-of-magnitude improvements in productivity. Code written in this way is also easier to reuse in different contexts and more portable when it becomes necessary to change out a third-party system.
+One of the core promises of Dagster is that the developer can write solids that express pure business logic, separated from concerns that are specific to the execution environment. Code that's structured in this way is easier to develop and test locally, swapping heavy production dependencies out for lighter test systems or even fixtures and mocks. This leads to dramatically shorter feedback loops for developers, which in turn leads to order-of-magnitude improvements in productivity. Code written in this way is also easier to reuse in different contexts and more portable when it becomes necessary to change out a third-party system.
 
-While Dagster's resource system has always made it possible to swap out external dependencies, in previous releases, Dagster's persistence subsystem wasn't sufficiently flexible to handle some critical use cases. Specifically, our persistence subsystem assumed homogenous storage across executions, assumed that users would always want to create immutable data on every run, offered little control over the layout of the produced data, and was confusing to customize. (Customizing persistence also required users to understand a confusing array of facilities: intermediate/system storages, serialization strategies, and type storage plugins.)
+While Dagster's resource system has always made it possible to swap out external dependencies, in previous releases, Dagster's persistence subsystem wasn't sufficiently flexible to handle some critical use cases. Specifically, our persistence subsystem assumed homogenous storage across executions, assumed that users would always want to create immutable data on every run, offered little control over the layout of the produced data, and was confusing to customize.
 
 In 0.10.0, we're introducing a new, streamlined primitive, the *I/O manager*, which can be attached directly to outputs and is swappable when you execute pipelines in different modes. This gives you fine-grained control over persistence, without the need to change any solid business logic to support execution in different environments such as dev, test, and prod.
 
-This is especially compelling for teams that work with dependency graphs of data frame-based compute. Each node in such a graph can now be expressed in terms of pure business logic, leaving I/O as a separate concern.
+This is especially compelling for teams that work with dependency graphs of dataframe-based compute (such as Pandas or PySpark pipelines). Each node in such a graph can now be expressed in terms of pure business logic, leaving I/O as a separate concern.
 
 ```python
 @solid
@@ -159,7 +159,7 @@ def filter_people_pipeline():
     filter_over_50(make_people())
 ```
 
-This is a contrived example with only two nodes of compute. But you'll notice that the object passed between the two solids is a data frame, and the compute within the solid bodies operates directly on that data frame, with no I/O handling code anywhere. Persistence (in this case, to a local parquet file) is handled by the I/O manager resource defined on the pipeline mode.
+This is a contrived example with only two nodes of compute. But you'll notice that the object passed between the two solids is a dataframe, and the compute within the solid bodies operates directly on that dataframe, with no I/O handling code anywhere. Persistence (in this case, to a local parquet file) is handled by the I/O manager resource defined on the pipeline mode.
 
 ```python
 class LocalParquetStore(IOManager):
@@ -179,13 +179,13 @@ def local_parquet_store(_context):
     return LocalParquetStore()
 ```
 
-In this example, we're persisting the data frames output by both solids as parquet files on loal disk. Providing alternative I/O managers allows for fine-grained control. For example, we could provide a pure in-memory I/O manager for tests and an I/O manager that writes parquet to S3 in production. We could even decide, on a per-output basis, to persist some data in S3 and some data in Snowflake to mitigate cost, with no changes to the core business logic.
+In this example, we're persisting the dataframes output by both solids as parquet files on loal disk. Providing alternative I/O managers allows for fine-grained control. For example, we could provide a pure in-memory I/O manager for tests and an I/O manager that writes parquet to S3 in production. We could even decide, on a per-output basis, to persist some data in S3 and some data in Snowflake to mitigate cost, with no changes to the core business logic.
 
 This is a big leap forwards for the Dagster programming model and should make it easier than ever to write reusable solids and pipelines that seamlessly interoperate with the wide range of persistence models desirable in dev, test, and prod.
 
 # Conclusion
 
-Our 0.10.0 release includes both architectural changes as well as maturation of our core technology, especially around deployment and ops. W
+Our 0.10.0 release includes both architectural changes as well as maturation of our core technology, especially around deployment and ops.
 
 We're excited about changes to the core programming model, like I/O managers, that should make it easier than ever to write testable solids and pipelines, even in the presence of complex persistence requirements. 
 
