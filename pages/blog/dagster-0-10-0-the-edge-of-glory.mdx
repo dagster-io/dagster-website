@@ -133,7 +133,15 @@ One of the core promises of Dagster is that the developer can write solids that 
 
 While Dagster's resource system has always made it possible to swap out external dependencies, in previous releases, Dagster's persistence subsystem wasn't sufficiently flexible to handle some critical use cases. Specifically, our persistence subsystem assumed homogenous storage across executions, assumed that users would always want to create immutable data on every run, offered little control over the layout of the produced data, and was confusing to customize.
 
-In 0.10.0, we're introducing a new, streamlined primitive, the *I/O manager*, which can be attached directly to outputs and is swappable when you execute pipelines in different modes. This gives you fine-grained control over persistence, without the need to change any solid business logic to support execution in different environments such as dev, test, and prod.
+In 0.10.0, we're introducing a new, streamlined primitive, the *I/O manager*, which can be attached directly to outputs and is swappable when you execute pipelines in different modes. This gives you fine-grained control over persistence, without the need to change any solid business logic to support execution in different environments such as dev, test, and prod. Here, the teal boxes are handled by an I/O manager.
+
+<p align="center">
+  <img
+    src="/posts/dagster-0-10-0-the-edge-of-glory/io_managers.png"
+    alt="IO managers handle the storage of values passed between solids"
+    width="900px"
+  />
+</p>
 
 This is especially compelling for teams that work with dependency graphs of dataframe-based compute (such as Pandas or PySpark pipelines). Each node in such a graph can now be expressed in terms of pure business logic, leaving I/O as a separate concern.
 
