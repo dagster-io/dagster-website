@@ -187,7 +187,7 @@ def local_parquet_store(_context):
     return LocalParquetStore()
 ```
 
-In this example, we're persisting the dataframes output by both solids as parquet files on loal disk. Providing alternative I/O managers allows for fine-grained control. For example, we could provide a pure in-memory I/O manager for tests and an I/O manager that writes parquet to S3 in production. We could even decide, on a per-output basis, to persist some data in S3 and some data in Snowflake to mitigate cost, with no changes to the core business logic.
+In this example, we're persisting the dataframes output by both solids as parquet files on local disk. Providing alternative I/O managers allows for fine-grained control. For example, we could provide a pure in-memory I/O manager for tests and an I/O manager that writes parquet to S3 in production. We could even decide, on a per-output basis, to persist some data in S3 and some data in Snowflake to mitigate cost, with no changes to the core business logic.
 
 This is a big leap forwards for the Dagster programming model and should make it easier than ever to write reusable solids and pipelines that seamlessly interoperate with the wide range of persistence models desirable in dev, test, and prod.
 
