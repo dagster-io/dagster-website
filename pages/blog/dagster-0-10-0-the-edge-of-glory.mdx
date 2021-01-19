@@ -8,26 +8,26 @@ tags: ['dagster']
 authors: ['schrockn', 'gasnerpants']
 ---
 
-We are delighted to announce Dagster 0.10.0, codenamed "The Edge of Glory". 
+We are delighted to announce Dagster 0.10.0, codenamed "The Edge of Glory."
 
-The focus of this release has been operational maturity, reliability, and the expansion of production-grade use cases. 
+This release's focus is operational maturity, reliability, and the expansion of production-grade use cases.
 
 ### Release highlights
 
-* *Exactly-once, Fault-Tolerant Scheduling:* Dagster now includes a fault-tolerant run scheduler with exactly-once semantics, based on a reconciliation loop.
-* *Sensors:* Dagster now supports sensors (event-based schedules) managed by our scheduler process. Dagster sensors are fault-tolerant, exactly-once, and supported by best-in-class operational tools.
-* *Mature Kubernetes Execution Engine:* Production-ready, cloud-native execution environment built on Kubernetes.
-* *I/O Managers:* Programming model improvements to cleanly separate I/O and compute. Especially compelling for users who would like to use dataframes and target data warehouses and data lakes.
+- _Exactly-once, Fault-Tolerant Scheduling:_ Dagster now includes a fault-tolerant run scheduler with exactly-once semantics, based on a reconciliation loop.
+- _Sensors:_ Dagster now supports sensors (event-based schedules) managed by our scheduler process. Dagster sensors are fault-tolerant, exactly-once, and supported by best-in-class operational tools.
+- _Mature Kubernetes Execution Engine:_ Production-ready, cloud-native execution environment built on Kubernetes.
+- _I/O Managers:_ Programming model improvements to cleanly separate I/O and compute. Especially compelling for users who would like to use data frames and target data warehouses and data lakes.
 
 We hope you'll come away excited about the value this work provides to current users of the system and some of the future possibilities it unlocks.
 
 # Reconciliation-based scheduler
 
-## Exactly-once, fault-tolerant schedules 
+## Exactly-once, fault-tolerant schedules
 
-Dagster now comes with a built-in, fully integrated scheduler that runs as a daemon process. The new scheduler provides exactly-once, fault-tolerant scheduling of pipeline runs, as well as built-in queueing for scheduled runs. Schedules are now timezone-aware and correctly handle daylight savings.
+Dagster now comes with a built-in, fully integrated scheduler that runs as a daemon process. The new scheduler provides exactly-once, fault-tolerant scheduling of pipeline runs, and built-in queueing for scheduled runs. Schedules are now timezone-aware and correctly handle daylight savings.
 
-Prior to 0.10.0, although Dagster included support for schedules, our pluggable schedulers relied on external services such as cron or Kubernetes (using the CronJob abstraction) to actually kick off scheduled runs. As a consequence, there was the potential for drift between the scheduler and the external service, leading to subtle bugs, awkward deployment, and missed runs in the presence of node failures. 
+Prior to 0.10.0, although Dagster included support for schedules, our pluggable schedulers relied on external services such as cron or Kubernetes (using the CronJob abstraction) to kick-off scheduled runs. As a consequence, there was the potential for drift between the scheduler and the external service, leading to subtle bugs, awkward deployment, and missed runs in the presence of node failures.
 
 <p align="center">
   <img
@@ -41,7 +41,7 @@ The new Dagster scheduler is based on a reconciliation loop. The scheduler loop 
 
 This idea of reconciliation is a powerful mental model that has been applied in successful systems in other domains. For example, Kubernetes operates on a reconciliation loop: users of the system provide a declarative notion of the state the system should be in, Kubernetes observes the state that the system is actually in, and it is Kubernetes' responsibility to reconcile the two. In a very different domain, React also reconciles the state of its user-computed virtual DOM with the observed state of the actual browser DOM.
 
-In the case of an ordinary Dagster schedule, the external state in question is _time_. At any given time, there is a set of scheduled runs that should already have been launched or completed. It is the responsibility of the scheduler to ensure that this expectation aligns with the actual state of the world. This mental model allows users to express complex schedules (e.g., skipping certain runs based on business rules) and allows the system to gracefully handle thorny issues such as daylight saving time handling and fault tolerance.
+In the case of an ordinary Dagster schedule, the external state in question is _time_. There is a set of scheduled runs that should already have been launched or completed at any given time. It is the responsibility of the scheduler to ensure that this expectation aligns with the actual state of the world. This mental model allows users to express complex schedules (e.g., skipping certain runs based on business rules) and allows the system to gracefully handle thorny issues such as daylight saving time handling and fault tolerance.
 
 ## Exactly-once, fault-tolerant sensors
 
@@ -61,7 +61,7 @@ def toy_s3_sensor(context):
         yield RunRequest(run_key=s3_key)
 ```
 
-This user-defined function is invoked by the reconciliation loop of the scheduler daemon. (By default, it's invoked every 15 seconds, but the cadence of sensor ticks is configurable.)
+The reconciliation loop of the scheduler daemon invokes this user-defined function. By default, it's invoked every 15 seconds, but the cadence of sensor ticks is configurable.
 
 <p align="center">
   <img
@@ -81,17 +81,17 @@ There are a bunch of advantages to this way of thinking about sensors. First of 
   />
 </p>
 
-Here you can see Dagit's realtime display of the reconciliation loop timeline, showing each time it checks external state (a tick) and what the result of that tick was (a skip, a requested run, an error, etc.).
+Here you can see Dagit's real-time display of the reconciliation loop timeline, showing each time it checks external state (a tick) and what the result of that tick was (a skip, a requested run, an error, etc.).
 
-This kind of visibility is especially important when you're continuously monitoring and probing external systems that will periodically be unavailable or in error states. In the example above, intermittent failures of connectivity to S3 will merely delay the generation of a run request, rather than putting the system into a bad state. 
+This kind of visibility is critical when you're continuously monitoring and probing external systems that will periodically be unavailable or in error states. In the example above, intermittent S3 failures will merely delay the generation of a run request, rather than putting the system into a bad state.
 
 ## Modeling cross-team dependencies with asset-based sensors
 
 We're excited about the ability to build sensors that trigger runs based on changes in the Dagster asset catalog. The asset catalog lets users keep track of assets produced by their pipelines, with a bidirectional link between the assets and the computations that produce them. Sensors that fire based on updates to the asset catalog allow the asset catalog to be used as a control plane for cross-pipeline dependencies.
 
-While there are many technical advantages to explicitly expressing cross-pipeline dependencies in this way, we think the biggest wins will be organizational. Today, teams whose processes depend on each other face a choice between implicitly encoding cross-team dependencies in temporal schedules ("the other team should have ingested the flat file by 4am every morning...") or muddying responsibility by building monolithic pipelines whose components are maintained by different teams.
+While there are many technical advantages to explicitly expressing cross-pipeline dependencies in this way, we think the biggest wins will be organizational. Today, teams whose processes depend on each other face a choice between implicitly encoding cross-team dependencies in temporal schedules ("the other team should have ingested the flat file by 4 am every morning...") or muddying responsibility by building monolithic pipelines whose components are maintained by different teams.
 
-With asset-based sensors, teams can explicitly encode their pipelines' dependencies on assets created by their partner teams, and trigger their pipelines only when those assets are updated. They can also layer their own business logic on top of these triggers; perhaps rate-limiting updates because of cost constraints or different SLAs. (There are a lot of reasons a team might want to execute their pipelines conditionally on, but not immediately after, another team's computations are complete.)
+With asset-based sensors, teams can explicitly encode their pipelines' dependencies on assets created by their partner teams and trigger their pipelines only when those assets are updated. They can also layer their business logic on top of these triggers, perhaps rate-limiting updates because of cost constraints or different SLAs. (There are a lot of reasons a team might want to execute their pipelines conditionally on, but not immediately after, another team's computations are complete.)
 
 <p align="center">
   <img
@@ -105,13 +105,13 @@ This approach to structuring cross-team relationships is in line with emerging t
 
 # Cloud-native deployments
 
-We've done a lot of work over this release to harden our out-of-the-box Kubernetes deployment options. In this release, the Dagster + Kubernetes integration has gone from a prototype to a mature, battle-tested implementation, running in production on spot instances at some of the largest users of Dagster. Our work hardening Kubernetes deployments is intended to ensure that there's a cloud-native, scalable, well-tested, cost-effective reference option available for Dagster users.
+We've done a lot of work over this release to harden our out-of-the-box Kubernetes deployment options. In this release, the Dagster + Kubernetes integration has gone from a prototype to a mature, battle-tested implementation, running in production on spot instances at some of the largest users of Dagster. Our work hardening Kubernetes deployments ensures that there's a cloud-native, scalable, well-tested, cost-effective reference option available for Dagster users.
 
-This integration makes it possible to execute each step of a Dagster pipeline in its own Kubernetes Job, providing both isolation and horizontal scalability up to the limits of Kubernetes cluster size. 
+This integration makes it possible to execute each step of a Dagster pipeline in its own Kubernetes Job, providing both isolation and horizontal scalability up to the limits of Kubernetes cluster size.
 
 Our Helm chart is now easier to configure and deploy, and we've made big investments in observability and reliability. You can view Kubernetes interactions in the structured event log and use Dagit to help you understand what's happening in your deployment. New defaults in the Helm chart will give you graceful degradation and failure recovery out of the box.
 
-Dagster remains a pluggable system that can be (and is) deployed on many different infrastructures. As you might expect, the Kubernetes integration is built on top of the standard integration points we expect users to lever to serve their own specific infrastructure needs -- the `RunLauncher` and `Executor` abstractions. It's important to us that Dagster both be extensible and adaptable to the needs of users with specific infrastructure requirements or preferences, and that there be a clear pathway to scale on a standard deployment substrate. So while we _enable_ out-of-the-box deployment to Kubernetes, we do not _require_ Kubernetes.
+Dagster remains a pluggable system that can be (and is) deployed on many different infrastructures. As you might expect, the Kubernetes integration builds on top of the standard integration points we expect users to lever to serve their own specific infrastructure needs -- the `RunLauncher` and `Executor` abstractions. It's important that Dagster be extensible and adaptable to the needs of users with specific infrastructure requirements or preferences, and that there be a clear pathway to scale on a standard deployment substrate. So while we _enable_ out-of-the-box deployment to Kubernetes, we do not _require_ Kubernetes.
 
 We've also added new monitoring tools to Dagit to make it easier to monitor the health of a deployment. This is especially important as we add more components, like the scheduler daemon, to the system. With this in mind, we've added an "Instance Status" page to our beloved Dagit UI to give you better visibility into various processes in your Dagster instance. Whether you're running Dagster locally, on a VM, or on Kubernetes, the "Instance Status" page is extremely useful for viewing the health of repository locations, daemon processes, schedules, sensors, and linkable configuration.
 
@@ -133,9 +133,9 @@ One of the core promises of Dagster is that the developer can write solids that 
 
 While Dagster's resource system has always made it possible to swap out external dependencies, in previous releases, Dagster's persistence subsystem wasn't sufficiently flexible to handle some critical use cases. Specifically, our persistence subsystem assumed homogenous storage across executions, assumed that users would always want to create immutable data on every run, offered little control over the layout of the produced data, and was confusing to customize.
 
-In 0.10.0, we're introducing a new, streamlined primitive, the *I/O manager*, which can be attached directly to outputs and is swappable when you execute pipelines in different modes. This gives you fine-grained control over persistence, without the need to change any solid business logic to support execution in different environments such as dev, test, and prod.
+In 0.10.0, we're introducing a new, streamlined primitive, the _I/O manager_, which can be attached directly to outputs and is swappable when you execute pipelines in different modes. This gives you fine-grained control over persistence, without the need to change any solid business logic to support execution in different environments such as dev, test, and prod.
 
-This is especially compelling for teams that work with dependency graphs of dataframe-based compute (such as Pandas or PySpark pipelines). Each node in such a graph can now be expressed in terms of pure business logic, leaving I/O as a separate concern.
+This is especially compelling for teams that work with dependency graphs that operate on data frames (such as Pandas or PySpark pipelines). Each node in such a graph can now be expressed in terms of pure business logic, leaving I/O as a separate concern.
 
 ```python
 @solid
@@ -159,16 +159,16 @@ def filter_people_pipeline():
     filter_over_50(make_people())
 ```
 
-This is a contrived example with only two nodes of compute. But you'll notice that the object passed between the two solids is a dataframe, and the compute within the solid bodies operates directly on that dataframe, with no I/O handling code anywhere. Persistence (in this case, to a local parquet file) is handled by the I/O manager resource defined on the pipeline mode.
+This is a contrived example with only two nodes of compute. But you'll notice that the object passed between the two solids is a data frame, and the compute within the solid bodies operates directly on that data frame, with no I/O handling code anywhere. Persistence (in this case, to a local parquet file) is handled by the I/O manager resource defined on the pipeline mode.
 
 ```python
 class LocalParquetStore(IOManager):
     def _get_path(self, context):
         return os.path.join(context.run_id, context.step_key, context.name)
-    
+
     def handle_output(self, context, obj):
         obj.write.parquet(self._get_path(context))
-    
+
     def load_input(self, context):
         return context.resources.spark.read.parquet(
             self._get_path(context.upstream_output)
@@ -179,17 +179,17 @@ def local_parquet_store(_context):
     return LocalParquetStore()
 ```
 
-In this example, we're persisting the dataframes output by both solids as parquet files on loal disk. Providing alternative I/O managers allows for fine-grained control. For example, we could provide a pure in-memory I/O manager for tests and an I/O manager that writes parquet to S3 in production. We could even decide, on a per-output basis, to persist some data in S3 and some data in Snowflake to mitigate cost, with no changes to the core business logic.
+In this example, we're persisting the data frames output by both solids as parquet files on local disk. Providing alternative I/O managers allows for fine-grained control. For example, we could provide a pure in-memory I/O manager for tests and an I/O manager that writes parquet to S3 in production. We could even decide, on a per-output basis, to persist some data in S3 and some data in Snowflake to mitigate cost, with no changes to the core business logic.
 
 This is a big leap forwards for the Dagster programming model and should make it easier than ever to write reusable solids and pipelines that seamlessly interoperate with the wide range of persistence models desirable in dev, test, and prod.
 
 # Conclusion
 
-Our 0.10.0 release includes both architectural changes as well as maturation of our core technology, especially around deployment and ops.
+Our 0.10.0 release includes both architectural changes as well as the maturation of our core technology, especially around deployment and ops.
 
-We're excited about changes to the core programming model, like I/O managers, that should make it easier than ever to write testable solids and pipelines, even in the presence of complex persistence requirements. 
+We're excited about changes to the core programming model, like I/O managers, that should make it easier than ever to write testable solids and pipelines, even in the presence of complex persistence requirements.
 
-We think our new scheduling architecture is a fundamentally better way to schedule periodic computations, and we're very excited to see what new applications our users come up with for reliable event-based scheduling with sensors. We believe that these sensors will provide a natural cross-team interface point using our asset catalog as a control plane. We also suspect that continuously evaluated, reliable sensors, combined with a modern execution architecture, is a good basis on which to build low-latency batching operations for near-real-time analytics and machine learning. 
+We think our new scheduling architecture is a fundamentally better way to schedule periodic computations, and we're very excited to see what new applications our users come up with for reliable event-based scheduling with sensors. We believe that these sensors will provide a natural cross-team interface point using our asset catalog as a control plane. We also project that continuously evaluated, reliable sensors, combined with a modern execution architecture, are a good basis for building low-latency batching operations for near-real-time analytics and machine learning.
 
 And we're excited to continue supporting our largest users with a Kubernetes deployment that provides observability, robust user code isolation guarantees, and a great horizontal scalability story for large-scale use cases (including near-real-time).
 
