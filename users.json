@@ -59,5 +59,10 @@
     "name": "thoughtfulcompany",
     "url": "https://www.thoughtfulcompany.io/",
     "logoURL": "/images/logos/users/thoughtful.png"
+  },
+  {
+    "name": "Drizly",
+    "url": "https://drizly.com/",
+    "logoURL": "/images/logos/users/drizly.png"
   }
 ]
