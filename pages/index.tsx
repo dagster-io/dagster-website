@@ -46,7 +46,16 @@ export default function IndexPage({
               src="images/hero-icon-1.svg"
               style={{ height: 70, marginBottom: 20 }}
             />
-            <p>Implement components in any tool, such as Pandas, Spark, SQL, or DBT.</p>
+            <p>Build pipelines of computations written in Spark, SQL, DBT, or any other framework.</p>
+          </div>
+          <div style={{ width: 40 }} />
+          <div className="text-center" style={{ flex: 1, marginTop: 50 }}>
+            <img
+              className="inline-block"
+              src="images/hero-icon-3.svg"
+              style={{ height: 70, marginBottom: 20 }}
+            />
+            <p>Locally develop pipelines in-process, then flexibly deploy on Kubernetes or your custom infrastructure.</p>
           </div>
           <div style={{ width: 40 }} />
           <div className="text-center" style={{ flex: 1, marginTop: 50 }}>
@@ -56,17 +65,8 @@ export default function IndexPage({
               style={{ height: 70, marginBottom: 20 }}
             />
             <p>
-              Define your pipelines in terms of the data flow between reusable, logical components.
+              Unify your view of pipelines and the tables, ML models, and other assets they produce.
             </p>
-          </div>
-          <div style={{ width: 40 }} />
-          <div className="text-center" style={{ flex: 1, marginTop: 50 }}>
-            <img
-              className="inline-block"
-              src="images/hero-icon-3.svg"
-              style={{ height: 70, marginBottom: 20 }}
-            />
-            <p>Test locally and run anywhere with a unified view of data pipelines and assets.</p>
           </div>
         </div>
         <div
