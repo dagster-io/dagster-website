@@ -41,6 +41,12 @@
       "fullName": "Bob Chen",
       "profileImage": "/editors/bobchen168.jpg",
       "url": "https://twitter.com/bobchen168"
+    },
+    {
+      "id": "Dennis_Hume",
+      "fullName": "Dennis Hume",
+      "profileImage": "/editors/Dennis_Hume.png",
+      "url": ""
     }
   ]
 }

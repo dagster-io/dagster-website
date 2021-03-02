@@ -1,0 +1,158 @@
+---
+layout: 'BlogPost'
+status: 'published'
+title: 'Building shared spaces for data teams at Drizly'
+excerpt: 'Dagster lets a small data infrastructure team efficiently ship a data platform that supports users with different skillsets, letting anyone contribute with minimal coordination required.'
+date: '2021-03-01'
+# FIXME
+authors: ['Dennis_Hume']
+---
+
+## A shared space for non-SQL workflows
+
+<img
+  src="/posts/shared-spaces-at-drizly/drizly_logo.png"
+  alt="Drizly Logo"
+  width="200px"
+  style={{float: "left", "padding-right": "20px"}}
+/>
+
+When we started rearchitecting our data infrastructure at [Drizly](https://drizly.com/) a year and a half ago, we knew we wanted our data platform to be an application, supporting multiple stakeholders contributing and collaborating together in shared spaces. At the time we were a small team of data scientists and analysts who had to support the analytic needs of the entire company (from marketing to operations, partnerships and more).
+
+Like many teams, we found that without a common data platform, there was a lot of duplicated data work being done, and getting that work to be consistent and reproducible was always a struggle.
+
+For SQL-based workflows, the answer was relatively straightforward: we moved our data warehouse to [Snowflake](https://www.snowflake.com/) (from Redshift), and standardized our SQL transformations using [dbt](https://www.getdbt.com/).
+
+> We want to give people across our organization the ability to iterate quickly on data projects in a safe environment. 
+
+But non-SQL workflows posed a tougher challenge. Here the different needs of the team became more apparent. Data scientists want the ability to develop machine learning models, with unique dependencies, that adhere to strict SLAs; while an analyst may want to add Python transformations to a table in the warehouse without having to worry about the underlying infrastructure.
+
+We saw Dagster as a framework that could provide us with a new shared space to support all our data roles.
+
+## Fast spin-up
+
+One of the things that we’ve found works really well with Snowflake and dbt is that everything is built around the idea of a SQL model that fits into an overarching DAG. This is helpful for members of the team, who can always think about how the model they’re working on fits into the DAG.
+
+Dagster is built on the same principles, and we liked the way our team members could think of the work they were doing as a solid that fits into a pipeline.
+
+But to take full advantage of Dagster, you also want to leverage additional abstractions beyond the DAG, like modes, presets, and resources. We wanted to make the power of these abstractions available to our users, but we didn’t want learning about Dagster concepts to be a barrier to getting work integrated.
+
+So we spent a lot of time thinking about how to standardize our processes. Our goal was to make it possible for someone to spin up a Dagster pipeline in a single PR during their first week on the job.
+
+## Standardized deployments for the entire development lifecycle
+Thinking through our workflows, we decided on 4 key deployments within our Dagster project, each of which is tied to a stage in the development lifecycle and a deployment target for running Dagster, whether on a local machine or on AWS:
+
+<table style={{border: "1px solid"}}>
+  <tr style={{border: "1px solid"}}>
+    <th style={{background: "#efefef", "border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>Deployment</th>
+    <th style={{background: "#efefef", "padding": "5px 5px 5px 5px"}}>Location</th>
+  </tr>
+  <tr>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>local</td>
+    <td style={{"padding": "5px 5px 5px 5px"}}>Local, Python virtual environment</td>
+  </tr>
+  <tr>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>docker compose</td>
+    <td style={{"padding": "5px 5px 5px 5px"}}>Local, Docker</td>
+  </tr>
+  <tr>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>dev</td>
+    <td style={{"padding": "5px 5px 5px 5px"}}>AWS dev account</td>
+  </tr>
+  <tr>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>prod</td>
+    <td style={{"padding": "5px 5px 5px 5px"}}>AWS prod account</td>
+  </tr>
+</table>
+
+These deployments allow our team to take advantage of Dagster features without necessarily knowing all the details of the abstraction layer.
+
+We use environment variables to filter the Dagster objects (modes, presets, resources, and schedules) that are available in each deployment. This makes sure that users have the facilities they need at each stage of their dev work, while preventing confusion (trying to launch a pipeline that might not have the supporting infrastructure present) and adding safety (not having someone accidentally launch a prod pipeline from their machine). 
+
+For example, in our local deployment, users only have access to local mode. This means they can only run their pipeline with mocks and no external dependencies. This is the perfect environment to ensure the pipeline is compiling, to test the logic of solids on small, pre-configured data sets, or to execute unit tests.
+
+When a user moves past this stage to deploy using docker-compose, they will have access to both local and dev mode. Now they can run their pipelines with resources configured to use Docker services within the compose environment or connections to sandbox environments.
+
+Finally, when a user is ready to put out a PR, our CI runs final integration tests on our Dagster project in our AWS dev and prod accounts.
+
+<p align="center">
+  <img
+    src="/posts/shared-spaces-at-drizly/pull_request.png"
+    alt="A pull request passing through our dev mode in CI"
+    width="600px"
+  />
+</p>
+
+## Light-weight infrastructure for local development
+Designing our workflow around different deployments also allows us to use different Dagster instance configurations for different stages of development. This means users don’t need to set up a lot of local infrastructure in order to run tests; the same code will run in production with production-appropriate scheduling and execution.
+
+
+<table style={{border: "1px solid"}}>
+  <tr style={{border: "1px solid"}}>
+    <th style={{background: "#efefef", "border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>Deployment</th>
+    <th style={{background: "#efefef", "padding": "5px 5px 5px 5px"}}>Modes</th>
+    <th style={{background: "#efefef", "padding": "5px 5px 5px 5px"}}>Launcher</th>
+    <th style={{background: "#efefef", "padding": "5px 5px 5px 5px"}}>Workspaces</th>
+    <th style={{background: "#efefef", "padding": "5px 5px 5px 5px"}}>Description</th>
+  </tr>
+  <tr>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>local</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>local</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>Default</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>Single</td>
+    <td style={{"padding": "5px 5px 5px 5px"}}>Running a single Dagit locally on a single workspace. Running unit tests.</td>
+  </tr>
+  <tr>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>docker&nbsp;compose</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>local, dev</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>Docker</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>All</td>
+    <td style={{"padding": "5px 5px 5px 5px"}}>Running our entire Dagster project (all workspaces) as well as the daemon and any supporting infrastructure</td>
+  </tr>
+  <tr>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>dev</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>local, dev</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>AWS ECS</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>All</td>
+    <td style={{"padding": "5px 5px 5px 5px"}}>Our Dagster AWS stack on our dev AWS account</td>
+  </tr>
+  <tr>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>prod</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>prod</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>AWS ECS</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>All</td>
+    <td style={{"padding": "5px 5px 5px 5px"}}>Production Dagster</td>
+  </tr>
+</table>
+
+The local deployment uses the default run launcher, while the docker compose deployment uses the [`DockerRunLauncher`](https://docs.dagster.io/_apidocs/libraries/dagster_docker#dagster_docker.DockerRunLauncher) to isolate runs in their own containers. 
+
+<p align="center">
+  <img
+    src="/posts/shared-spaces-at-drizly/docker_compose.png"
+    alt="Dagster running in docker-compose locally"
+    width="600px"
+  />
+</p>
+
+Our two AWS deployments (dev and prod) both take advantage of the Dagster ECS Launcher.
+
+Our deployments in compose, dev and prod also include the Dagster daemon to run our schedules. This means users can define the logic of their own schedules in code and test them without having to think of the relationship between Dagit and the daemon.
+
+This flexibility was a big selling point for Dagster, since our team can benefit from all of the Dagster features without ever touching the `dagster.yaml` or `workspace.yaml` files (or even knowing that these files exist!).
+
+## Enabling self-service on the data platform  
+This separation of concerns means that a small core data infrastructure team can efficiently ship a data platform for users with different skillsets. We use a set of cookie-cutter templates to ensure that any new pipelines are set up with the correct modes, presets, and schedules for our deployment environments.
+
+> Dagster and the structure of our deployments are getting us to the point where everyone on the team can feel comfortable trying things out.
+
+Now, anyone can contribute an additional pipeline, without any real coordination overhead to ensure that it will behave like everything else we’ve already stood up. 
+
+Before we started this work, people on the team would say “I want to try and do X but I don’t want to break anything.” As a data engineer, it always warmed my heart to hear people worry about the data stack. But as we continue to grow as an organization, we wanted there to be as little unnecessary coordination as possible preventing people from doing their jobs.
+
+We want to give people across our organization the ability to iterate quickly on data projects in a safe environment. Dagster and the structure of our deployments are getting us to the point where everyone on the team can feel comfortable trying things out.
+
+## Next steps
+We are still getting up to speed with everything Dagster can do, and we’re excited about streamlining more of our processes. For example, we have a number of isolated workflows running in one-off environments (like AWS Step Functions) that would be better consolidated on Dagster. We also have microservices that might be better expressed as sensors within the Dagster system. We’d like to use the Dagit UI as a unified interface for these functions, some of which lie outside of the sphere of analytics proper.
+
+_If you’re interested in helping us build out the data team at Drizly, [we’re hiring](https://drizly.com/open-roles). And if you want to hear more about our data stack, check out our talk from [Coalesce](https://www.getdbt.com/coalesce/agenda/analytics-on-your-analytics) last year._
