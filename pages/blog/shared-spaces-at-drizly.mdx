@@ -40,28 +40,51 @@ But to take full advantage of Dagster, you also want to leverage additional abst
 So we spent a lot of time thinking about how to standardize our processes. Our goal was to make it possible for someone to spin up a Dagster pipeline in a single PR during their first week on the job.
 
 ## Standardized deployments for the entire development lifecycle
-Thinking through our workflows, we decided on 4 key deployments within our Dagster project, each of which is tied to a stage in the development lifecycle and a deployment target for running Dagster, whether on a local machine or on AWS:
+
+Before Dagster, deploying new data pipelines involved a lot of effort and risk. Usually, someone would build something on their local machine, we would configure the bare minimum AWS resources to support it, and we would throw it into production to test. This led to drawn out deployments with numerous back and forth conversations to resolve issues. As a result, getting new data workflows into production was a burden and making changes to existing pipelines was generally avoided.
+
+Instead we wanted to frontload testing and invest a lot in our workflow to ensure a smooth transition through the development lifecycle and give users the tools they needed for their pipelines from the beginning.
+
+One reason our Snowflake and dbt environment are effective is that every user can experiment with their models safely within a cloned database, run unit tests, and know that their work will be reflected in production when it’s merged. Our goal was to get to that same level of confidence with Dagster.
+
+We decided on 4 key _deployments_ within our Dagster project, each of which is tied to a stage in the development lifecycle and a deployment target for running Dagster, whether on a local machine or on AWS:
 
 <table style={{border: "1px solid"}}>
   <tr style={{border: "1px solid"}}>
     <th style={{background: "#efefef", "border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>Deployment</th>
     <th style={{background: "#efefef", "padding": "5px 5px 5px 5px"}}>Location</th>
+    <th style={{background: "#efefef", "padding": "5px 5px 5px 5px"}}>Errors Caught</th>
+    <th style={{background: "#efefef", "padding": "5px 5px 5px 5px"}}>Feedback</th>
   </tr>
   <tr>
     <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>local</td>
-    <td style={{"padding": "5px 5px 5px 5px"}}>Local, Python virtual environment</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>Local, Python virtual environment</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>
+      Ensure pipelines compile and check logic of solids against locally-stored, pre-configured data
+    </td>
+    <td style={{"padding": "5px 5px 5px 5px"}}>< 30 seconds</td>
   </tr>
   <tr>
     <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>docker compose</td>
-    <td style={{"padding": "5px 5px 5px 5px"}}>Local, Docker</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>Local, Docker</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>
+      Ensure that the pipeline fits into the overall Dagster application and that all images are created correctly. Also test any schedules or sensors.
+    </td>
+    <td style={{"padding": "5px 5px 5px 5px"}}>1 min</td>
   </tr>
   <tr>
     <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>dev</td>
-    <td style={{"padding": "5px 5px 5px 5px"}}>AWS dev account</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>AWS dev account</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>
+      Ensure integration testing and that all AWS permissions are configured correctly
+    </td>
+    <td style={{"padding": "5px 5px 5px 5px"}}>5-10 mins</td>
   </tr>
   <tr>
     <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>prod</td>
-    <td style={{"padding": "5px 5px 5px 5px"}}>AWS prod account</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>AWS prod account</td>
+    <td style={{"border-right": "1px solid", "padding": "5px 5px 5px 5px"}}>&nbsp;</td>
+    <td style={{"padding": "5px 5px 5px 5px"}}>5-10 mins</td>
   </tr>
 </table>
 
@@ -71,9 +94,13 @@ We use environment variables to filter the Dagster objects (modes, presets, reso
 
 For example, in our local deployment, users only have access to local mode. This means they can only run their pipeline with mocks and no external dependencies. This is the perfect environment to ensure the pipeline is compiling, to test the logic of solids on small, pre-configured data sets, or to execute unit tests.
 
+> This process lets users take a pipeline from their local machine to production without worrying about infrastructure details. 
+
 When a user moves past this stage to deploy using docker-compose, they will have access to both local and dev mode. Now they can run their pipelines with resources configured to use Docker services within the compose environment or connections to sandbox environments.
 
 Finally, when a user is ready to put out a PR, our CI runs final integration tests on our Dagster project in our AWS dev and prod accounts.
+
+This process lets users take a pipeline from their local machine to production without worrying about infrastructure details. Whether they are setting up scheduled jobs or creating an event driven workflow with sensors, all configuration details can be maintained by the user, in Python, alongside their pipeline code.
 
 <p align="center">
   <img
@@ -135,7 +162,7 @@ The local deployment uses the default run launcher, while the docker compose dep
   />
 </p>
 
-Our two AWS deployments (dev and prod) both take advantage of the Dagster ECS Launcher.
+Our two AWS deployments (on our dev and prod) accounts both take advantage of a Dagster ECS Launcher (currently a custom launcher).
 
 Our deployments in compose, dev and prod also include the Dagster daemon to run our schedules. This means users can define the logic of their own schedules in code and test them without having to think of the relationship between Dagit and the daemon.
 
