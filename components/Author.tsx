@@ -21,11 +21,16 @@ export const AuthorItem: React.FunctionComponent<any> = ({ authorId }) => {
         <dt className="sr-only">Name</dt>
         <dd className="text-gray-900">{data.fullName}</dd>
         <dt className="sr-only">Handle</dt>
-        <dd>
-          <a href={data.url} className="text-blue-500 hover:text-blue-600">
-            @{data.id}
-          </a>
-        </dd>
+        {/* When authors don't have social media presences, we won't link out */}
+        {data.url ? (
+          <dd>
+            <a href={data.url} className="text-blue-500 hover:text-blue-600">
+              @{data.id}
+            </a>
+          </dd>
+        ) : (
+          ''
+        )}
       </dl>
     </>
   )
