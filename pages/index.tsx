@@ -131,7 +131,7 @@ export default function IndexPage({
               early.
             </p>
             <a
-              href="https://docs.dagster.io/overview/solids-pipelines/solids"
+              href="https://docs.dagster.io/concepts/solids-pipelines/solids"
               target="_blank"
               className="inline-block py-4"
             >
@@ -163,7 +163,7 @@ export default function IndexPage({
               expect.
             </p>
             <a
-              href="https://docs.dagster.io/overview/asset-materializations"
+              href="https://docs.dagster.io/concepts/assets/asset-materializations"
               target="_blank"
               className="inline-block py-4"
             >
@@ -208,7 +208,7 @@ export default function IndexPage({
               issues can't bring the system down.
             </p>
             <a
-              href="https://docs.dagster.io/overview/repositories-workspaces/workspaces"
+              href="https://docs.dagster.io/concepts/repositories-workspaces/workspaces"
               target="_blank"
               className="inline-block py-4"
             >
