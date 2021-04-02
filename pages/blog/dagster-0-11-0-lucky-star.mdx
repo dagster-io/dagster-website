@@ -26,11 +26,11 @@ We've also launched a new docs site, improved the asset catalog, improved intero
 
 # Dynamic orchestration
 
-Many data pipelines include steps that have to be repeated once for each element of some input. Very often, you don't know in advance how many inputs youre going to have to process. And once you're done, you'll often want to collect the outputs of each process for downstream processing as an aggregate.
+Many data pipelines include steps that have to be repeated once for each element of some input. Very often, you don't know in advance how many inputs you're going to have to process. And once you're done, you'll often want to collect the outputs of each process for downstream processing as an aggregate.
 
 For example, if you're processing files that you grab from an SFTP drop, you may want to run a complex subset of a pipeline once for each file, but the number of files may differ day-to-day. Once you've processed all the files, you might want to compute aggregate statistics or create a summary report.
 
-From the standpoint of the orchestration engine, we think of this as the simplest kind of _dynamic orchestration_ -- where the work to be orchestrated is determined not at pipeline definition time but at runtime, dependent on data that's observed as part of pipeline execution.
+We think of this as the simplest kind of _dynamic orchestration_ -- where the work to be orchestrated is determined not at pipeline definition time but at runtime, dependent on data that's observed as part of pipeline execution.
 
 One of our [longest-standing Github issues](https://github.com/dagster-io/dagster/issues/462) has been for an abstraction to help model this common case. In Dagster 0.10.0 "The Edge of Glory", we introduced experimental support for dynamic orchestration with the `map` operation, allowing solids to yield special outputs using the [`DynamicOutput`](https://docs.dagster.io/_apidocs/dynamic#dagster.experimental.DynamicOutput) class, over which the execution of downstream solids could be mapped at runtime.
 
@@ -65,7 +65,7 @@ def process_directory():
     summarize_directory(file_results.collect())
 ```
 
-Since the `map` and `collect` operations are part of the pipeline definition, we can visualize them in Dagit. Both the mapped dynamic output and the collected input have special sigils and the mapped solid is embellished in the pipeline view to illustrate that it will be executed dynamically. 
+We believe that a user should know what is going to happen before a pipeline executes. So Dagit always lets you render a pipeline in its logical form before computation, even in the presence of dynamic orchestration. Let's look at how the `map` and `collect` operations are represented in Dagit. Both the mapped dynamic output and the collected input have special sigils and the mapped solid is embellished in the pipeline view to illustrate that it will be executed dynamically. 
 
 <p align="center">
   <img
@@ -84,7 +84,7 @@ When we execute the pipeline, each copy of the mapped computations is identified
   />
 </p>
 
-Keep in mind that Dagster is not a specialized distributed computation framework like [Dask](https://dask.org/) or [Spark](https://spark.apache.org/). If you need to process very large datasets efficiently in parallel, we still recommend that you use Dagster to orchestrate solids that perform compute in a specialized framework. But for many coarse-grained cases, these abstractions make it easier to express logical parallelism and write pipelines that get work done.
+Dynamic orchestration is not meant to replace frameworks that perform massively parallel computation over large data sets. For that task, you should use a specialized distributed computation framework like [Spark](https://spark.apache.org/) or [Dask](https://dask.org/). Dagster sits at a different layer of the stack, and dynamic orchestration is intended to let you express coarse-grained, logical parallelism in your pipelines.
 
 We'd love to learn about your use cases and to get your feedback on this feature as we move it from experimental to fully supported.
 
@@ -112,7 +112,8 @@ The Dagit partitions tab makes it easy to view all the historical runs for a par
 
 Each row in this matrix corresponds to one solid in the partitioned pipeline, and each column corresponds to one of the partitions, so each box represents the execution of a solid over a particular partition. The shade of the box indicates the state of the _latest_ run for that solid over the given partition. Red indicates a failure, and white indicates that no run has executed.
 
-You can drill down into an individual partition to see the history of all runs executed for that partition:
+
+Because Dagster keeps an immutable record of all pipeline executions, you can drill down into an individual partition to see the history of all runs executed for that partition. 
 
 <p align="center">
   <img
@@ -121,6 +122,8 @@ You can drill down into an individual partition to see the history of all runs e
     width="900px"
   />
 </p>
+
+If you have previous experience running backfills with systems like Airflow, which destructively alters its task history as part of the retry process, we hope this feature comes as a pleasant surprise.
 
 ## Launching backfills
 
@@ -180,7 +183,7 @@ def my_user_model_pipeline():
 
 In this toy example, our `scrape_users` solid pulls some data into a database table so that the downstream `create_model` solid can build an ML model. We'd like users of our data platform who are browsing through the asset catalog to know that the ML model depends on the database table.
 
-We've already told Dagster about the data dependencies between the inputs and outputs of our solids -- that's how we constructed the pipeline. When we attach asset keys to the outputs of our solids, we give Dagster the information it needs to infer the lineage graph that connects the associated assets.
+Dagster already knows about the data dependencies between our solids. With a minimal amount of additional metadata, Dagster can construct the lineage of the assets produced by those computations at runtime.
 
 <p align="center">
   <img
@@ -236,7 +239,7 @@ We hope you'll find the new organization makes it easier for you to quickly find
 
 <p align="center">
   <img
-    src="/posts/dagster-0-11-0-lucky-star/docs_search.png"
+    src="/posts/dagster-0-11-0-lucky-star/docs_search.gif"
     alt="Searching the Dagster documentation"
     width="900px"
   />
