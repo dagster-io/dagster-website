@@ -113,7 +113,8 @@ The Dagit partitions tab makes it easy to view all the historical runs for a par
 Each row in this matrix corresponds to one solid in the partitioned pipeline, and each column corresponds to one of the partitions, so each box represents the execution of a solid over a particular partition. The shade of the box indicates the state of the _latest_ run for that solid over the given partition. Red indicates a failure, and white indicates that no run has executed.
 
 
-Because Dagster keeps an immutable record of all pipeline executions, you can drill down into an individual partition to see the history of all runs executed for that partition. 
+Because Dagster keeps an immutable record of all pipeline executions, you can drill down into an individual partition to see the history of all runs executed for that partition. Unlike systems like Airflow, which overwrite task history, with Dagster it's possible to reconstruct what happened in the past when debugging tricky production issues.
+
 
 <p align="center">
   <img
@@ -122,8 +123,6 @@ Because Dagster keeps an immutable record of all pipeline executions, you can dr
     width="900px"
   />
 </p>
-
-If you have previous experience running backfills with systems like Airflow, which destructively alters its task history as part of the retry process, we hope this feature comes as a pleasant surprise.
 
 ## Launching backfills
 
