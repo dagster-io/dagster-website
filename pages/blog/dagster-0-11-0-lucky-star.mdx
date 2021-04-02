@@ -110,7 +110,7 @@ The Dagit partitions tab makes it easy to view all the historical runs for a par
   />
 </p>
 
-Each row in this matrix corresponds to one solid in the partitioned pipeline, and each column corresponds to one of the partitions, so each box represents the execution of a solid over a particular partition. The shade of the box indicates the state of the _latest_ run for that solid over the given partition. Red indicates a failure, and white indicates that no run has executed.
+Each row in this matrix corresponds to one solid in the partitioned pipeline. Each column corresponds to one of the partitions. So each box represents a solid's execution over a particular partition. The box's shade indicates the state of the _latest_ run for that solid over the given partition. Red indicates a failure, and white indicates that no run has been executed.
 
 
 Because Dagster keeps an immutable record of all pipeline executions, you can drill down into an individual partition to see the history of all runs executed for that partition. 
