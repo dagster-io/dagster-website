@@ -100,7 +100,7 @@ We're continuing to invest in making this task easier than ever, and in 0.11.0, 
 
 In Dagster, partitioned pipelines are represented using the [`PartitionSet`](https://docs.dagster.io/concepts/partitions-schedules-sensors/partitions) API, which defines the partitions over which a given pipeline can be run (for example, a set of days).
 
-The Dagit partitions tab makes it easy to view all the historical runs for a particular partition set, organized by partition. You can navigate to this interface from the pipeline page, or by searching for a partition set in Dagit's universal search box.
+The Dagit partitions tab makes it easy to view all the historical runs for a particular partition set, organized by partition. You can navigate to this interface from the pipeline page or search for a partition set in Dagit's universal search box.
 
 <p align="center">
   <img
@@ -110,7 +110,7 @@ The Dagit partitions tab makes it easy to view all the historical runs for a par
   />
 </p>
 
-Each row in this matrix corresponds to one solid in the partitioned pipeline, and each column corresponds to one of the partitions, so each box represents the execution of a solid over a particular partition. The shade of the box indicates the state of the _latest_ run for that solid over the given partition. Red indicates a failure, and white indicates that no run has executed.
+Each row in this matrix corresponds to one solid in the partitioned pipeline. Each column corresponds to one of the partitions. So each box represents a solid's execution over a particular partition. The box's shade indicates the state of the _latest_ run for that solid over the given partition. Red indicates a failure, and white indicates that no run has been executed.
 
 
 Because Dagster keeps an immutable record of all pipeline executions, you can drill down into an individual partition to see the history of all runs executed for that partition. Unlike systems like Airflow, which overwrite task history, with Dagster it's possible to reconstruct what happened in the past when debugging tricky production issues.
@@ -202,7 +202,7 @@ It's early days for this feature, and we expect that the lineage interface in pa
   />
 </p>
 
-We're very excited to see the use cases that the community serves with this feature, and to hear more about your speciifc needs: from data debugging (which tables do I need to query to find the source of my data issue?), to data discovery (which tables are used to train this model?), to impact analysis (if I change this file on s3, who do I need to notify?).
+We're very excited to see the use cases that the community serves with this feature and to hear more about your specific needs: from data debugging (which tables do I need to query to find the source of my data issue?) to data discovery (which tables are used to train this model?), to impact analysis (if I change this file on s3, who do I need to notify?).
 
 Check out the [docs](https://docs.dagster.io/concepts/assets/asset-materializations#asset-lineage) to learn more, and if you're excited about this product direction, please don't hesitate to reach out to the core team with feedback.
 
