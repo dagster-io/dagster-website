@@ -34,7 +34,7 @@ We think of this as the simplest kind of _dynamic orchestration_ -- where the wo
 
 One of our [longest-standing Github issues](https://github.com/dagster-io/dagster/issues/462) has been for an abstraction to help model this common case. In Dagster 0.10.0 "The Edge of Glory", we introduced experimental support for dynamic orchestration with the `map` operation, allowing solids to yield special outputs using the [`DynamicOutput`](https://docs.dagster.io/_apidocs/dynamic#dagster.experimental.DynamicOutput) class, over which the execution of downstream solids could be mapped at runtime.
 
-In 0.11.0, we've expanded our experimental support for this pattern (and closed issue 462!) with the `collect` operation, so that downstream solids can aggregate and process all of the results of the solids executed dynamically using map.
+In 0.11.0, we've expanded our experimental support for this pattern (and closed issue 462!) with the `collect` operation, so that downstream solids can aggregate and process all of the results of the solids executed dynamically using `map`.
 
 What does this look like in practice? Let's imagine a data pipeline in which we process a directory containing some number of files. We will be doing significant computation on these files, so we want each file to be handled in its own unit of computation. This will let us parallelize computation across processes or machines and retry the processing of each file individually if something goes awry. Every time this pipeline runs, the directory contains new files, and the number of files can vary substantially. 
 
