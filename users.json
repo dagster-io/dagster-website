@@ -11,6 +11,11 @@
     "logoURL": "/images/logos/users/goodeggs.png"
   },
   {
+    "name": "Scale",
+    "url": "https://scale.com",
+    "logoURL": "/images/logos/users/scale.png"
+  },
+  {
     "name": "Attest",
     "url": "https://www.askattest.com/",
     "logoURL": "/images/logos/users/attest.svg"
