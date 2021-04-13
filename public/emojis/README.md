@@ -4,6 +4,7 @@ Image requirements: Square images under 128KB
 
 | Emoji                                                                            | Alias            |
 | -------------------------------------------------------------------------------- | ---------------- |
+| <img src="./slack/angster.png" width="20" height="20" alt="angster" />           | `:angster:`      |
 | <img src="./slack/condagster.png" width="20" height="20" alt="condagster" />     | `:condagster:`   |
 | <img src="./slack/congadagster.gif" width="20" height="20" alt="congadagster" /> | `:congadagster:` |
 | <img src="./slack/dagpurr.png" width="20" height="20" alt="dagpurr" />           | `:dagpurr:`      |
