@@ -95,8 +95,8 @@ Dagster pipelines are graphs of Python functions focused on business logic. Dags
 
 Dagster lets you provide pluggable resources to manage access to external systems, whose behavior can vary between different environments, such as development, staging, and production. These are used to model any heavyweight or side-effect-producing system dependency, not just I/O.
 
-- **Flexible Execution**: Dagster provides the ability to control execution from different environments—a laptop, a CI/CD pipeline, production, etc—while holding business logic constant.
-- **Clean, Intuitive API**: Practitioners working in Python—e.g. data scientists using Spark or Pandas—can write and connect pure, vanilla Python functions to construct pipelines.
+- **Flexible Execution**: Dagster provides the ability to control execution from different environments––a laptop, a CI/CD pipeline, production, etc––while holding business logic constant.
+- **Clean, Intuitive API**: Practitioners working in Python––e.g. data scientists using Spark or Pandas––can write and connect pure, vanilla Python functions to construct pipelines.
 - **Team Organization**: Separation of concerns between business logic and I/O leads to a clear API layer between infrastructure and practitioner teams. Practitioners focus on business logic. Platform engineers provide APIs to abstract away I/O and infrastructure, enabling a fast end-to-end development workflow for practitioner teams.
 
 ### Lightweight, schedule-less, _ad hoc_ execution
@@ -203,11 +203,11 @@ A sensor in Airflow is a task that polls, and might run forever. But it exists w
 
 Reported execution times are also counterintuitive, because they are just waiting for an event to occur, not performing data computations.
 
-Airflow sensors also occupy a “slot” in the worker pool. When too many sensors are running, sensors can fill all task slots and prevent progress across all runs. Airflow 2.0 has introduced an experimental mitigating feature -- smart sensors -- to consolidate sensors in another process. However, this requires spinning up a dedicated, specialized process that adds operational overhead.
+Airflow sensors also occupy a “slot” in the worker pool. When too many sensors are running, sensors can fill all task slots and prevent progress across all runs. Airflow 2.0 has introduced an experimental mitigating feature––smart sensors––to consolidate sensors in another process. However, this requires spinning up a dedicated, specialized process that adds operational overhead.
 
 **Dagster Approach**
 
-Dagster includes a daemon responsible for run scheduling. It decides -- based on user-defined schedules and sensors -- when runs start, launch, and distributes all other processing. The daemon unifies treatment of time- and event-based schedules (sensors) and its narrow remit results in a lightweight, operationally stable process.
+Dagster includes a daemon responsible for run scheduling. It decides––based on user-defined schedules and sensors––when runs start, launch, and distributes all other processing. The daemon unifies treatment of time- and event-based schedules (sensors) and its narrow remit results in a lightweight, operationally stable process.
 
 The daemon invokes user-defined schedules and sensors in an external process, and computes the runs that should exist. It compares the desired runs with existing runs and computes what runs to launch. This reconciliation-based approach is naturally fault-tolerant.
 
@@ -266,7 +266,7 @@ Airflow is unaware of the assets produced by its DAGs. Adding an external system
 
 **Dagster Approach**
 
-The Dagster structured event log includes information about the control flow of computations -- successes, failures, retries, and so forth -- but also what the computations are doing -- what assets they produce and the data quality tests they pass
+The Dagster structured event log includes information about the control flow of computations––successes, failures, retries, and so forth––but also what the computations are doing––what assets they produce and the data quality tests they pass
 
 Dagster believes that the orchestrator should be asset-aware. After all, producing data assets is why these systems exist.
 
@@ -283,7 +283,7 @@ Without asset orientation, if a user finds a table (or other asset) that is out-
 Advantages:
 
 - **Asset-oriented Navigation**: Stakeholders can index into the orchestrator by asset name for operational workflows. They do not have to know the name of a pipeline to get relevant information. Pipeline names and structures become implementation details, as they ought to be.
-- **Longitudinal Views**: Users can track and view the properties––e.g. number of rows, time it took to generate it––of a particular asset over time.
+- **Longitudinal Views**: Users can track and view the ––e.g. number of rows, time it took to generate it––of a particular asset over time.
 - **Integrated Asset Lineage**: The Asset Catalog supports asset lineage. Given that Dagster is aware of both data dependencies and assets, it is little additional work to construct an asset lineage graph.
 - **Assets as the Interface Between Teams**: We believe that the interface between teams should be data products, not pipelines. Formally modeling sensors and assets provides a powerful tool for interconnecting teams: asset-based sensors.
 
