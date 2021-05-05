@@ -260,11 +260,11 @@ Every executed pipeline and every event created is recorded in this immutable lo
 
 ### Asset- and Dataflow-Aware
 
-Airflow Approach
+**Airflow Approach**
 
 Airflow is unaware of the assets produced by its DAGs. Adding an external system to index assets requires an additional system to integrate and lots of code to execute the integration. Even then, there are limits to their integration with the orchestrator.
 
-Dagster Approach
+**Dagster Approach**
 
 The Dagster structured event log includes information about the control flow of computations -- successes, failures, retries, and so forth -- but also what the computations are doing -- what assets they produce and the data quality tests they pass
 
