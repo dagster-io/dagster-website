@@ -1,9 +1,9 @@
 ---
 layout: 'BlogPost'
-status: 'draft'
-title: 'Dagster and Airflow'
-excerpt: '...'
-date: '2021-05-07'
+status: 'published'
+title: 'Making the Case: Why we think Dagster is a compelling alternative to Airflow for new projects'
+excerpt: 'Our most requested piece of content is a comparison between Dagster and Airflow. Here we details the differences between the two systems, and make the case for choosing Dagster over Airflow for greenfield projects.'
+date: '2021-05-11'
 authors: ['schrockn']
 ---
 
@@ -91,9 +91,16 @@ Successful execution requires fully deploying the used-defined infrastructure, w
 
 ** Dagster Approach **
 
-Dagster pipelines are graphs of Python functions focused on business logic. Dagster’s API enables a separation of concerns between compute and I/O, a necessary condition for testable data applications with fast developer feedback. Separation of compute and I/O at the graph level requires explicit support from the orchestration framework.
+Dagster’s API enables a separation of concerns between compute and I/O, a necessary condition for testable data applications with fast developer feedback. Separation of compute and I/O at the graph level requires explicit support from the orchestration framework.
 
-Dagster lets you provide pluggable resources to manage access to external systems, whose behavior can vary between different environments, such as development, staging, and production. These are used to model any heavyweight or side-effect-producing system dependency, not just I/O.
+<p align="center">
+  <img
+    src="/posts/dagster-airflow/dataframe_code.png"
+    alt="Dataframe-to-dataframe transform in Dagster."
+  />
+</p>
+
+In the above example, the practitioner writes functions that accept and output data frames directly. I/O––in this case, persisting the data frame––is managed by a resource. Pipelines have modes, such as "test" and "prod", that provide different resources at runtime. In this example, the test mode resource might persist the data frame to the file system, and the prod mode resource might persist the data frame to an object store such as s3, all while holding business logic constant.
 
 - **Flexible Execution**: Dagster provides the ability to control execution from different environments––a laptop, a CI/CD pipeline, production, etc––while holding business logic constant.
 - **Clean, Intuitive API**: Practitioners working in Python––e.g. data scientists using Spark or Pandas––can write and connect pure, vanilla Python functions to construct pipelines.
@@ -185,7 +192,9 @@ Airflow executors––the component responsible for task execution policy––
 
 **Dagster Approach**
 
-Dagster’s long running process, the daemon, is responsible for scheduling runs, not tasks. This allows for a layered approach, where Dagster runs are typically managed in ephemeral, single-purpose computational resources (e.g. processes, Kubernetes Jobs) responsible for task scheduling. Those in turn can decide on their own task scheduling policy. In the same Dagster deployment, one run that doesn’t do much computation could execute in-process on a lightweight node, whereas another run could delegate task execution to heavier clusters. Many users have found that with that run-level parallelism is sufficient, and without that flexibility they would have had to manage more burdensome centralized infrastructure.
+Dagster’s long running process, the daemon, is responsible for scheduling runs, not tasks. This allows for a layered approach, where Dagster runs are typically managed in ephemeral, single-purpose computational resources (e.g. processes, Kubernetes Jobs) responsible for task scheduling. Those in turn can decide on their own task scheduling policy.
+
+Flexibly task scheduling allows for deployments tailored to user needs. For example, many users have found that with that run-level parallelism is sufficient without the need to parallelize tasks within that run. Without that flexibility they would have had to manage more burdensome centralized infrastructure.
 
 Advantages:
 
@@ -247,7 +256,9 @@ The absence of an structural, immutable record of activities has other impacts a
 
 The core of Dagster’s monitoring and observation capabilities is its structured event log. It serves as an immutable record for computations in Dagster. The log drives Dagit’s reactive UIs, builds our asset catalog, and powers UI affordances such as well-formatted stack traces and markdown rendering directly within the run viewer.
 
-TODO: Animated GIF?
+<p align="center">
+  <img src="/posts/dagster-airflow/dynamic_gantt.gif" alt="The Dagster Run Viewer." />
+</p>
 
 Every executed pipeline and every event created is recorded in this immutable log, allowing it to serve as a system record for your data platform.
 
@@ -272,7 +283,11 @@ Dagster believes that the orchestrator should be asset-aware. After all, produci
 
 This information is used to build the Dagster Asset Catalog, a fundamentally new view into the operations of an orchestrator that links assets to the computations that produce them. Users can navigate into the orchestrator by searching for produced assets, rather than the pipelines that created them.
 
-This is a profound shift because it reflects a deep, existing user mindset. Stakeholders don’t care about your pipelines. They only care about their data assets.
+<p align="center">
+  <img src="/posts/dagster-airflow/asset_catalog.gif" alt="The Dagster Run Viewer." />
+</p>
+
+This is a profound shift because it reflects a deep, existing user mindset: Stakeholders don’t care about your pipelines. They only care about their data assets.
 
 <p align="center">
   <img src="/posts/dagster-airflow/asset_oriented_ops.png" alt="APIs between system and user." />
@@ -283,7 +298,7 @@ Without asset orientation, if a user finds a table (or other asset) that is out-
 Advantages:
 
 - **Asset-oriented Navigation**: Stakeholders can index into the orchestrator by asset name for operational workflows. They do not have to know the name of a pipeline to get relevant information. Pipeline names and structures become implementation details, as they ought to be.
-- **Longitudinal Views**: Users can track and view the ––e.g. number of rows, time it took to generate it––of a particular asset over time.
+- **Longitudinal Views**: Users can track and view the properties––e.g. number of rows, time it took to generate it––of a particular asset over time.
 - **Integrated Asset Lineage**: The Asset Catalog supports asset lineage. Given that Dagster is aware of both data dependencies and assets, it is little additional work to construct an asset lineage graph.
 - **Assets as the Interface Between Teams**: We believe that the interface between teams should be data products, not pipelines. Formally modeling sensors and assets provides a powerful tool for interconnecting teams: asset-based sensors.
 
