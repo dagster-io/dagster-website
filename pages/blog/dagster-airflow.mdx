@@ -104,7 +104,7 @@ Dagster’s functional data processing confers many advantages beyond self-descr
 
 Airflow DAGs typically consist of operators such as the `SparkSubmitOperator`, the `KubernetesPodOperator`, or the `PostgresOperator`. Note that these all refer to the specific, deployed infrastructure technologies.
 
-Successful execution requires fully deploying the used-defined infrastructure, whether in development, a CI/CD pipeline, or production. Infrastructure coupling is a key reason why Airflow DAGs resist execution in multiple environments, which prevents a fast, flexible development and test workflow.
+Successful execution requires fully deploying the user-defined infrastructure, whether in development, a CI/CD pipeline, or production. Infrastructure coupling is a key reason why Airflow DAGs resist execution in multiple environments, which prevents a fast, flexible development and test workflow.
 
 ** Dagster Approach **
 
@@ -262,13 +262,13 @@ Users deserve beautiful, well-designed tooling that allows them to navigate to e
 
 ### Structured Event Log and System of Record
 
-**Airflow Approach**:
+**Airflow Approach**
 
 Airflow, by design, knows little about what user code is doing at runtime. This lack of information means a lack of support in tooling for debugging and observing computations within tasks. The primary support it provides is a searchable per-task, raw-text log. Navigating the UI is cumbersome and we frequently hear that combing through these unstructured logs to find pertinent information is a burden.
 
 The absence of an structural, immutable record of activities has other impacts as well. Airflow’s history cannot be fully trusted as many operational tasks destroy history. For example, retrying a run for a particular date requires deleting the previous run associated with that date. It also does not preserve historical DAG structures so runs are not reproducible.
 
-**Dagster Approach**:
+**Dagster Approach**
 
 The core of Dagster’s monitoring and observation capabilities is its structured event log. It serves as an immutable record for computations in Dagster. The log drives Dagit’s reactive UIs, builds our asset catalog, and powers UI affordances such as well-formatted stack traces and markdown rendering directly within the run viewer.
 
@@ -293,7 +293,7 @@ Airflow is unaware of the assets produced by its DAGs. Adding an external system
 
 **Dagster Approach**
 
-The Dagster structured event log includes information about the control flow of computations––successes, failures, retries, and so forth––but also what the computations are doing––what assets they produce and the data quality tests they pass
+The Dagster structured event log includes information about the control flow of computations––successes, failures, retries, and so forth––but also what the computations are doing––what assets they produce and the data quality tests they pass.
 
 Dagster believes that the orchestrator should be asset-aware. After all, producing data assets is why these systems exist.
 
