@@ -76,19 +76,19 @@ Like Airflow, we believe that the implementation of a particular graph node can 
 
 The net result is starkly evident in UI. When viewing a task in the Airflow UI, the viewer’s only information is the task’s name and the task it depends on.
 
-<p align="center">
+<div className="mx-0 md:-mx-20 py-8">
   <img src="/posts/dagster-airflow/airflow_dag_screenshot.png" alt="A DAG in Airflow." />
-</p>
+</div>
 
 Contrast to Dagster, where beautiful tooling displays descriptions, inputs, outputs, required resources, and other metadata.
 
-<p align="center">
+<div className="mx-0 md:-mx-20 py-8">
   <img
     className="border border-gray-50 shadow-sm"
     src="/posts/dagster-airflow/dagster_pipeline_screenshot.png"
     alt="A pipeline in Dagster."
   />
-</p>
+</div>
 
 Dagster’s functional data processing confers many advantages beyond self-description, ergonomic APIs, and a richer metadata-driven UI:
 
@@ -272,9 +272,9 @@ The absence of an structural, immutable record of activities has other impacts a
 
 The core of Dagster’s monitoring and observation capabilities is its structured event log. It serves as an immutable record for computations in Dagster. The log drives Dagit’s reactive UIs, builds our asset catalog, and powers UI affordances such as well-formatted stack traces and markdown rendering directly within the run viewer.
 
-<p align="center">
+<div className="mx-0 md:-mx-20 py-8">
   <img src="/posts/dagster-airflow/dynamic_gantt.gif" alt="The Dagster Run Viewer." />
-</p>
+</div>
 
 Every executed pipeline and every event created is recorded in this immutable log, allowing it to serve as a system record for your data platform.
 
@@ -299,15 +299,15 @@ Dagster believes that the orchestrator should be asset-aware. After all, produci
 
 This information is used to build the Dagster Asset Catalog, a fundamentally new view into the operations of an orchestrator that links assets to the computations that produce them. Users can navigate into the orchestrator by searching for produced assets, rather than the pipelines that created them.
 
-<p align="center">
+<div className="mx-0 md:-mx-20 py-8">
   <img src="/posts/dagster-airflow/asset_catalog.gif" alt="The Dagster Run Viewer." />
-</p>
+</div>
 
 This is a profound shift because it reflects a deep, existing user mindset: Stakeholders don’t care about your pipelines. They only care about their data assets.
 
-<p align="center">
+<div className="mx-0 md:-mx-20 py-8">
   <img src="/posts/dagster-airflow/asset_oriented_ops.png" alt="APIs between system and user." />
-</p>
+</div>
 
 Without asset orientation, if a user finds a table (or other asset) that is out-of-date, or appears incorrect, it is difficult to trace what produced that table and whom to contact. Too often, the resolution is to scramble and contact the centralized platform team or to broadcast into a shared Slack channel. Instead the user directly navigates to that asset and can take action from there.
 
