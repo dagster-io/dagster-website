@@ -15,9 +15,9 @@ Dagster isn't a response to Airflow. It is the result of a first-principles anal
 
 We'll compare these two systems by looking at how they handle each of the stages of the data life cycle.
 
-<p align="center">
-  <img src="/posts/dagster-airflow/data_lifecycle.png" alt="The Data Lifecycle" />
-</p>
+<div className="mx-0 md:-mx-20 py-8">
+  <img className="" src="/posts/dagster-airflow/data_lifecycle.png" alt="The Data Lifecycle" />
+</div>
 
 Dagster is built to address each of these stages of the life cycle, delivering:
 
@@ -55,9 +55,22 @@ Airflow does have some support for data dependencies in the form of XCom and Tas
 
 Dagster pipelines are graphs of metadata-rich, parameterizable functions––called _solids_––connected via gradually typed data dependencies. To define a pipeline, the user writes vanilla python functions that define computations and graph structure:
 
-<p align="center">
-  <img src="/posts/dagster-airflow/hello_world.png" alt="A simple pipeline." />
-</p>
+```python
+from dagster import pipeline, solid
+
+@solid
+def return_one() -> int:
+  return 1
+
+@solid
+def add(x: int, y: int) -> int
+  return x + y
+
+@pipeline
+def add_two():
+  # builds the dep graph
+  add(return_one(), return_one())
+```
 
 Like Airflow, we believe that the implementation of a particular graph node can do anything you can do in Python. However, we believe they should formally declare their inputs and outputs, provide typing guarantees for those inputs and outputs, declare their required configuration, and so on. This is a best-of-both-worlds approach that allows for the same flexibility while offering dramatically better tooling support and a familiar API: functions.
 
@@ -70,7 +83,11 @@ The net result is starkly evident in UI. When viewing a task in the Airflow UI, 
 Contrast to Dagster, where beautiful tooling displays descriptions, inputs, outputs, required resources, and other metadata.
 
 <p align="center">
-  <img src="/posts/dagster-airflow/dagster_pipeline_screenshot.png" alt="A pipeline in Dagster." />
+  <img
+    className="border border-gray-50 shadow-sm"
+    src="/posts/dagster-airflow/dagster_pipeline_screenshot.png"
+    alt="A pipeline in Dagster."
+  />
 </p>
 
 Dagster’s functional data processing confers many advantages beyond self-description, ergonomic APIs, and a richer metadata-driven UI:
@@ -93,12 +110,11 @@ Successful execution requires fully deploying the used-defined infrastructure, w
 
 Dagster’s API enables a separation of concerns between compute and I/O, a necessary condition for testable data applications with fast developer feedback. Separation of compute and I/O at the graph level requires explicit support from the orchestration framework.
 
-<p align="center">
-  <img
-    src="/posts/dagster-airflow/dataframe_code.png"
-    alt="Dataframe-to-dataframe transform in Dagster."
-  />
-</p>
+```python
+@solid
+def filter_over_50(people: DataFrame) -> DataFrame:
+  return people.filter(people['age'] > 50)
+```
 
 In the above example, the practitioner writes functions that accept and output data frames directly. I/O––in this case, persisting the data frame––is managed by a resource. Pipelines have modes, such as "test" and "prod", that provide different resources at runtime. In this example, the test mode resource might persist the data frame to the file system, and the prod mode resource might persist the data frame to an object store such as s3, all while holding business logic constant.
 

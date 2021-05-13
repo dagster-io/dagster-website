@@ -9,18 +9,33 @@ tags: ['dagster']
 
 Please welcome to the stage our eleventh major release of Dagster, codenamed "Lucky Star."
 
-<img
-  align="right"
-  src="/posts/dagster-0-11-0-lucky-star/lucky_star.png"
-  alt="Dagster is coiffed to impress"
-/>
-
 This release marks a substantial step forwards in several areas.
 
 ### Release highlights
-* *Dynamic orchestration*, which lets pipeline subsets execute once for each element of an input processed at runtime, is now ready for wider usage.
-* *Backfills* of pipeline runs over partitioned datasets, to rebuild data assets when processes or underlying data change, are now supported with specialized UI. 
-* *Asset lineage* to track the interdependencies of data assets produced by pipeline runs now has core API support.
+
+<div className="flex space-x-2">
+  <div>
+    <li>
+      <b>Dynamic orchestration</b>, which lets pipeline subsets execute once for each element of an
+      input processed at runtime, is now ready for wider usage.
+    </li>
+    <li>
+      <b>Backfills</b> of pipeline runs over partitioned datasets, to rebuild data assets when
+      processes or underlying data change, are now supported with specialized UI.
+    </li>
+    <li>
+      <b>Asset lineage</b> to track the interdependencies of data assets produced by pipeline runs
+      now has core API support.
+    </li>
+  </div>
+  <div>
+    <img
+      align="right"
+      src="/posts/dagster-0-11-0-lucky-star/lucky_star.png"
+      alt="Dagster is coiffed to impress"
+    />
+  </div>
+</div>
 
 We've also launched a new docs site, improved the asset catalog, improved interoperability between the Dagster type system and Python type hints, made many improvements to Dagit and to the robustness of core system components, and now support MySQL as a backend for core storage.
 
@@ -36,7 +51,7 @@ One of our [longest-standing Github issues](https://github.com/dagster-io/dagste
 
 In 0.11.0, we've expanded our experimental support for this pattern (and closed issue 462!) with the `collect` operation, so that downstream solids can aggregate and process all of the results of the solids executed dynamically using `map`.
 
-What does this look like in practice? Let's imagine a data pipeline in which we process a directory containing some number of files. We will be doing significant computation on these files, so we want each file to be handled in its own unit of computation. This will let us parallelize computation across processes or machines and retry the processing of each file individually if something goes awry. Every time this pipeline runs, the directory contains new files, and the number of files can vary substantially. 
+What does this look like in practice? Let's imagine a data pipeline in which we process a directory containing some number of files. We will be doing significant computation on these files, so we want each file to be handled in its own unit of computation. This will let us parallelize computation across processes or machines and retry the processing of each file individually if something goes awry. Every time this pipeline runs, the directory contains new files, and the number of files can vary substantially.
 
 In this example, the files_in_directory solid is defined using a special [`DynamicOutputDefinition`](https://docs.dagster.io/_apidocs/dynamic#dagster.experimental.DynamicOutputDefinition). The body of the solid walks a directory (set via config) and yields a [`DynamicOutput`](https://docs.dagster.io/_apidocs/dynamic#dagster.experimental.DynamicOutput) for each file that it finds in the directory. Each [`DynamicOutput`](https://docs.dagster.io/_apidocs/dynamic#dagster.experimental.DynamicOutput) includes a user-specified `mapping_key`.
 
@@ -65,13 +80,13 @@ def process_directory():
     summarize_directory(file_results.collect())
 ```
 
-We believe that a user should know what is going to happen before a pipeline executes. So Dagit always lets you render a pipeline in its logical form before computation, even in the presence of dynamic orchestration. Let's look at how the `map` and `collect` operations are represented in Dagit. Both the mapped dynamic output and the collected input have special sigils and the mapped solid is embellished in the pipeline view to illustrate that it will be executed dynamically. 
+We believe that a user should know what is going to happen before a pipeline executes. So Dagit always lets you render a pipeline in its logical form before computation, even in the presence of dynamic orchestration. Let's look at how the `map` and `collect` operations are represented in Dagit. Both the mapped dynamic output and the collected input have special sigils and the mapped solid is embellished in the pipeline view to illustrate that it will be executed dynamically.
 
 <p align="center">
   <img
     src="/posts/dagster-0-11-0-lucky-star/dynamic_pipeline.png"
     alt="Dynamic pipeline as it appears in Dagit"
-    width="700px"
+    width="600px"
   />
 </p>
 
@@ -112,9 +127,7 @@ The Dagit partitions tab makes it easy to view all the historical runs for a par
 
 Each row in this matrix corresponds to one solid in the partitioned pipeline. Each column corresponds to one of the partitions. So each box represents a solid's execution over a particular partition. The box's shade indicates the state of the _latest_ run for that solid over the given partition. Red indicates a failure, and white indicates that no run has been executed.
 
-
 Because Dagster keeps an immutable record of all pipeline executions, you can drill down into an individual partition to see the history of all runs executed for that partition. Unlike systems like Airflow, which overwrite task history, with Dagster it's possible to reconstruct what happened in the past when debugging tricky production issues.
-
 
 <p align="center">
   <img
@@ -210,13 +223,12 @@ Check out the [docs](https://docs.dagster.io/concepts/assets/asset-materializati
 
 We're also very proud to present our new documentation site, redesigned from the underlying infrastructure to the information architecture of each page, which lives at [https://docs.dagster.io](https://docs.dagster.io/). This new site will host documentation for all Dagster versions from 0.11.0 onwards. (If you're on an older version of Dagster, you can still view pre-0.11.0 documentation at [https://legacy-docs.dagster.io](https://legacy-docs.dagster.io/).)
 
-We hope you'll find the new organization makes it easier for you to quickly find the information you need about Dagster. We've also made it easier for the community to give feedback and contribute to the documentation. 
+We hope you'll find the new organization makes it easier for you to quickly find the information you need about Dagster. We've also made it easier for the community to give feedback and contribute to the documentation.
 
 ## Top-level content organization
 
-* The [**Tutorial**](https://docs.dagster.io/tutorial) is a step-by-step walk-through of building a basic Dagster pipeline that takes advantage of the most important Dagster features. If you're new to Dagster, we highly recommend starting here. 
-  
-* [**Main Concepts**](https://docs.dagster.io/concepts) contains comprehensive overviews of all of the main Dagster APIs and features, from solids and pipelines to modes, resources, Dagit, and more. Each concepts page contains examples and patterns you can re-use and build off of in your own Dagster projects.
+- The [**Tutorial**](https://docs.dagster.io/tutorial) is a step-by-step walk-through of building a basic Dagster pipeline that takes advantage of the most important Dagster features. If you're new to Dagster, we highly recommend starting here.
+- [**Main Concepts**](https://docs.dagster.io/concepts) contains comprehensive overviews of all of the main Dagster APIs and features, from solids and pipelines to modes, resources, Dagit, and more. Each concepts page contains examples and patterns you can re-use and build off of in your own Dagster projects.
 
 <p align="center">
   <img
@@ -226,13 +238,13 @@ We hope you'll find the new organization makes it easier for you to quickly find
   />
 </p>
 
-* [**Deployment**](https://docs.dagster.io/deployment) explains Dagster's architecture, how to deploy Dagster on platforms such as AWS and Kubernetes, and the components that can be configured in deployments, such as the instance, daemon, and run launchers. If you've successfully deployed Dagster on a platform that isn't discussed here, and are interested in collaborating on a deployment guide, please reach out to us!
+- [**Deployment**](https://docs.dagster.io/deployment) explains Dagster's architecture, how to deploy Dagster on platforms such as AWS and Kubernetes, and the components that can be configured in deployments, such as the instance, daemon, and run launchers. If you've successfully deployed Dagster on a platform that isn't discussed here, and are interested in collaborating on a deployment guide, please reach out to us!
 
-* [**Integrations**](https://docs.dagster.io/integrations) includes guides to the many integrations with popular data tools and platforms maintained as part of the core repository, including Pandas, dbt, Slack, Jupyter Notebooks, and more.
+- [**Integrations**](https://docs.dagster.io/integrations) includes guides to the many integrations with popular data tools and platforms maintained as part of the core repository, including Pandas, dbt, Slack, Jupyter Notebooks, and more.
 
-* The [**Guides**](https://docs.dagster.io/guides) are still early in development, but is intended to document best practices combining multiple Dagster concepts to accomplish common goals. If you have suggestions on what guides you would like to see, feel free to open an issue or send feedback on Slack.
+- The [**Guides**](https://docs.dagster.io/guides) are still early in development, but is intended to document best practices combining multiple Dagster concepts to accomplish common goals. If you have suggestions on what guides you would like to see, feel free to open an issue or send feedback on Slack.
 
-* Finally, the [**API Reference**](https://docs.dagster.io/_apidocs)* contains comprehensive API documentation of all the decorators, functions, and classes exported by Dagster. If you want to explore the full API surface area, this is the place to search. 
+- Finally, the [**API Reference**](https://docs.dagster.io/_apidocs)\* contains comprehensive API documentation of all the decorators, functions, and classes exported by Dagster. If you want to explore the full API surface area, this is the place to search.
 
 ## Searching the docs
 
@@ -244,7 +256,7 @@ We hope you'll find the new organization makes it easier for you to quickly find
   />
 </p>
 
-We've also invested a bunch of effort into improving search in the Dagster docs. Previously, the search bars for the main content and for the API docs were separate. We've now introduced a single, unified search bar, with more visual hinting to show where results are coming from. We're always working on improving search results, so that you can quickly find the information you need. If you find that you are not getting the results you expect, please give us feedback or submit an issue. 
+We've also invested a bunch of effort into improving search in the Dagster docs. Previously, the search bars for the main content and for the API docs were separate. We've now introduced a single, unified search bar, with more visual hinting to show where results are coming from. We're always working on improving search results, so that you can quickly find the information you need. If you find that you are not getting the results you expect, please give us feedback or submit an issue.
 
 ## Contributing to documentation
 
@@ -255,16 +267,15 @@ If you've encountered a docs issue, there are now two main ways to give feedback
 1. The **Share Feedback** button in the header of the documentation site
 2. Open a Github issue with the [Documentation Template](https://github.com/dagster-io/dagster/issues/new?assignees=&labels=documentation&template=report-missing-documentation.md&title=%5BContent+Gap%5D)
 
+If you spot issues such as a typo, confusing explanation, or broken code example, you can also click the **Edit on Github** button on any page to fix the content right in your browser and send a PR.
 
-If you spot issues such as a typo, confusing explanation, or broken code example, you can also click the **Edit on Github** button on any page to fix the content right in your browser and send a PR. 
+If you're interested in writing longer-form content for the documentation site or the Dagster blog, please reach out! Our community is full of people using Dagster in all sorts of interesting ways, and we'd love to feature your learnings on the site.
 
-If you're interested in writing longer-form content for the documentation site or the Dagster blog, please reach out! Our community is full of people using Dagster in all sorts of interesting ways, and we'd love to feature your learnings on the site. 
+We're particularly interested in help with:
 
-We're particularly interested in help with: 
-
-* **Guides** to illustrate best practices
-* **Deployment** documentation for different platforms
-* Examples and patterns illustrating the **Main Concepts**
+- **Guides** to illustrate best practices
+- **Deployment** documentation for different platforms
+- Examples and patterns illustrating the **Main Concepts**
 
 # Thank you!
 

@@ -69,7 +69,7 @@ module.exports = {
             color: theme('colors.gray.900'),
             h2: {
               fontWeight: '700',
-              letterSpacing: theme('letterSpacing.tight'),
+              // letterSpacing: theme('letterSpacing.tight'),
               color: theme('colors.gray.900'),
             },
             h3: {
@@ -97,8 +97,8 @@ module.exports = {
               color: theme('colors.gray.900'),
               borderLeftColor: theme('colors.gray.200'),
             },
-            "code::before": false,
-            "code::after": false,
+            'code::before': false,
+            'code::after': false,
           },
         },
       }),
