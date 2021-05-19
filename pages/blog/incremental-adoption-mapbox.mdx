@@ -18,11 +18,7 @@ authors: ['Ben_Pleasanton']
 The Geodata teams at Mapbox are responsible for continually updating the map of
 the world that powers our developer data products and services.
 
-We adopted Dagster for our core address data processing flows because it gives
-us a great developer experience while providing the backwards compatibility we
-needed with our legacy Airflow systems.
-
-> We needed a solution that would allow for incremental adoption on top of our existing Airflow installation.
+> Like many teams using Airflow, we found that continued development in Airflow was painful and costly. 
 
 Our data sources range from hard drives that get delivered from our vendors in
 the mail once a month, to public-facing APIs that we poll every day, to
@@ -50,24 +46,26 @@ cumbersome. This led to unacceptably slow dev cycles — not to mention
 significant cost, since all our dev work had to be done on our production
 infrastructure.
 
+> We needed a solution that would allow for incremental adoption on top of our existing Airflow installation.
+
 In an environment like ours, where the outputs of data pipelines are
 business-critical, SLAs are strict, and many teams are involved in creating
 data products, we can’t stop the world and impose a new technology all at once.
-We needed a solution that would allow for incremental adoption on top of our
-existing Airflow installation.
-
-> We started by writing new ingestion pipelines in Dagster, but we’ve since moved our core conflation processing into a Dagster pipeline.
+Luckily, Dagster comes with a built-in Airflow integration that makes
+incremental adoption on top of Airflow possible.
 
 We started using Dagster because we needed to improve our development
 lifecycle, but couldn't afford to undertake a scratch rewrite of our existing,
 working pipeline codebase. Dagster lets us write pipelines using a clean set
 of abstractions built for local test and development. Then, we compile our
-Dagster pipelines them into Airflow DAGs that can be deployed on our existing
+Dagster pipelines into Airflow DAGs that can be deployed on our existing
 scheduler instances.
 
 This is especially critical for us since our Dagster pipelines need to
-interoperate with legacy Airflow tasks and DAGs. (If we starting from scratch,
-we would just run the Dagster scheduler directly.)
+interoperate with legacy Airflow tasks and DAGs. (If we were starting from
+scratch, we would just run the Dagster scheduler directly.)
+
+> We started by writing new ingestion pipelines in Dagster, but we’ve since moved our core conflation processing into a Dagster pipeline.
 
 Let's look at a simplified example, taken from our codebase, of what this
 looks like in practice for normalizing, enriching, and conflating addresses
@@ -146,7 +144,20 @@ dependencies. Here we provide an `conflate_emr_step_launcher` resource and a
 can control where and how our Pyspark jobs execute, which lets us control
 costs for development workflows.
 
-Most importantly, as we're developing our solids, we can work with them in Dagit
+Our step launcher is actually a fork of the open-source Dagster EMR step
+launcher: we've modified it to handle packaged Airflow DAGs and dependencies,
+as well as to create ephemeral EMR clusters for each step rather than
+submitting jobs to a single externally managed EMR cluster. This was
+straightforward for us to implement, thanks to Dagster's pluggable
+infrastructure.
+
+What's really exciting about this is that our solid logic stays the same
+regardless of where we're executing it. Solids are written in pure Pyspark, and
+the step launcher implementation controls whether they execute in ephemeral EMR
+clusters or on our production infrastructure. The code itself doesn't change
+between dev and test.
+
+This means that as we're developing our solids, we can work with them in Dagit
 for incremental testing and a tight dev cycle.
 
 <p align="center">
@@ -231,8 +242,12 @@ in creating new ingestion pipelines for new address data sources.
 
 With Dagster, developers can orchestrate their pipelines locally in test,
 swapping in ephemeral EMR clusters to test Spark jobs instead of running on our
-production infrastructure. As a consequence, tests are much less costly, because
-they can be run on dev-appropriate infrastructure.
+production infrastructure. Because we can now run on dev-appropriate
+infrastructure, testing is so much less costly -- more than 50% -- that in the
+first few weeks of this project our engineering manager was worried there was
+something wrong with our cost reporting.
+
+> Testing is so much less costly that our engineering manager was worried there was something wrong with our cost reporting. 
 
 Dagster has let us dramatically improve our developer experience, reduce costs,
 and speed our ability to deliver new data products -- while providing a path
