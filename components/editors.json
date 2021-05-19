@@ -47,6 +47,12 @@
       "fullName": "Dennis Hume",
       "profileImage": "/editors/Dennis_Hume.png",
       "url": ""
+    },
+    {
+      "id": "Ben_Pleasanton",
+      "fullName": "Ben Pleasanton",
+      "profileImage": "/emojis/slack/dagsir.png",
+      "url": ""
     }
   ]
 }
