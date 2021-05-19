@@ -22,7 +22,7 @@ const Layout = ({ children, title = 'Dagster', description = DEFAULT_SHARE_DESCR
       <meta key="title" name="title" content={title} />
       <meta name="description" content={description} />
 
-      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta
         key="twitter:description"
