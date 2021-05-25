@@ -28,11 +28,11 @@ Our biggest change was making it easier to use solids like vanilla Python functi
 
 ### Optional context
 
-Dagster solids accept a `context` argument that allows them to access aspects of their environment, most commonly [config](https://docs.dagster.io/concepts/configuration/config-schema) and [resources.](https://docs.dagster.io/concepts/modes-resources)
+Dagster solids accept a `context` argument that allows them to access aspects of their environment, most commonly [config](https://docs.dagster.io/concepts/configuration/config-schema) and [resources](https://docs.dagster.io/concepts/modes-resources).
 
 Many solids don’t need to access anything inside their context, and the context argument ends up as deadweight.  Dagster now allows you to omit the context argument when defining solids.  I.e. these are now valid solid definitions:
 
-```
+```python
 @solid
 def my_solid():
     return 5
@@ -48,22 +48,21 @@ def add(x, y):
 
 To execute a solid, you used to need to invoke a function called `execute_solid`, which would run your solid and give you a result object, which you could pull the output value from.  Here’s what it used to look like to write a test for the `add` solids above:
 
-```
-# old
+```python
 def test_add():
     assert execute_solid(add, input_values={"x": 5, "y": 6}).output_value() == 11
 ```
 
 Solids can now be directly invoked like regular functions.  Which means the test can just look like:
 
-```
+```python
 def test_add():
     assert add(5, 6) == 11
 ```
 
 If your solid requires a context object, you can just create a context and pass it in.  Here’s what it looks like to write a test for a solid that uses a context argument to access configuration:
 
-```
+```python
 @solid(config_schema={"multiplier": int})
 def operate(context, x, y):
     return (x + y) * context.solid_config["multiplier"]
@@ -83,7 +82,7 @@ We’ve historically required users to engage with Dagster Types in some situati
 
 Previously, this was the code you needed to write if you wanted an argument to a solid-decorated function to include a Python type annotation for a non-builtin type:
 
-```
+```python
 from pandas import Series
 from dagster import (
     PythonObjectDagsterType,
@@ -105,7 +104,7 @@ You had to write `Series` three times - once to define a Dagster Type, once to r
 
 Now, you can just do:
 
-```
+```python
 from pandas import Series
 from dagster import solid
 
@@ -132,7 +131,7 @@ So we made a small but significant change, which is to make the default config s
 
 Here’s an example that defines a pipeline with a single solid that uses config:
 
-```
+```python
 @solid(config_schema={"iterations": int})
 def my_solid(context):
     for _ in range(context.solid_config["iterations"]):
@@ -151,7 +150,7 @@ execute_pipeline(
 
 You can now simply define the solid as the following, and it will still work:
 
-```
+```python
 @solid
 def my_solid(context):
     for _ in range(context.solid_config["iterations"]):
@@ -160,7 +159,7 @@ def my_solid(context):
 
 The above code snippet is equivalent to the following, which had worked previously (and still works):
 
-```
+```python
 @solid(config_schema=Any)
 def my_solid(context):
     for _ in range(context.solid_config["iterations"]):
@@ -175,43 +174,43 @@ Another area we’ve tried to streamline is event metadata. Event metadata is th
 
 Here’s an example AssetMaterialization that includes four metadata fields. As you can see, it’s quite a chunk of code to write this out.
 
-```
-        yield AssetMaterialization(
-            asset_key=f"bigquery.{model}",
-            metadata_entries=[
-                EventMetadataEntry.float(
-                    node.get("execution_time", -1.0),
-                    label="dbt Model Execution Time",
-                ),
-                EventMetadataEntry.int(
-                    int(count),
-                    label="dbt Model Number of Rows",
-                ),
-                EventMetadataEntry.md(
-                    sample_rows.astype("str").to_markdown(),
-                    label="Sample of Rows",
-                ),
-                EventMetadataEntry.path(
-                    run_results_path,
-                    label="dbt Run Results Artifact",
-                ),
-            ],
-        )
+```python
+yield AssetMaterialization(
+    asset_key=f"bigquery.{model}",
+    metadata_entries=[
+        EventMetadataEntry.float(
+            node.get("execution_time", -1.0),
+            label="dbt Model Execution Time",
+        ),
+        EventMetadataEntry.int(
+            int(count),
+            label="dbt Model Number of Rows",
+        ),
+        EventMetadataEntry.md(
+            sample_rows.astype("str").to_markdown(),
+            label="Sample of Rows",
+        ),
+        EventMetadataEntry.path(
+            run_results_path,
+            label="dbt Run Results Artifact",
+        ),
+    ],
+)
 ```
 
 
 We now support a condensed format that accepts a dictionary instead of a list and automatically coerces primitive types to their corresponding event metadata types:
 
-```
-        yield AssetMaterialization(
-            asset_key=f"bigquery.{model}",
-            metadata={
-                "dbt Model Execution Time": node.get("execution_time", -1.0),
-                "dbt Model Number of Rows": int(count),
-                "Sample of Rows": EventMetadata.md(sample_rows.astype("str").to_markdown()),
-                "dbt Run Results Artifact": EventMetadata.path(run_results_path),
-            },
-        )
+```python
+yield AssetMaterialization(
+    asset_key=f"bigquery.{model}",
+    metadata={
+        "dbt Model Execution Time": node.get("execution_time", -1.0),
+        "dbt Model Number of Rows": int(count),
+        "Sample of Rows": EventMetadata.md(sample_rows.astype("str").to_markdown()),
+        "dbt Run Results Artifact": EventMetadata.path(run_results_path),
+    },
+)
 ```
 
 ## That’s not all
@@ -219,4 +218,3 @@ We now support a condensed format that accepts a dictionary instead of a list an
 These are only a sampling of the changes we’ve made to smooth Dagster’s ramp-up and decrease boilerplate.  For a full list of all recent Dagster changes, check out the [release notes](https://github.com/dagster-io/dagster/blob/master/CHANGES.md#0118).
 
 Thank you Yuhan Luo, Chris DeCarolis, Phil Rha, Owen Kephart, and Alex Langenfeld for contributing these improvements.
-
