@@ -14,6 +14,7 @@ const Layout = ({ children, title = 'Dagster' }: Props) => (
       <title>{title}</title>
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      <meta name="google-site-verification" content="96eDOZ6jtOSl6isEMM_Im0lJsEJtCUst7rwESkd3vnQ" />
     </Head>
     <Header />
     {children}
