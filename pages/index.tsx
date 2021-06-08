@@ -107,7 +107,6 @@ export default function IndexPage({
             <p className={styles.customerName}>
             — Ben Pleasanton, Senior Software Engineer at Mapbox
             </p>
-            {/* <img style={{ height: '45px' }} src="/images/logos/users/mapbox.svg"/> */}
             <p style={{ color: "#4485c2", textAlign: 'left' }}>Learn More &gt;</p>
             </div>
             </div>
@@ -120,7 +119,6 @@ export default function IndexPage({
             target="_blank"
           >
             <div style={{ flexDirection: 'column' }}>
-            {/* <img style={{ height: '45px' }} src="/images/logos/users/drizly.png"/> */}
             <p className={styles.customerQuote}>
             We want to give people across our organization the ability to iterate quickly on data projects in a 
             safe environment. Dagster and the structure of our deployments are getting us to the point where 
@@ -142,7 +140,6 @@ export default function IndexPage({
               target="_blank"
             >
               <div style={{ flexDirection: 'column' }}>
-              {/* <img style={{ height: '45px' }} src="/images/logos/users/goodeggs.png"/> */}
               <p className={styles.customerQuote}>
               Representing the assets created by our computations in a structured way in the asset catalog helps 
               to close the loop on the analytics workflow. Analysts can write and test their models in dbt, then 
