@@ -86,7 +86,110 @@ export default function IndexPage({
           </a>
         </div>
       </div>
-      <div style={{ background: '#f5f9fc', paddingTop: 100, paddingBottom: 140 }}>
+
+      <div className={styles.customers} style={{ background: "#f5f9fc" }}>
+        <div className={styles.centeredTitle}>
+          <H1>What our users say about Dagster</H1>
+        </div>
+        <div className={styles.customerLogoCloud}>
+          <a
+            title="Mapbox"
+            href="/blog/incremental-adoption-mapbox"
+            target="_blank"
+          >
+            <div className={styles.customerStory} style={{ flexDirection: 'column' }}>
+            <p className={styles.customerQuote}>
+              We started adopting Dagster by writing new ingestion pipelines in Dagster instead of in Airflow. 
+              With Dagster, we've brought a core process that used to take days or weeks of developer time down 
+              to 1-2 hours.
+            </p>
+            <div className={styles.customerSource}>
+            <p className={styles.customerName}>
+            — Ben Pleasanton, Senior Software Engineer at Mapbox
+            </p>
+            {/* <img style={{ height: '45px' }} src="/images/logos/users/mapbox.svg"/> */}
+            <p style={{ color: "#4485c2", textAlign: 'left' }}>Learn More &gt;</p>
+            </div>
+            </div>
+          </a>
+
+          <a
+            title="Drizly"
+            className={styles.customerStory}
+            href="/blog/shared-spaces-at-drizly"
+            target="_blank"
+          >
+            <div style={{ flexDirection: 'column' }}>
+            {/* <img style={{ height: '45px' }} src="/images/logos/users/drizly.png"/> */}
+            <p className={styles.customerQuote}>
+            We want to give people across our organization the ability to iterate quickly on data projects in a 
+            safe environment. Dagster and the structure of our deployments are getting us to the point where 
+            everyone on the team can feel comfortable trying things out.
+            </p>
+            <div className={styles.customerSource}>
+            <p className={styles.customerName}>
+            — Dennis Hume, Staff Data Engineer at Drizly
+            </p>
+            <p style={{ color: "#4485c2", textAlign: 'left' }}>Learn More &gt;</p>
+            </div>
+            </div>
+          </a>
+
+          <a
+              title="Good Eggs"
+              className={styles.customerStory}
+              href="/blog/good-eggs-2"
+              target="_blank"
+            >
+              <div style={{ flexDirection: 'column' }}>
+              {/* <img style={{ height: '45px' }} src="/images/logos/users/goodeggs.png"/> */}
+              <p className={styles.customerQuote}>
+              Representing the assets created by our computations in a structured way in the asset catalog helps 
+              to close the loop on the analytics workflow. Analysts can write and test their models in dbt, then 
+              deploy and operate them alongside other tools with Dagster, and track their results in the Dagster 
+              asset catalog. 
+              </p>
+              <div className={styles.customerSource}>
+              <p className={styles.customerName}>
+              — David Wallace, Senior Data Platform Engineer at Good Eggs
+              </p>
+              <p style={{ color: "#4485c2", textAlign: 'left' }}>Learn More &gt;</p>
+              </div>
+              </div>
+            </a>
+        </div>
+      </div>
+      <div className={styles.customers}>
+      <div className={styles.centeredTitle}>
+          <H1>You’re in good company</H1>
+        </div>
+        <div className={styles.customerLogoCloud}>
+          {USERS.map(({ name, logoURL, url }, idx) => (
+            <a
+              key={idx}
+              title={name}
+              className={styles.customerLogo}
+              href={url}
+              target="_blank"
+              rel="nofollow noreferrer"
+            >
+              <div
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  backgroundImage: `url(${logoURL})`,
+                  backgroundSize: 'contain',
+                  backgroundPosition: '50% 50%',
+                  backgroundRepeat: 'no-repeat',
+                }}
+              />
+            </a>
+          ))}
+        </div>
+      </div>
+
+
+      <div style={{ background: "#f5f9fc", paddingTop: 100, paddingBottom: 140 }}>
         <div
           className={`${styles.centeredContent} ${styles.columnsOnMobile}`}
           style={{ display: 'flex' }}
@@ -259,39 +362,6 @@ export default function IndexPage({
       </div>
 
       <div className={styles.hideOnMobile} style={{ height: 240 }} />
-
-      <div className={styles.customers}>
-        <div className={styles.centeredTitle}>
-          <H1>You’re in good company</H1>
-          <p>
-            Dagster is used to orchestrate data pipelines at some of our favorite companies. Here
-            are a few:
-          </p>
-        </div>
-        <div className={styles.customerLogoCloud}>
-          {USERS.map(({ name, logoURL, url }, idx) => (
-            <a
-              key={idx}
-              title={name}
-              className={styles.customerLogo}
-              href={url}
-              target="_blank"
-              rel="nofollow noreferrer"
-            >
-              <div
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  backgroundImage: `url(${logoURL})`,
-                  backgroundSize: 'contain',
-                  backgroundPosition: '50% 50%',
-                  backgroundRepeat: 'no-repeat',
-                }}
-              />
-            </a>
-          ))}
-        </div>
-      </div>
 
       <div className={styles.centeredContent}>
         <div className={styles.centeredTitle} style={{ marginTop: 60, marginBottom: 30 }}>

@@ -149,7 +149,7 @@
 
 .index .customers {
   padding: 80px 20px;
-  background: #f5f9fc;
+  /* background: #f5f9fc; */
 }
 
 .index .customerLogoCloud {
@@ -170,6 +170,40 @@
   height: 90px;
   width: 170px;
   box-shadow: 0 2px 40px rgba(0, 0, 0, 0.1);
+}
+
+.index .customerStory {
+  vertical-align: top;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: black;
+  margin: 10px;
+  width: 45%;
+  box-shadow: 0 2px 40px rgba(0, 0, 0, 0.1);
+  position: relative;
+  top: 0;
+  transition: top ease 0.5s;
+}
+
+.index .customerStory:hover {
+  top: -10px;
+}
+
+.index .customerQuote {
+  padding: 20px;
+  text-align: left;
+}
+
+.index .customerSource {
+  padding: 20px;
+  background-color: #eee;
+}
+
+.index .customerName {
+ font-weight: 500;
+ text-align: left;
 }
 
 @media (max-width: 500px) {
