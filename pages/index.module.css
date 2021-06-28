@@ -3,6 +3,9 @@
 .index h3,
 .index h4 {
 }
+.index .stickyHeader {
+  padding-top: 64px;
+}
 .index p {
   line-height: 1.55rem;
 }

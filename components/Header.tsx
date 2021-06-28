@@ -8,8 +8,24 @@ const Header = () => {
   const router = useRouter()
 
   return (
-    <nav className="bg-white shadow-sm">
-      <div className="max-w-3xl mx-auto px-4">
+    <div
+    style={{
+      position: 'fixed',
+      top: '0',
+      width: '100%',
+      backgroundColor: 'white',
+      zIndex: 999
+    }}
+    >
+    <nav 
+    className="bg-white shadow-sm"
+    >
+      <div 
+      className="mx-auto px-4"
+      style={{
+        maxWidth: '1100px'
+      }}
+      >
         <div className="flex justify-between h-16">
           <div className="flex">
             <a href="/" className="flex-shrink-0 flex items-center">
@@ -182,6 +198,7 @@ const Header = () => {
         </div>
       </div>
     </nav>
+    </div>
   )
 }
 
