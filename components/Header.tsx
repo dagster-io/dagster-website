@@ -9,22 +9,19 @@ const Header = () => {
 
   return (
     <div
-    style={{
-      position: 'fixed',
-      top: '0',
-      width: '100%',
-      backgroundColor: 'white',
-      zIndex: 999
-    }}
-    >
-    <nav 
-    className="bg-white shadow-sm"
-    >
-      <div 
-      className="mx-auto px-4"
       style={{
-        maxWidth: '1100px'
+        position: 'fixed',
+        top: '0',
+        width: '100%',
+        zIndex: 999 // Ensures that header is on top of other elements
       }}
+    >
+    <nav className="bg-white shadow-sm">
+      <div 
+        className="mx-auto px-4"
+        style={{
+          maxWidth: '1100px'
+        }}
       >
         <div className="flex justify-between h-16">
           <div className="flex">

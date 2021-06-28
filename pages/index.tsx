@@ -32,7 +32,7 @@ export default function IndexPage({
   featuredPosts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <div className={styles.index} style={{ paddingTop: '64px' }}>
+    <div className={`${styles.index} stickyHeader`}>
       <Hero />
 
       <div className={`${styles.centeredContent} text-center`}>
