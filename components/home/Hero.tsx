@@ -3,7 +3,10 @@ import styles from './Hero.module.css'
 
 export const Hero: React.FunctionComponent<{}> = () => {
   return (
-    <div className={styles.container} >
+    <div 
+      className={styles.container} 
+      style={{ paddingTop: '64px' }}
+    >
       <svg className={styles.svg} width="100%" viewBox="0 0 1627 226" version="1.1">
         <g
           id="Group-2"
