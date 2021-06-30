@@ -1274,6 +1274,18 @@
     hex-rgb "^4.1.0"
     postcss-selector-parser "^6.0.2"
 
+"@typeform/embed-react@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@typeform/embed-react/-/embed-react-1.0.5.tgz#ef14d72cb5fb95bdb3804231fffa0e4cec5bc44a"
+  integrity sha512-702nn8LXDJ1vJqgMIIvc5Tw2DT5CJxqey/ZSO6ZChEyIkZ/wbcejkMsgp1v2SKKrhB+gIWhi3aUa8Pxl8vaj2Q==
+  dependencies:
+    "@typeform/embed" "^1.10.0"
+
+"@typeform/embed@^1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@typeform/embed/-/embed-1.10.0.tgz#df3d835045ca971901ce071d18c510e1b4fc3d88"
+  integrity sha512-ibMR0Y8AIXaIw2PpjpiiKbq51C3UwYN2XIFog/1jGLKlZmfphQTmxZq6mN3gMXnWj8kkz3BABdqLzeXZ5hO9yA==
+
 "@types/classnames@^2.2.10":
   version "2.2.11"
   resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.11.tgz#2521cc86f69d15c5b90664e4829d84566052c1cf"
