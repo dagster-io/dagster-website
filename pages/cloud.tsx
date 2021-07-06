@@ -12,20 +12,20 @@ export default class Typeform extends React.Component {
             Turn your modern data stack into a modern data platform with the hosted version of Dagster.
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', color: '#7b88a8', textAlign: 'center', fontSize: '16px', fontWeight: 400, lineHeight: 1.45, marginBottom: '18px' }}>
-                <div style={{ width: '200px', margin: '2%' }}>
-                <img src="images/fast.svg"/>
+                <div style={{ width: '200px', margin: '2%', justifyContent: 'start', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                <img style={{ width: '70%' }} src="images/fast.svg"/>
                 <p>Fast and lightweight solution for running Dagster without the infrastructure ops</p>
                 </div>
-                <div style={{ width: '200px', margin: '2%' }}>
-                <img src="images/cloud.svg"/>
+                <div style={{ width: '200px', margin: '2%', justifyContent: 'start', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                <img style={{ width: '70%' }} src="images/cloud.svg"/>
                 <p>Fully-hosted Dagster components, including Dagit, scheduler, metadata databases</p>
                 </div>
-                <div style={{ width: '200px', margin: '2%' }}>
-                <img src="images/rbac.svg" />
+                <div style={{ width: '200px', margin: '2%', justifyContent: 'start', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                <img style={{ width: '70%' }} src="images/rbac.svg" />
                 <p>Enterprise-grade features, including access control, run attribution, audit logs, pipeline monitoring</p>
                 </div>
-                <div style={{ width: '200px', margin: '2%' }}>
-                <img src="images/security.svg"/>
+                <div style={{ width: '200px', margin: '2%', justifyContent: 'start', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                <img style={{ width: '70%' }} src="images/security.svg"/>
                 <p>Your data is always stored by you</p>
                 </div>
             </div>
