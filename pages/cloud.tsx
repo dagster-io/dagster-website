@@ -8,7 +8,7 @@ export default class Typeform extends React.Component {
             <p style={{ color: '#1F2023', textAlign: 'center', fontSize: '48px', fontWeight: 'bold', marginBottom: '16px' }}>
             Dagster Cloud
             </p>
-            <p style={{  color: '#383B40', textAlign: 'center', fontSize: '18px', fontWeight: 400, lineHeight: 1.45, marginBottom: '18px' }}>
+            <p style={{  color: '#383B40', textAlign: 'center', fontSize: '18px', fontWeight: 400, lineHeight: 1.45, marginBottom: '32px' }}>
             Turn your modern data stack into a modern data platform with hosted Dagster
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', color: '#383B40', textAlign: 'center', fontSize: '16px', fontWeight: 400, lineHeight: 1.45, marginBottom: '18px' }}>
