@@ -9,7 +9,7 @@ export default class Typeform extends React.Component {
             Dagster Cloud
             </p>
             <p style={{  color: '#383B40', textAlign: 'center', fontSize: '18px', fontWeight: 400, lineHeight: 1.45, marginBottom: '32px' }}>
-            Turn your modern data stack into a modern data platform with hosted Dagster
+            Effortless deployment and operations with hosted Dagster Cloud
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', color: '#383B40', textAlign: 'center', fontSize: '16px', fontWeight: 400, lineHeight: 1.45, marginBottom: '18px' }}>
                 <div style={{ width: '200px', margin: '2%', justifyContent: 'start', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
@@ -19,7 +19,7 @@ export default class Typeform extends React.Component {
 
                 <div style={{ width: '200px', margin: '2%', justifyContent: 'start', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 <img style={{ width: '70%' }} src="images/rbac.svg" />
-                <p>Enterprise-grade features including access control, run attribution, audit logs, pipeline monitoring</p>
+                <p>Enterprise-grade features including access control, workspace management, audit logs and monitoring</p>
                 </div>
 
                 <div style={{ width: '200px', margin: '2%', justifyContent: 'start', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
