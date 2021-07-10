@@ -43,16 +43,14 @@ export const GridCard: React.FunctionComponent<any> = ({ post }) => {
   return (
     <div
       key={slug}
-      className="transition duration-200 ease-in-out transform hover:-translate-y-2 shadow-md hover:shadow-lg mb-4"
+      className="border border-gray-100 transition duration-200 ease-in-out transform hover:-translate-y-2 shadow-md hover:shadow-lg mb-4"
     >
       <NextLink href={post.href}>
         <a className="hover:text-blue-600" aria-label={`Read "${title}"`}>
           <div>{coverImage && <img src={coverImage} />}</div>
           <div className="py-4 px-8">
             <h3 className="text-xl mb-4 font-bold tracking-tight">
-              <NextLink href={post.href}>
-                <a className="hover:text-blue-600">{post.title}</a>
-              </NextLink>
+              <span className="hover:text-blue-600">{post.title}</span>
             </h3>
             <div className="text-sm max-w-none text-gray-500 mb-4">{truncate(excerpt, 180)}</div>
             <dl>

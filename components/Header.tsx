@@ -2,6 +2,31 @@ import * as React from 'react'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import cx from 'classnames'
+import { Menu } from '@headlessui/react'
+import {
+  ChevronDownIcon,
+  UserGroupIcon,
+  NewspaperIcon,
+  ChatAltIcon,
+} from '@heroicons/react/outline'
+
+enum SECTION {
+  HOME = 'HOME',
+  RESOURCES = 'RESOURCES',
+  CLOUD = 'CLOUD',
+}
+
+const pathToSection = (pathname: string) => {
+  if (pathname.startsWith('/blog')) {
+    return SECTION.RESOURCES
+  } else if (pathname.startsWith('/resources')) {
+    return SECTION.RESOURCES
+  } else if (pathname.startsWith('/cloud')) {
+    return SECTION.CLOUD
+  } else {
+    return SECTION.HOME
+  }
+}
 
 const Header = () => {
   const [isMobileHeaderOpen, setIsMobileHeaderOpen] = useState(false)
@@ -44,31 +69,97 @@ const Header = () => {
                   className={cx(
                     'ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out',
                     {
-                      'border-indigo-500': !(
-                        router.pathname.startsWith('/blog') || router.pathname.startsWith('/cloud')
-                      ),
+                      'border-indigo-500': pathToSection(router.pathname) === SECTION.HOME,
                     }
                   )}
                 >
                   Home
                 </a>
-                <a
-                  href="/blog"
+                <Menu
+                  as="div"
                   className={cx(
-                    'ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out',
+                    'ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent leading-5',
                     {
-                      'border-indigo-500': router.pathname.startsWith('/blog'),
+                      'border-indigo-500': pathToSection(router.pathname) === SECTION.RESOURCES,
                     }
                   )}
                 >
-                  Blog
-                </a>
+                  <div>
+                    <Menu.Button className="text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                      Resources
+                      <ChevronDownIcon
+                        className="w-5 h-5 ml-2 inline-flex -mr-1"
+                        aria-hidden="true"
+                      />
+                    </Menu.Button>
+                  </div>
+                  <Menu.Items className="absolute top-16 -ml-4 w-56 origin-bottom bg-white divide-y divide-gray-50 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border border-gray-100">
+                    <div className="px-1 py-1">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            className={cx(
+                              'text-sm font-medium leading-5 text-gray-500 block transition-colors duration-200 py-2 px-4 no-underline',
+                              `${active && 'text-gray-700'}`
+                            )}
+                            href="/blog"
+                          >
+                            <NewspaperIcon
+                              className="w-5 h-5 mr-2 -mt-1 inline-flex"
+                              aria-hidden="true"
+                            />
+                            Blog
+                          </a>
+                        )}
+                      </Menu.Item>
+                    </div>
+                    <div className="px-1 py-1">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            className={cx(
+                              'text-sm font-medium leading-5 text-gray-500 block transition-colors duration-200 py-2 px-4 no-underline',
+                              `${active && 'text-gray-700'}`
+                            )}
+                            href="/resources/user-stories"
+                          >
+                            <ChatAltIcon
+                              className="w-5 h-5 mr-2 -mt-1 inline-flex"
+                              aria-hidden="true"
+                            />
+                            User Stories
+                          </a>
+                        )}
+                      </Menu.Item>
+                    </div>
+                    <div className="px-1 py-1">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            className={cx(
+                              'text-sm font-medium leading-5 text-gray-500 block transition-colors duration-200 py-2 px-4 no-underline',
+                              `${active && 'text-gray-700'}`
+                            )}
+                            href="/resources/community"
+                          >
+                            <UserGroupIcon
+                              className="w-5 h-5 mr-2 -mt-1 inline-flex"
+                              aria-hidden="true"
+                            />
+                            Community
+                          </a>
+                        )}
+                      </Menu.Item>
+                    </div>
+                  </Menu.Items>
+                </Menu>
+
                 <a
                   href="/cloud"
                   className={cx(
                     'ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out',
                     {
-                      'border-indigo-500': router.pathname.startsWith('/cloud'),
+                      'border-indigo-500': pathToSection(router.pathname) === SECTION.CLOUD,
                     }
                   )}
                 >
