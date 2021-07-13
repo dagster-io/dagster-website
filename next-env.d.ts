@@ -8,3 +8,5 @@ declare module '*.mdx' {
   // https://github.com/jescalan/babel-plugin-import-glob-array/issues/7
   export const frontMatter: unknown
 }
+
+declare module 'react-jotform-embed';

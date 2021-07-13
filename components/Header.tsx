@@ -13,14 +13,14 @@ const Header = () => {
         position: 'fixed',
         top: '0',
         width: '100%',
-        zIndex: 999 // Ensures that header is on top of other elements
+        zIndex: 999, // Ensures that header is on top of other elements
       }}
     >
       <nav className="bg-white shadow-sm">
-        <div 
+        <div
           className="mx-auto px-4"
           style={{
-            maxWidth: '1100px'
+            maxWidth: '1100px',
           }}
         >
           <div className="flex justify-between h-16">
@@ -44,7 +44,9 @@ const Header = () => {
                   className={cx(
                     'ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out',
                     {
-                      'border-indigo-500': !router.pathname.startsWith('/blog'),
+                      'border-indigo-500': !(
+                        router.pathname.startsWith('/blog') || router.pathname.startsWith('/cloud')
+                      ),
                     }
                   )}
                 >
@@ -60,6 +62,17 @@ const Header = () => {
                   )}
                 >
                   Blog
+                </a>
+                <a
+                  href="/cloud"
+                  className={cx(
+                    'ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out',
+                    {
+                      'border-indigo-500': router.pathname.startsWith('/cloud'),
+                    }
+                  )}
+                >
+                  Cloud
                 </a>
                 <a
                   href="https://docs.dagster.io"
@@ -140,7 +153,12 @@ const Header = () => {
                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
               >
                 {/* Menu open: "hidden", Menu closed: "block" */}
-                <svg className="block h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                <svg
+                  className="block h-6 w-6"
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -149,7 +167,12 @@ const Header = () => {
                   />
                 </svg>
                 {/* Menu open: "block", Menu closed: "hidden" */}
-                <svg className="hidden h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                <svg
+                  className="hidden h-6 w-6"
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -179,6 +202,12 @@ const Header = () => {
               className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
             >
               Blog
+            </a>
+            <a
+              href="/cloud"
+              className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
+            >
+              Cloud
             </a>
             <a
               href="https://docs.dagster.io"

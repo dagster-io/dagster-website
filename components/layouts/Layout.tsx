@@ -42,7 +42,7 @@ const Layout = ({ children, title = 'Dagster', description = DEFAULT_SHARE_DESCR
       className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"
       style={{ paddingTop: '64px' }}
     >
-      <div className="flex">{children}</div>
+      <div className="flex justify-center">{children}</div>
     </div>
   </div>
 )
