@@ -9,7 +9,7 @@ export default class Typeform extends React.Component {
       <p>We are excited to share that we are building a hosted version of the Dagster and are looking for early beta users!</p>
       <div className="flex justify-center">
         {/* style={{ display: 'flex', justifyContent: 'center', height: '200px' }} */}
-        <JotformEmbed src="https://form.jotformeu.com/211927287192159" />
+        <JotformEmbed src="https://form.jotform.com/211927952953163" />
       
       </div>
       </div>
