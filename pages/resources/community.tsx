@@ -114,7 +114,7 @@ export default function CommunityPage(props: InferGetStaticPropsType<typeof getS
           If your organization is interested in sharing how you use dagster, please reach out to us!
         </p>
         <a
-          href="#"
+          href="mailto:community@elementl.com"
           // TODO: slack or email?
           className="flex-none bg-white hover:bg-gray-100 transition-colors duration-200 text-black font-bold rounded-lg py-2 px-4 no-underline"
         >

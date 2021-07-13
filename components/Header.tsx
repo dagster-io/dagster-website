@@ -153,7 +153,6 @@ const Header = () => {
                     </div>
                   </Menu.Items>
                 </Menu>
-
                 <a
                   href="/cloud"
                   className={cx(
@@ -288,12 +287,47 @@ const Header = () => {
             >
               Home
             </a>
-            <a
-              href="/blog"
-              className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
-            >
-              Blog
-            </a>
+            <Menu as="div" className="">
+              <Menu.Button className="text-left w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:border-gray-300 transition duration-150 ease-in-out">
+                Resources
+                <ChevronDownIcon
+                  className="w-5 h-5 mr-2 inline-flex float-right"
+                  aria-hidden="true"
+                />
+              </Menu.Button>
+              <Menu.Items className="mt-2 w-full origin-bottom divide-y divide-gray-100">
+                <div className="px-1 py-1">
+                  <Menu.Item>
+                    <a
+                      className="text-sm font-medium leading-5 text-gray-500 block py-2 px-4 no-underline"
+                      href="/blog"
+                    >
+                      Blog
+                    </a>
+                  </Menu.Item>
+                </div>
+                <div className="px-1 py-1">
+                  <Menu.Item>
+                    <a
+                      className="text-sm font-medium leading-5 text-gray-500 block py-2 px-4 no-underline"
+                      href="/resources/user-stories"
+                    >
+                      User Stories
+                    </a>
+                  </Menu.Item>
+                </div>
+                <div className="px-1 py-1">
+                  <Menu.Item>
+                    <a
+                      className="text-sm font-medium leading-5 text-gray-500 block py-2 px-4 no-underline"
+                      href="/resources/community"
+                    >
+                      Community
+                    </a>
+                  </Menu.Item>
+                </div>
+              </Menu.Items>
+            </Menu>
             <a
               href="/cloud"
               className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"

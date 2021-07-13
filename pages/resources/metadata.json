@@ -1,37 +1,44 @@
 {
     "metadata": [
         {
-            "title": "July 2021 | Dagster Community Meeting",
-            "date": "2021-07-13",
-            "excerpt": "Click to register and be added to the calendar invite",
+            "title": "Sept 2021 | Dagster Community Meeting",
+            "date": "2021-09-14",
+            "excerpt": "Click to register and be added to the calendar invite.",
             "url": "https://docs.google.com/forms/d/e/1FAIpQLSfngyjeeytiLiGj3b6o-nGy78pxoTLZ2RvMEZCNjmFdJTklsQ/viewform",
             "type": "upcoming-community-meeting"
         },
         {
+            "title": "July 2021 | Dagster Community Meeting",
+            "date": "2021-07-13",
+            "excerpt": "In our eighth Dagster Community Meeting, Carlson Cheng from Thinking Machine showed off how their data consultancy firm uses Dagster for machine learning workflows, and the core team presented changes and improvements in the recent Dagster 0.12.0 release.",
+            "url": "#",
+            "type": "community-meeting"
+        },
+        {
             "title": "May 2021 | Dagster Community Meeting",
             "date": "2021-05-21",
-            "excerpt": "In our seventh Dagster Community Meeting, Simon Späti from Rohde & Schwarz MNT discusses the production Dagster setup at R&S, and the core team presents our recent API \"approachability\" improvements, as well as upcoming 0.12.0 features.",
+            "excerpt": "In our seventh Dagster Community Meeting, Simon Späti from Rohde & Schwarz MNT discussed the production Dagster setup at R&S, and the core team presented our recent API \"approachability\" improvements, as well as upcoming 0.12.0 features.",
             "url": "https://youtu.be/HRd6rEU33XM",
             "type": "community-meeting"
         },
         {
             "title": "March 2021 | Dagster Community Meeting",
             "date": "2021-03-12",
-            "excerpt": "In our sixth Dagster Community Meeting, the core team presents upcoming 0.11.0 features, including Dynamic Orchestration, a system to establish Asset Lineage, and a new documentation site.",
+            "excerpt": "In our sixth Dagster Community Meeting, the core team presented upcoming 0.11.0 features, including Dynamic Orchestration, a system to establish Asset Lineage, and a new documentation site.",
             "url": "https://youtu.be/MyRxCkzONps",
             "type": "community-meeting"
         },
         {
             "title": "Feb 2021 | Dagster Community Meeting",
             "date": "2021-02-10",
-            "excerpt": "In our fifth Dagster Community Meeting, Dennis Hume from Drizly and Noah Kantrowitz from Geomagical Labs discuss about their production Dagster setups.",
+            "excerpt": "In our fifth Dagster Community Meeting, Dennis Hume from Drizly and Noah Kantrowitz from Geomagical Labs discussed about their production Dagster setups.",
             "url": "https://youtu.be/lodcK3Z3TUs",
             "type": "community-meeting"
         },
         {
             "title": "0.10.0 \"The Edge of Glory\" Release",
             "date": "2021-01-12",
-            "excerpt": "In our fourth Dagster Community Meeting, we showcase some 🔥 features in the upcoming 0.10.0 release.",
+            "excerpt": "In our fourth Dagster Community Meeting, we showcased some 🔥 features in the upcoming 0.10.0 release.",
             "url": "https://youtu.be/nVHdvt0rj_0",
             "type": "community-meeting"
         },
