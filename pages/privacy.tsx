@@ -4,13 +4,13 @@ export default class Privacy extends React.Component {
   render() {
     return (
       <div className="flex flex-col p-4 m-10 bg-gradient-to-r from-blue-200 to-blue-300 rounded-md">
-        <p className="text-blue-900 text-2xl font-bold flex justify-center pb-2">Privacy Notice</p>
+        <p className="text-blue-900 text-2xl font-bold flex justify-center pb-2">Privacy Policy</p>
         <p className="text-blue-900 text-large font-bold flex justify-center pb-2">
           Effective Date: July 14, 2021
         </p>
 
         <p className="text-blue-900 justify-left pb-2">
-          This Privacy Notice explains how Elementl (“
+          This Privacy Policy explains how Elementl (“
           <strong className="font-semibold">Company</strong>”, “
           <strong className="font-semibold">we</strong>”, “
           <strong className="font-semibold">us</strong>” or “
