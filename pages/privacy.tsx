@@ -10,13 +10,17 @@ export default class Privacy extends React.Component {
         </p>
 
         <p className="text-blue-900 justify-left pb-2">
-          This Privacy Notice explains how Elementl (“<strong className="font-semibold">Company</strong>”, “
-          <strong className="font-semibold">we</strong>”, “<strong className="font-semibold">us</strong>” or “<strong className="font-semibold">our</strong>”) collects, uses,
-          discloses, and otherwise processes Personal Information (as defined below) in connection
-          with our website, dagster.io (the “<strong className="font-semibold">Site</strong>”), and the related content,
-          platform, services, and other functionality offered on or through the online services
-          (collectively, the “<strong className="font-semibold">Service</strong>”). It does not address our privacy practices
-          relating to job applicants, employees and other personnel.
+          This Privacy Notice explains how Elementl (“
+          <strong className="font-semibold">Company</strong>”, “
+          <strong className="font-semibold">we</strong>”, “
+          <strong className="font-semibold">us</strong>” or “
+          <strong className="font-semibold">our</strong>”) collects, uses, discloses, and otherwise
+          processes Personal Information (as defined below) in connection with our website,
+          dagster.io (the “<strong className="font-semibold">Site</strong>”), and the related
+          content, platform, services, and other functionality offered on or through the online
+          services (collectively, the “<strong className="font-semibold">Service</strong>”). It does
+          not address our privacy practices relating to job applicants, employees and other
+          personnel.
         </p>
 
         <br></br>
@@ -24,13 +28,14 @@ export default class Privacy extends React.Component {
           What is Personal Information?
         </p>
         <br></br>
-        
+
         <p className="text-blue-900 justify-left pb-2">
-          When we use the term “<strong className="font-semibold">Personal Information</strong>” in this Privacy Notice, we
-          mean information that identifies, relates to, describes, is reasonably capable of being
-          associated with, or could reasonably be linked, directly or indirectly, to an individual.
-          It does not include aggregated or deidentified information that is maintained in a form
-          that is not reasonably capable of being associated with or linked to an individual.
+          When we use the term “<strong className="font-semibold">Personal Information</strong>” in
+          this Privacy Notice, we mean information that identifies, relates to, describes, is
+          reasonably capable of being associated with, or could reasonably be linked, directly or
+          indirectly, to an individual. It does not include aggregated or deidentified information
+          that is maintained in a form that is not reasonably capable of being associated with or
+          linked to an individual.
         </p>
 
         <br></br>
@@ -53,12 +58,14 @@ export default class Privacy extends React.Component {
         </p>
         <ul className="list-disc list-inside text-blue-900 justify-left pb-2">
           <li>
-            <strong className="font-semibold">Contact Information</strong>, including name, email address, mailing address,
-            company, employer, store address, phone number and communication preferences.
+            <strong className="font-semibold">Contact Information</strong>, including name, email
+            address, mailing address, company, employer, store address, phone number and
+            communication preferences.
           </li>
           <li>
-            <strong className="font-semibold">Inquiry Information</strong>, including information provided in custom messages
-            sent through the forms or contact information provided on our Site.
+            <strong className="font-semibold">Inquiry Information</strong>, including information
+            provided in custom messages sent through the forms or contact information provided on
+            our Site.
           </li>
         </ul>
 
@@ -77,33 +84,38 @@ export default class Privacy extends React.Component {
           as usage and activity on our Site). We and our third-party providers may use (i) cookies
           or small data files that are stored on an individual’s computer and (ii) other, related
           technologies, such as web beacons, pixels, embedded scripts, location-identifying
-          technologies and logging technologies (collectively, “<strong className="font-semibold">cookies</strong>”) to
-          automatically collect this Personal Information. For example, our Site uses Google
-          Analytics, a web analytics service provided by Google, Inc. (“<strong className="font-semibold">Google</strong>”),
-          to collect and view reports about the traffic on our Site. More information about the use
-          of Google Analytics for these analytical and nonadvertising purposes can be obtained by
-          visiting Google’s privacy policy
-          <a href="www.google.com/policies/privacy/partners">here</a> and Google’s currently
-          available opt-out options are available
-          <a href="https://tools.google.com/dlpage/gaoptout">here</a>. To manage cookies, an
-          individual may change their browser settings to: (i) notify them when they receive a
-          cookie, so the individual can choose whether or not to accept it; (ii) disable existing
-          cookies; or (iii) automatically reject cookies. Please note that doing so may negatively
-          impact an individual’s experience using our Site, as some features and offerings may not
-          work properly or at all. Depending on an individual’s device and operating system, the
-          individual may not be able to delete or block all cookies. In addition, if an individual
-          wants to reject cookies across all browsers and devices, the individual will need to do so
-          on each browser on each device they actively use. An individual may also set their email
-          options to prevent the automatic downloading of images that may contain technologies that
-          would allow us to know whether they have accessed our email and performed certain
-          functions with it.
+          technologies and logging technologies (collectively, “
+          <strong className="font-semibold">cookies</strong>”) to automatically collect this
+          Personal Information. For example, our Site uses Google Analytics, a web analytics service
+          provided by Google, Inc. (“<strong className="font-semibold">Google</strong>”), to collect
+          and view reports about the traffic on our Site. More information about the use of Google
+          Analytics for these analytical and nonadvertising purposes can be obtained by visiting
+          Google’s privacy policy{' '}
+          <a target="_blank" href="https://www.google.com/policies/privacy/partners">
+            <u>here</u>
+          </a>{' '}
+          and Google’s currently available opt-out options are available{' '}
+          <a target="_blank" href="https://tools.google.com/dlpage/gaoptout">
+            <u>here</u>
+          </a>
+          . To manage cookies, an individual may change their browser settings to: (i) notify them
+          when they receive a cookie, so the individual can choose whether or not to accept it; (ii)
+          disable existing cookies; or (iii) automatically reject cookies. Please note that doing so
+          may negatively impact an individual’s experience using our Site, as some features and
+          offerings may not work properly or at all. Depending on an individual’s device and
+          operating system, the individual may not be able to delete or block all cookies. In
+          addition, if an individual wants to reject cookies across all browsers and devices, the
+          individual will need to do so on each browser on each device they actively use. An
+          individual may also set their email options to prevent the automatic downloading of images
+          that may contain technologies that would allow us to know whether they have accessed our
+          email and performed certain functions with it.
           <br></br>
           <br></br>
           <u>Personal Information from Third Parties</u>
           <br></br>
           <br></br>
-          We also obtain Personal Information from third parties; which we often combine with Personal Information we
-          collect either automatically or directly from an individual.
+          We also obtain Personal Information from third parties; which we often combine with
+          Personal Information we collect either automatically or directly from an individual.
           <br></br>
           <br></br>
           We may receive the same categories of Personal Information as described above from the
@@ -111,42 +123,42 @@ export default class Privacy extends React.Component {
         </p>
 
         <ul className="list-disc list-inside text-blue-900 justify-left pb-2">
-        <li>
-          <strong className="font-semibold">Your Employer / Company</strong>: If you engage in our Services through your
-          employer or company, we may receive information from the company such as name and contact
-          information.
-        </li>
-        <li>
-          <strong className="font-semibold">Social Media</strong>: When an individual interacts with our Services through
-          various social media networks, such as when someone logs in through a social network,
-          “Likes” us on Facebook or follows us or shares our content on Google, Facebook, Twitter,
-          or other social networks, we may receive some information about individuals that they
-          permit the social network to share with third parties. The data we receive is dependent
-          upon an individual’s privacy settings with the social network. Individuals should always
-          review and, if necessary, adjust their privacy settings on third-party websites and social
-          media networks and services before sharing information and/or linking or connecting them
-          to other services.
-        </li>
-        <li>
-          <strong className="font-semibold">Service Providers</strong>: Our service providers that perform services solely on
-          our behalf, such as survey and marketing providers, collect Personal Information and often
-          share some or all of this information with us.
-        </li>
-        <li>
-          <strong className="font-semibold">Information Providers</strong>: We may from time to time obtain information from
-          third-party information providers to correct or supplement Personal Information we
-          collect. For example, we may obtain updated contact information from third-party
-          information providers to reconnect with an individual.
-        </li>
-        <li>
-          <strong className="font-semibold">Publicly Available Sources</strong>: We collect Personal Information about
-          individuals that we do not otherwise have, such as contact information, employment-related
-          information, and interest-in-services information, from publicly available sources. We may
-          combine this information with the information we collect from an individual directly. We
-          use this information to contact individuals, to send advertising or promotional materials
-          or to personalize our Services and to better understand the demographics of the
-          individuals with whom we interact.
-        </li>
+          <li>
+            <strong className="font-semibold">Your Employer / Company</strong>: If you engage in our
+            Services through your employer or company, we may receive information from the company
+            such as name and contact information.
+          </li>
+          <li>
+            <strong className="font-semibold">Social Media</strong>: When an individual interacts
+            with our Services through various social media networks, such as when someone logs in
+            through a social network, “Likes” us on Facebook or follows us or shares our content on
+            Google, Facebook, Twitter, or other social networks, we may receive some information
+            about individuals that they permit the social network to share with third parties. The
+            data we receive is dependent upon an individual’s privacy settings with the social
+            network. Individuals should always review and, if necessary, adjust their privacy
+            settings on third-party websites and social media networks and services before sharing
+            information and/or linking or connecting them to other services.
+          </li>
+          <li>
+            <strong className="font-semibold">Service Providers</strong>: Our service providers that
+            perform services solely on our behalf, such as survey and marketing providers, collect
+            Personal Information and often share some or all of this information with us.
+          </li>
+          <li>
+            <strong className="font-semibold">Information Providers</strong>: We may from time to
+            time obtain information from third-party information providers to correct or supplement
+            Personal Information we collect. For example, we may obtain updated contact information
+            from third-party information providers to reconnect with an individual.
+          </li>
+          <li>
+            <strong className="font-semibold">Publicly Available Sources</strong>: We collect
+            Personal Information about individuals that we do not otherwise have, such as contact
+            information, employment-related information, and interest-in-services information, from
+            publicly available sources. We may combine this information with the information we
+            collect from an individual directly. We use this information to contact individuals, to
+            send advertising or promotional materials or to personalize our Services and to better
+            understand the demographics of the individuals with whom we interact.
+          </li>
         </ul>
 
         <br></br>
@@ -221,57 +233,58 @@ export default class Privacy extends React.Component {
         </p>
         <ul className="list-disc list-inside text-blue-900 justify-left pb-2">
           <li>
-            <strong className="font-semibold">Affiliates</strong>: We may share Personal Information with other companies
-            owned or controlled by Company, and other companies owned by or under common ownership
-            as Company, which also includes our subsidiaries (i.e., any organization we own or
-            control) or our ultimate holding company (i.e., any organization that owns or controls
-            us) and any subsidiaries it owns, particularly when we collaborate in providing the
-            Services.
+            <strong className="font-semibold">Affiliates</strong>: We may share Personal Information
+            with other companies owned or controlled by Company, and other companies owned by or
+            under common ownership as Company, which also includes our subsidiaries (i.e., any
+            organization we own or control) or our ultimate holding company (i.e., any organization
+            that owns or controls us) and any subsidiaries it owns, particularly when we collaborate
+            in providing the Services.
           </li>
           <li>
-            <strong className="font-semibold">Marketing Providers</strong>: We coordinate and share Personal Information with
-            our marketing providers in order to communicate with individuals about the Services we
-            make available.
+            <strong className="font-semibold">Marketing Providers</strong>: We coordinate and share
+            Personal Information with our marketing providers in order to communicate with
+            individuals about the Services we make available.
           </li>
           <li>
-            <strong className="font-semibold">Customer Service and Communication Providers</strong>: We share Personal
-            Information with third parties who assist us in providing our customer services and
-            facilitating our communications with individuals that submit inquiries.
+            <strong className="font-semibold">Customer Service and Communication Providers</strong>:
+            We share Personal Information with third parties who assist us in providing our customer
+            services and facilitating our communications with individuals that submit inquiries.
           </li>
           <li>
-            <strong className="font-semibold">Other Service Providers</strong>: In addition to the third parties identified
-            above, we engage other third-party service providers that perform business or
-            operational services for us or on our behalf, such as website hosting, infrastructure
-            provisioning, IT services, analytics services, administrative services.
-          </li>
-          <li>
-            <strong className="font-semibold">Other Business As Needed To Provide Services</strong>: We may share Personal
-            Information with third parties that an individual engages with through our Services or
-            as needed to fulfill a request or transaction including, for example, payment processing
+            <strong className="font-semibold">Other Service Providers</strong>: In addition to the
+            third parties identified above, we engage other third-party service providers that
+            perform business or operational services for us or on our behalf, such as website
+            hosting, infrastructure provisioning, IT services, analytics services, administrative
             services.
           </li>
           <li>
-            <strong className="font-semibold">Business Transaction or Reorganization</strong>: We may take part in or be
-            involved with a corporate business transaction, such as a merger, acquisition, joint
-            venture, or financing or sale of company assets. We may disclose Personal Information to
-            a third party during negotiation of, in connection with or as an asset in such a
-            corporate business transaction. Personal Information may also be disclosed in the event
-            of insolvency, bankruptcy or receivership.
+            <strong className="font-semibold">Other Business As Needed To Provide Services</strong>:
+            We may share Personal Information with third parties that an individual engages with
+            through our Services or as needed to fulfill a request or transaction including, for
+            example, payment processing services.
           </li>
           <li>
-            <strong className="font-semibold">Legal Obligations and Rights</strong>: We may disclose Personal Information to
-            third parties, such as legal advisors and law enforcement: in connection with the
-            establishment, exercise, or defense of legal claims; to comply with laws or to respond
-            to lawful requests and legal process; to protect our rights and property and the rights
-            and property of others, including to enforce our agreements and policies; to detect,
-            suppress, or prevent fraud; to protect the health and safety of us and others; or as
-            otherwise required by applicable law.
+            <strong className="font-semibold">Business Transaction or Reorganization</strong>: We
+            may take part in or be involved with a corporate business transaction, such as a merger,
+            acquisition, joint venture, or financing or sale of company assets. We may disclose
+            Personal Information to a third party during negotiation of, in connection with or as an
+            asset in such a corporate business transaction. Personal Information may also be
+            disclosed in the event of insolvency, bankruptcy or receivership.
           </li>
           <li>
-            <strong className="font-semibold">Otherwise With Consent or Direction</strong>: We may disclose Personal
-            Information about an individual to certain other third parties or publicly with their
-            consent or direction. For example, with an individual’s consent or direction we may post
-            their testimonial on our Site or service-related publications.
+            <strong className="font-semibold">Legal Obligations and Rights</strong>: We may disclose
+            Personal Information to third parties, such as legal advisors and law enforcement: in
+            connection with the establishment, exercise, or defense of legal claims; to comply with
+            laws or to respond to lawful requests and legal process; to protect our rights and
+            property and the rights and property of others, including to enforce our agreements and
+            policies; to detect, suppress, or prevent fraud; to protect the health and safety of us
+            and others; or as otherwise required by applicable law.
+          </li>
+          <li>
+            <strong className="font-semibold">Otherwise With Consent or Direction</strong>: We may
+            disclose Personal Information about an individual to certain other third parties or
+            publicly with their consent or direction. For example, with an individual’s consent or
+            direction we may post their testimonial on our Site or service-related publications.
           </li>
         </ul>
         <p className="text-blue-900 justify-left pb-2">
@@ -332,7 +345,7 @@ export default class Privacy extends React.Component {
         <br></br>
         <p className="text-blue-900 text-large font-bold flex justify-center pb-2">Contact Us</p>
         <br></br>
-        
+
         <p className="text-blue-900 justify-left pb-2">
           If you have any questions or requests in connection with this Privacy Notice or other
           privacy-related matters, please send an email to privacy@elementl.com.
