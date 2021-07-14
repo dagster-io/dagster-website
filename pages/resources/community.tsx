@@ -1,12 +1,12 @@
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 import NextLink from 'next/link'
 import { metadata as resourceMetadataList } from './metadata.json'
+import cx from 'classnames'
 
 enum ResourceType {
-  COMMUNITY_MEETING = 'community-meeting',
-  UPCOMING_COMMUNITY_MEETING = 'upcoming-community-meeting',
-  TECH_TALK = 'tech-talk',
-  PODCAST = 'podcast',
+  COMMUNITY_MEETING = 'Community Meeting',
+  TECH_TALK = 'Tech Talk',
+  PODCAST = 'Podcast',
 }
 
 type ResourceMetadata = {
@@ -56,7 +56,7 @@ const CommunitySection: React.FunctionComponent<{
   )
 }
 const ResourceCard: React.FunctionComponent<any> = ({ resource }) => {
-  const { title, date, excerpt, url, coverImage } = resource
+  const { title, date, excerpt, url, coverImage, type } = resource
 
   return (
     <div
@@ -70,6 +70,17 @@ const ResourceCard: React.FunctionComponent<any> = ({ resource }) => {
             <h3 className="text-xl mb-4 font-bold tracking-tight">
               <span className="hover:text-blue-600">{title}</span>
             </h3>
+            <div className="my-4">
+              <span
+                className={cx('w-auto text-center font-bold rounded-lg py-2 px-4 text-sm', {
+                  'bg-blue-200 text-blue-700': type == ResourceType.COMMUNITY_MEETING,
+                  'bg-green-200 text-green-700': type == ResourceType.TECH_TALK,
+                  'bg-purple-200 text-purple-700': type == ResourceType.PODCAST,
+                })}
+              >
+                {type}
+              </span>
+            </div>
             <div className="text-sm max-w-none text-gray-500 mb-4">{excerpt}</div>
             <dl>
               <dd className="text-xs text-gray-700">{date}</dd>
@@ -101,9 +112,13 @@ export default function CommunityPage(props: InferGetStaticPropsType<typeof getS
 
       <CommunitySection
         title="Upcoming Events"
-        subtitle="The Dagster community meets every 2 months on the second Tuesday at 9 AM PST. At each meetup, the Dagster team will provide product updates and, depending on interest, community members will give lightning talks or demos."
+        subtitle="Check out our upcoming events, including Dagster Community Meetings hosted by the Dagster core team as well as other external talks and podcasts."
         content={resourceList
-          .filter((resource) => resource.type === ResourceType.UPCOMING_COMMUNITY_MEETING)
+          .filter((resource) => {
+            const resourceDate = new Date(resource.date)
+            const today = new Date()
+            return resourceDate > today
+          })
           .map((resource: ResourceMetadata) => (
             <ResourceCard key={resource.title} resource={resource} />
           ))}
@@ -132,12 +147,11 @@ export default function CommunityPage(props: InferGetStaticPropsType<typeof getS
       <div className="flex my-16 justify-center">
         <hr className="border-gray-300 w-2/3" />
       </div>
-
       <CommunitySection
         title="Past Events"
         subtitle="If you missed one of our events, you can watch a recording below or view related event materials."
         content={resourceList
-          .filter((resource) => resource.type === ResourceType.COMMUNITY_MEETING)
+          // .filter((resource) => resource.type === ResourceType.COMMUNITY_MEETING)
           .map((resource: ResourceMetadata) => (
             <ResourceCard key={resource.title} resource={resource} />
           ))}
