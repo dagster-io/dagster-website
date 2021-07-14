@@ -1,6 +1,6 @@
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 import NextLink from 'next/link'
-import { metadata as resourceMetadataList } from './metadata.json'
+import { metadata as resourceMetadataList } from './resources/metadata.json'
 import cx from 'classnames'
 
 enum ResourceType {
@@ -117,7 +117,7 @@ export default function CommunityPage(props: InferGetStaticPropsType<typeof getS
           .filter((resource) => {
             const resourceDate = new Date(resource.date)
             const today = new Date()
-            return resourceDate > today
+            return resourceDate >= today
           })
           .map((resource: ResourceMetadata) => (
             <ResourceCard key={resource.title} resource={resource} />
@@ -139,7 +139,7 @@ export default function CommunityPage(props: InferGetStaticPropsType<typeof getS
 
       <div className="text-gray-700">
         Check out{' '}
-        <NextLink href="/resources/user-stories">
+        <NextLink href="/user-stories">
           <a className="font-bold hover:text-blue-600">User Stories</a>
         </NextLink>{' '}
         to explore how other companies are using Dagster.
@@ -151,7 +151,11 @@ export default function CommunityPage(props: InferGetStaticPropsType<typeof getS
         title="Past Events"
         subtitle="If you missed one of our events, you can watch a recording below or view related event materials."
         content={resourceList
-          // .filter((resource) => resource.type === ResourceType.COMMUNITY_MEETING)
+          .filter((resource) => {
+            const resourceDate = new Date(resource.date)
+            const today = new Date()
+            return resourceDate < today
+          })
           .map((resource: ResourceMetadata) => (
             <ResourceCard key={resource.title} resource={resource} />
           ))}

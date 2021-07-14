@@ -2,25 +2,21 @@ import * as React from 'react'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import cx from 'classnames'
-import { Menu } from '@headlessui/react'
-import {
-  ChevronDownIcon,
-  UserGroupIcon,
-  NewspaperIcon,
-  ChatAltIcon,
-} from '@heroicons/react/outline'
-
 enum SECTION {
   HOME = 'HOME',
-  RESOURCES = 'RESOURCES',
+  BLOG = 'BLOG',
+  USER_STORIES = 'USER_STORIES',
+  COMMUNITY = 'COMMUNITY',
   CLOUD = 'CLOUD',
 }
 
 const pathToSection = (pathname: string) => {
   if (pathname.startsWith('/blog')) {
-    return SECTION.RESOURCES
-  } else if (pathname.startsWith('/resources')) {
-    return SECTION.RESOURCES
+    return SECTION.BLOG
+  } else if (pathname.startsWith('/user-stories')) {
+    return SECTION.USER_STORIES
+  } else if (pathname.startsWith('/community')) {
+    return SECTION.COMMUNITY
   } else if (pathname.startsWith('/cloud')) {
     return SECTION.CLOUD
   } else {
@@ -75,84 +71,39 @@ const Header = () => {
                 >
                   Home
                 </a>
-                <Menu
-                  as="div"
+                <a
+                  href="/blog"
                   className={cx(
-                    'ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent leading-5',
+                    'ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out',
                     {
-                      'border-indigo-500': pathToSection(router.pathname) === SECTION.RESOURCES,
+                      'border-indigo-500': pathToSection(router.pathname) === SECTION.BLOG,
                     }
                   )}
                 >
-                  <div>
-                    <Menu.Button className="text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                      Resources
-                      <ChevronDownIcon
-                        className="w-5 h-5 ml-2 inline-flex -mr-1"
-                        aria-hidden="true"
-                      />
-                    </Menu.Button>
-                  </div>
-                  <Menu.Items className="absolute top-16 -ml-4 w-56 origin-bottom bg-white divide-y divide-gray-50 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border border-gray-100">
-                    <div className="px-1 py-1">
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            className={cx(
-                              'text-sm font-medium leading-5 text-gray-500 block transition-colors duration-200 py-2 px-4 no-underline',
-                              `${active && 'text-gray-700'}`
-                            )}
-                            href="/blog"
-                          >
-                            <NewspaperIcon
-                              className="w-5 h-5 mr-2 -mt-1 inline-flex"
-                              aria-hidden="true"
-                            />
-                            Blog
-                          </a>
-                        )}
-                      </Menu.Item>
-                    </div>
-                    <div className="px-1 py-1">
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            className={cx(
-                              'text-sm font-medium leading-5 text-gray-500 block transition-colors duration-200 py-2 px-4 no-underline',
-                              `${active && 'text-gray-700'}`
-                            )}
-                            href="/resources/user-stories"
-                          >
-                            <ChatAltIcon
-                              className="w-5 h-5 mr-2 -mt-1 inline-flex"
-                              aria-hidden="true"
-                            />
-                            User Stories
-                          </a>
-                        )}
-                      </Menu.Item>
-                    </div>
-                    <div className="px-1 py-1">
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            className={cx(
-                              'text-sm font-medium leading-5 text-gray-500 block transition-colors duration-200 py-2 px-4 no-underline',
-                              `${active && 'text-gray-700'}`
-                            )}
-                            href="/resources/community"
-                          >
-                            <UserGroupIcon
-                              className="w-5 h-5 mr-2 -mt-1 inline-flex"
-                              aria-hidden="true"
-                            />
-                            Community
-                          </a>
-                        )}
-                      </Menu.Item>
-                    </div>
-                  </Menu.Items>
-                </Menu>
+                  Blog
+                </a>
+                <a
+                  href="/user-stories"
+                  className={cx(
+                    'ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out',
+                    {
+                      'border-indigo-500': pathToSection(router.pathname) === SECTION.USER_STORIES,
+                    }
+                  )}
+                >
+                  User Stories
+                </a>
+                <a
+                  href="/community"
+                  className={cx(
+                    'ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out',
+                    {
+                      'border-indigo-500': pathToSection(router.pathname) === SECTION.COMMUNITY,
+                    }
+                  )}
+                >
+                  Community
+                </a>
                 <a
                   href="/cloud"
                   className={cx(
@@ -287,47 +238,24 @@ const Header = () => {
             >
               Home
             </a>
-            <Menu as="div" className="">
-              <Menu.Button className="text-left w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:border-gray-300 transition duration-150 ease-in-out">
-                Resources
-                <ChevronDownIcon
-                  className="w-5 h-5 mr-2 inline-flex float-right"
-                  aria-hidden="true"
-                />
-              </Menu.Button>
-              <Menu.Items className="mt-2 w-full origin-bottom divide-y divide-gray-100">
-                <div className="px-1 py-1">
-                  <Menu.Item>
-                    <a
-                      className="text-sm font-medium leading-5 text-gray-500 block py-2 px-4 no-underline"
-                      href="/blog"
-                    >
-                      Blog
-                    </a>
-                  </Menu.Item>
-                </div>
-                <div className="px-1 py-1">
-                  <Menu.Item>
-                    <a
-                      className="text-sm font-medium leading-5 text-gray-500 block py-2 px-4 no-underline"
-                      href="/resources/user-stories"
-                    >
-                      User Stories
-                    </a>
-                  </Menu.Item>
-                </div>
-                <div className="px-1 py-1">
-                  <Menu.Item>
-                    <a
-                      className="text-sm font-medium leading-5 text-gray-500 block py-2 px-4 no-underline"
-                      href="/resources/community"
-                    >
-                      Community
-                    </a>
-                  </Menu.Item>
-                </div>
-              </Menu.Items>
-            </Menu>
+            <a
+              href="/blog"
+              className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
+            >
+              Blog
+            </a>
+            <a
+              href="/user-stories"
+              className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
+            >
+              User Stories
+            </a>
+            <a
+              href="/community"
+              className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
+            >
+              Community
+            </a>
             <a
               href="/cloud"
               className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
