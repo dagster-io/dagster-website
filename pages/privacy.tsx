@@ -3,7 +3,7 @@ import * as React from 'react'
 export default class Privacy extends React.Component {
   render() {
     return (
-      <div className="flex flex-col p-16 m-24 bg-gradient-to-r from-blue-200 to-blue-300 rounded-md">
+      <div className="flex flex-col p-4 m-10 bg-gradient-to-r from-blue-200 to-blue-300 rounded-md">
         <p className="text-blue-900 text-2xl font-bold flex justify-center pb-2">Privacy Notice</p>
         <p className="text-blue-900 text-large font-bold flex justify-center pb-2">
           Effective Date: July 14, 2021
@@ -76,21 +76,25 @@ export default class Privacy extends React.Component {
           <br></br>
           As is true of most digital platforms, we and our third-party providers may also collect
           Personal Information from an individual’s device, browsing actions and site usage patterns
-          automatically when visiting or interacting with our Site, which may include log data (such
-          as internet protocol (IP) address, operating system, browser type, browser id, the URL
-          entered and the referring page/campaign, date/time of visit, the time spent on our Site
-          and any errors that may occur during the visit to our Site) and analytics data (such as
-          the electronic path taken to our Site, through our Site and when exiting our Site, as well
-          as usage and activity on our Site). We and our third-party providers may use (i) cookies
-          or small data files that are stored on an individual’s computer and (ii) other, related
-          technologies, such as web beacons, pixels, embedded scripts, location-identifying
-          technologies and logging technologies (collectively, “
-          <strong className="font-semibold">cookies</strong>”) to automatically collect this
-          Personal Information. For example, our Site uses Google Analytics, a web analytics service
-          provided by Google, Inc. (“<strong className="font-semibold">Google</strong>”), to collect
-          and view reports about the traffic on our Site. More information about the use of Google
-          Analytics for these analytical and nonadvertising purposes can be obtained by visiting
-          Google’s privacy policy{' '}
+          automatically when visiting or interacting with our Site, which may include{' '}
+          <strong className="font-semibold">log data</strong> (such as internet protocol (IP)
+          address, operating system, browser type, browser id, the URL entered and the referring
+          page/campaign, date/time of visit, the time spent on our Site and any errors that may
+          occur during the visit to our Site) and{' '}
+          <strong className="font-semibold">analytics data</strong> (such as the electronic path
+          taken to our Site, through our Site and when exiting our Site, as well as usage and
+          activity on our Site).
+          <br></br>
+          <br></br>
+          We and our third-party providers may use (i) cookies or small data files that are stored
+          on an individual’s computer and (ii) other, related technologies, such as web beacons,
+          pixels, embedded scripts, location-identifying technologies and logging technologies
+          (collectively, “<strong className="font-semibold">cookies</strong>”) to automatically
+          collect this Personal Information. For example, our Site uses Google Analytics, a web
+          analytics service provided by Google, Inc. (“
+          <strong className="font-semibold">Google</strong>”), to collect and view reports about the
+          traffic on our Site. More information about the use of Google Analytics for these
+          analytical and nonadvertising purposes can be obtained by visiting Google’s privacy policy{' '}
           <a target="_blank" href="https://www.google.com/policies/privacy/partners">
             <u>here</u>
           </a>{' '}
@@ -98,7 +102,9 @@ export default class Privacy extends React.Component {
           <a target="_blank" href="https://tools.google.com/dlpage/gaoptout">
             <u>here</u>
           </a>
-          . To manage cookies, an individual may change their browser settings to: (i) notify them
+          .<br></br>
+          <br></br>
+          To manage cookies, an individual may change their browser settings to: (i) notify them
           when they receive a cookie, so the individual can choose whether or not to accept it; (ii)
           disable existing cookies; or (iii) automatically reject cookies. Please note that doing so
           may negatively impact an individual’s experience using our Site, as some features and
