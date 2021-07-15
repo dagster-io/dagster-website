@@ -27,6 +27,27 @@ const Footer = () => {
             </div>
             <div className="px-5 py-2">
               <a
+                href="/user-stories"
+                className="text-base leading-6 text-gray-500 hover:text-gray-900"
+              >
+                User Stories
+              </a>
+            </div>
+            <div className="px-5 py-2">
+              <a
+                href="/community"
+                className="text-base leading-6 text-gray-500 hover:text-gray-900"
+              >
+                Community
+              </a>
+            </div>
+            <div className="px-5 py-2">
+              <a href="/cloud" className="text-base leading-6 text-gray-500 hover:text-gray-900">
+                Cloud
+              </a>
+            </div>
+            <div className="px-5 py-2">
+              <a
                 href="https://docs.dagster.io/"
                 className="text-base leading-6 text-gray-500 hover:text-gray-900"
               >

@@ -5,6 +5,8 @@ title: 'Good Data at Good Eggs: Correctness and reliability for data infrastruct
 excerpt: 'Dagster’s support for custom data types helped us achieve better correctness and reliability in our data ingest process, which meant less downstream breakage and better recovery when bad data made it through.'
 date: '2020-10-01'
 authors: ['davidjwallace']
+tags: ['user-story']
+coverImage: '/posts/good-eggs-1/cover-goodeggs-1.png'
 ---
 
 _This is the second in a series of posts about putting Dagster into production at Good Eggs. Read the [introduction](/blog/good-eggs-0) for an overview of our experience transforming our data platform with Dagster._
@@ -43,7 +45,7 @@ def compute_dataframe_summary_statistics(dataframe):
        ...
    ]
 
-  
+
 TransportationTempLaborDataFrame = create_dagster_pandas_dataframe_type(
    name="TransportationTempLaborDataFrame",
    columns=[
@@ -95,7 +97,7 @@ Slack messages surface operational failures to everyone quickly, and include lin
   />
 </p>
 
-If our type checks succeed, we know we can move ahead with data ingest. We conditionally execute solids that write the data to S3, then to Snowflake. Then, we trigger downstream dbt models, dbt tests, and Jupyter notebooks. 
+If our type checks succeed, we know we can move ahead with data ingest. We conditionally execute solids that write the data to S3, then to Snowflake. Then, we trigger downstream dbt models, dbt tests, and Jupyter notebooks.
 
 For us, failing before bad data is ingested to the warehouse is a big win. It’s a little bit like the value provided by database schema constraints, but in a system (Google Sheets) with no concept of schema or typing. You can’t commit strings to an integer column in a database, and you shouldn’t be able to load a form with values of the wrong type either.
 

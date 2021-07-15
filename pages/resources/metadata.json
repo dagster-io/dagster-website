@@ -1,0 +1,144 @@
+{
+    "metadata": [
+        {
+            "title": "Sept 2021 | Dagster Community Meeting",
+            "date": "2021-09-14",
+            "excerpt": "The Dagster community meets every 2 months on the second Tuesday at 9 AM PST. At each meetup, the Dagster team will provide product updates and, depending on interest, community members will give lightning talks or demos. Click to register and be added to the calendar invite.",
+            "url": "https://docs.google.com/forms/d/e/1FAIpQLSfngyjeeytiLiGj3b6o-nGy78pxoTLZ2RvMEZCNjmFdJTklsQ/viewform",
+            "type": "Community Meeting"
+        },
+        {
+            "title": "July 2021 | Dagster Community Meeting",
+            "date": "2021-07-13",
+            "excerpt": "In our eighth Dagster Community Meeting, Carlson Cheng from Thinking Machine showed off how their data consultancy firm uses Dagster for machine learning workflows, and the core team presented changes and improvements in the recent Dagster 0.12.0 release.",
+            "url": "#",
+            "type": "Community Meeting"
+        },
+        {
+            "title": "May 2021 | Dagster Community Meeting",
+            "date": "2021-05-21",
+            "excerpt": "In our seventh Dagster Community Meeting, Simon Späti from Rohde & Schwarz MNT discussed the production Dagster setup at R&S, and the core team presented our recent API \"approachability\" improvements, as well as upcoming 0.12.0 features.",
+            "url": "https://youtu.be/HRd6rEU33XM",
+            "type": "Community Meeting"
+        },
+        {
+            "title": "March 2021 | Dagster Community Meeting",
+            "date": "2021-03-12",
+            "excerpt": "In our sixth Dagster Community Meeting, the core team presented upcoming 0.11.0 features, including Dynamic Orchestration, a system to establish Asset Lineage, and a new documentation site.",
+            "url": "https://youtu.be/MyRxCkzONps",
+            "type": "Community Meeting"
+        },
+        {
+            "title": "Feb 2021 | Dagster Community Meeting",
+            "date": "2021-02-10",
+            "excerpt": "In our fifth Dagster Community Meeting, Dennis Hume from Drizly and Noah Kantrowitz from Geomagical Labs discussed about their production Dagster setups.",
+            "url": "https://youtu.be/lodcK3Z3TUs",
+            "type": "Community Meeting"
+        },
+        {
+            "title": "0.10.0 \"The Edge of Glory\" Release",
+            "date": "2021-01-12",
+            "excerpt": "In our fourth Dagster Community Meeting, we showcased some 🔥 features in the upcoming 0.10.0 release.",
+            "url": "https://youtu.be/nVHdvt0rj_0",
+            "type": "Community Meeting"
+        },
+        {
+            "title": "Nov 2020 | Dagster Community Meeting",
+            "date": "2020-11-10",
+            "excerpt": "At the November Community Meeting, Tobias Macy talked about running Dagster in Production at MIT Open Learning, Dmitry Matasov showcased building a platform for data analysts using Dagster, and Daniel Gibson from the Dagster team presented new features coming out in Dagster 0.10.0.",
+            "url": "https://youtu.be/6nKCd2TaXik",
+            "type": "Community Meeting"
+        },
+        {
+            "title": "0.9.0 \"Laundry Service\" Release",
+            "date": "2020-09-08",
+            "excerpt": "This is the September 2020 community meeting where the Dagster team announced Dagster 0.9.0.",
+            "url": "https://youtu.be/6uM1IDFjobs",
+            "type": "Community Meeting"
+        },
+        {
+            "title": "0.8.0 \"In the Zone\" Release",
+            "date": "2020-06-16",
+            "excerpt": "This is a kickoff meeting for the Dagster community  where the Dagster team announced Dagster 0.8.0.",
+            "url": "https://www.youtube.com/watch?v=OzF0Vt4BBIo&t=21s",
+            "type": "Community Meeting"
+        },
+        {
+            "title": "Digging Into Dagster: An Opinionated Open Source Framework For Data Orchestration",
+            "date": "2020-09-07",
+            "url": "https://www.pythonpodcast.com/dagster-data-orchestration-episode-279/",
+            "excerpt": "Digging Into Dagster: An Opinionated Open Source Framework For Data Orchestration",
+            "type": "Podcast"
+        },
+        {
+            "title": "Dagster with Nick Schrock at Software Engineering Daily",
+            "date": "2019-11-15",
+            "url": "https://softwareengineeringdaily.com/2019/11/15/dagster-with-nick-schrock/",
+            "excerpt": "Dagster with Nick Schrock: Discussion on modern data engineering and why it continues to be so difficult for engineers to be productive with their data",
+            "type": "Podcast"
+        },
+        {
+            "title": "Build Maintainable And Testable Data Applications With Dagster at Data Engineering Podcast",
+            "date": "2019-10-28",
+            "url": "https://www.dataengineeringpodcast.com/dagster-data-applications-episode-104/",
+            "excerpt": "In this episode Nick Schrock, the founder of Elementl, explains his motivation for creating a product for data management, how the programming model simplifies the work of building testable and maintainable pipelines, and his vision for the future of data programming.",
+            "type": "Podcast"
+        },
+        {
+            "title": "Orchestrating dbt with Dagster at Coalesce 2020",
+            "date": "2020-12-09",
+            "url": "https://www.getdbt.com/coalesce/agenda/orchestrating-dbt-with-dagster",
+            "excerpt": "Orchestrating dbt with Dagster: how to place dbt in context, de-silo your operational systems, improve monitoring, and enable self-service operations.",
+            "type": "Tech Talk"
+        },
+        {
+            "title": "When metadata becomes data at Coalesce 2020",
+            "date": "2020-12-09",
+            "url": "https://www.youtube.com/watch?v=CdYODMrdkLI&feature=emb_logo",
+            "excerpt": "David Wallace, the data platform engineer at Good Eggs, shares some light on the different approaches to metadata management.",
+            "type": "Tech Talk"
+        },
+        {
+            "title": "Analytics on your analytics, Drizly at Coalesce 2020",
+            "date": "2020-12-08",
+            "url": "https://www.youtube.com/watch?v=kqyxHCHH0d4&feature=emb_logo",
+            "excerpt": "Emily, the data infrastructure lead at Drizly, covers how Dagster adds testing functionality for a dbt run and allows analysts to run specific models on production.",
+            "type": "Tech Talk"
+        },
+        {
+            "title": "Dagster: Workflows for Data Science, Machine Learning, and Data Engineering at Data Council 2020",
+            "date": "2020-09-09",
+            "url": "https://www.youtube.com/watch?v=I4R1pFE1vX4&ab_channel=DataCouncil",
+            "excerpt": "This talk describes how Dagster can enable a unified stack of tooling across a wide dynamic range of use cases: from a laptop to a Kubernetes cluster; from local development, to monitoring in production; from data science, to data engineering, to machine learning.",
+            "type": "Tech Talk"
+        },
+        {
+            "title": "Build Data Application with Dagster at Line Developer Day 2019",
+            "date": "2019-12-17",
+            "url": "https://youtu.be/Te-7u5Xgheo",
+            "excerpt": "Weera Kasetsin, the data science lead at LINE Company (Thailand), talks about how LINE builds modern data application with the Dagster features of multiple output, pipeline modes and type-checking.",
+            "type": "Tech Talk"
+        },
+        {
+            "title": "Dagster: A Framework for Data Processing Applications",
+            "date": "2019-11-21",
+            "url": "https://www.youtube.com/watch?v=lepkm_86zFg&ab_channel=FunctionalTV",
+            "excerpt": "Scale By The Bay 2019",
+            "type": "Tech Talk"
+        },
+        {
+            "title": "Dagster: An open source Python library for building data applications at Crunch",
+            "date": "2019-10-30",
+            "url": "https://www.youtube.com/watch?v=ebIuXMU6lrM&ab_channel=CraftHubEvents",
+            "excerpt": "We introduce Dagster, an open source Python library for building ETL processes, ML pipelines, and similar software systems, all of which we call data applications.",
+            "type": "Tech Talk"
+        },
+        {
+            "title": "Dagster: A New Programming Model for Data Processing",
+            "date": "2019-04-17",
+            "url": "https://www.youtube.com/watch?v=D_1VJapCscc&ab_channel=DataCouncil",
+            "excerpt": "This talk introduced Dagster, an open source framework for building and modeling data processing computations.",
+            "type": "Tech Talk"
+        }
+    ]
+}
